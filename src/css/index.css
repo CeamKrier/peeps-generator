@@ -1,7 +1,37 @@
-h3 {
-  color: red;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+body {
+  font-family: 'ObjectSans_Regular', Helvetica, Arial, sans-serif
 }
+
+.pieceListRadioButton {
+  align-self: center;
+}
+
+.pieceListRadioButton:not(checked) {
+  visibility: hidden;
+  width: 18px;
+  height: 18px;
+}
+
+.pieceListRadioButton:checked {
+  visibility: visible;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+}
+
+.pieceListItem {
+  cursor: pointer;
+}
+
+.pieceListItem:hover {
+  background-color: #d3d3d3;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.pieceSection:hover {
+  cursor: pointer;
+}
+
