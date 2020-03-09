@@ -15,8 +15,8 @@ const styles = {
 		width: 300,
 		height: 300,
 		justifyContent: 'center',
-    alignSelf: 'center',
-    overflow: 'initial'
+		alignSelf: 'center',
+		overflow: 'initial'
 	},
 	circleStyle: {
 		backgroundColor: '#F3D34A',
@@ -57,7 +57,42 @@ const styles = {
 	}
 };
 
-type HairValues = "Afro" | "Bald" | "BaldSides" | "BaldTop" | "Bangs" | "BangsFilled" | "Bear" | "Bun" | "BunCurly" | "Buns" | "FlatTop" | "FlatTopLong" | "HatHip" | "Long" | "LongAfro" | "LongBangs" | "LongCurly" | "Medium" | "MediumBangs" | "MediumBangsFilled" | "MediumLong" | "MediumShort" | "MediumStraight" | "Mohawk" | "MohawkDino" | "Pomp" | "ShavedRight" | "ShavedSides" | "ShavedWavy" | "Short" | "ShortCurly" | "ShortMessy" | "ShortScratch" | "ShortVolumed" | "ShortWavy"
+type HairValues =
+	| 'Afro'
+	| 'Bald'
+	| 'BaldSides'
+	| 'BaldTop'
+	| 'Bangs'
+	| 'BangsFilled'
+	| 'Bear'
+	| 'Bun'
+	| 'BunCurly'
+	| 'Buns'
+	| 'FlatTop'
+	| 'FlatTopLong'
+	| 'HatHip'
+	| 'Long'
+	| 'LongAfro'
+	| 'LongBangs'
+	| 'LongCurly'
+	| 'Medium'
+	| 'MediumBangs'
+	| 'MediumBangsFilled'
+	| 'MediumLong'
+	| 'MediumShort'
+	| 'MediumStraight'
+	| 'Mohawk'
+	| 'MohawkDino'
+	| 'Pomp'
+	| 'ShavedRight'
+	| 'ShavedSides'
+	| 'ShavedWavy'
+	| 'Short'
+	| 'ShortCurly'
+	| 'ShortMessy'
+	| 'ShortScratch'
+	| 'ShortVolumed'
+	| 'ShortWavy';
 const PeepsGenerator: React.FC = () => {
 	const [pickedHair, setPickedHair] = useState<HairValues>('Long');
 
@@ -85,7 +120,7 @@ const PeepsGenerator: React.FC = () => {
 			);
 		});
 	};
-  console.log(Hair)
+	console.log(Hair);
 	const renderPieceList = (pieces: Array<string>) => {
 		return pieces.map((piece, index) => {
 			return (
@@ -103,6 +138,15 @@ const PeepsGenerator: React.FC = () => {
 							checked={piece === pickedHair}
 							readOnly
 						/>
+						<div>
+							<svg
+								style={{ overflow: 'initial' }}
+								viewBox='0 -100 600 800'
+								width='70'
+								height='70'>
+								{React.createElement(Hair[piece as HairValues])}
+							</svg>
+						</div>
 						<span style={styles.pieceText}>{piece}</span>
 					</div>
 				</li>
@@ -114,12 +158,12 @@ const PeepsGenerator: React.FC = () => {
 		<>
 			<div style={styles.showcaseWrapper}>
 				<Peep
-          style={styles.peepStyle}
-          accessory={Accessories.GlassRoundThick}
-          body={Body.PointingUp}
-          face={Face.Cute}
-          hair={Hair[pickedHair]}
-        />
+					style={styles.peepStyle}
+					accessory={Accessories.GlassRoundThick}
+					body={Body.PointingUp}
+					face={Face.Cute}
+					hair={Hair[pickedHair]}
+				/>
 			</div>
 			<ul
 				style={{
@@ -144,7 +188,13 @@ const PeepsGenerator: React.FC = () => {
 						right: 20,
 						listStyle: 'none'
 					}}>
-					{renderPieceSections(['Accessories', 'Body', 'Face', 'FacialHair', 'Hair'])}
+					{renderPieceSections([
+						'Accessories',
+						'Body',
+						'Face',
+						'FacialHair',
+						'Hair'
+					])}
 				</ul>
 			</div>
 		</>
