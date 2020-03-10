@@ -1,5 +1,5 @@
 body {
-  font-family: 'Gochi Hand', cursive;
+  font-family: 'Itim', cursive;
 }
 
 .pieceListRadioButton {
@@ -45,7 +45,9 @@ div.selectionIndicator {
 }
 
 .header {
+  font-family: 'Gochi Hand', cursive;
   text-decoration: none;
   color: black;
   text-align: center;
 }
+
