@@ -1,5 +1,5 @@
 body {
-  font-family: 'ObjectSans_Regular', Helvetica, Arial, sans-serif
+  font-family: 'Gochi Hand', cursive;
 }
 
 .pieceListRadioButton {
@@ -8,15 +8,24 @@ body {
 
 .pieceListRadioButton:not(checked) {
   visibility: hidden;
-  width: 18px;
-  height: 18px;
+  width: 0px;
+  height: 0px;
 }
 
-.pieceListRadioButton:checked {
-  visibility: visible;
-  width: 0;
-  height: 0;
+div.selectionIndicator {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #fdd365;
+  align-self: center;
+  visibility: hidden;
   margin-left: -10px;
+  margin-right: 15px;
+}
+
+.pieceListRadioButton:checked + div.selectionIndicator {
+  visibility: visible;
 }
 
 .pieceListItem {
@@ -24,7 +33,7 @@ body {
 }
 
 .pieceListItem:hover {
-  background-color: #d3d3d3;
+  background-color: #f1f3f4;
 }
 
 ::-webkit-scrollbar {
@@ -35,3 +44,8 @@ body {
   cursor: pointer;
 }
 
+.header {
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
