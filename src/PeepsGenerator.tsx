@@ -32,7 +32,8 @@ const styles = {
 	showcaseWrapper: {
 		display: 'flex',
 		justifyContent: 'center',
-		height: '-webkit-fill-available'
+		height: '-webkit-fill-available',
+		marginTop: -20
 	},
 	pieceListContentWrapper: {
 		display: 'flex',
@@ -159,23 +160,23 @@ const PeepsGenerator: React.FC = () => {
 
 	const [pickedSection, setPickedSection] = useState<SectionValues>('Hair');
 
-	const [pieceKeys, setPieceKeys] = useState()
+	const [pieceKeys, setPieceKeys] = useState();
 
-	useEffect(() =>{
+	useEffect(() => {
 		const keys = {
 			hairKeys: [''],
 			bodyKeys: [''],
 			faceKeys: [''],
 			facialHairKeys: [''],
 			accessoryKeys: ['']
-		}
-		keys.hairKeys = Object.keys(Hair)
-		keys.bodyKeys = Object.keys(Body)
-		keys.faceKeys = Object.keys(Face)
-		keys.facialHairKeys = Object.keys(FacialHair)
-		keys.accessoryKeys = Object.keys(Accessories)
-		setPieceKeys(keys)
-	}, []) 
+		};
+		keys.hairKeys = Object.keys(Hair);
+		keys.bodyKeys = Object.keys(Body);
+		keys.faceKeys = Object.keys(Face);
+		keys.facialHairKeys = Object.keys(FacialHair);
+		keys.accessoryKeys = Object.keys(Accessories);
+		setPieceKeys(keys);
+	}, []);
 
 	const randomizePeep = () => {
 		setPickedHair(
@@ -206,7 +207,7 @@ const PeepsGenerator: React.FC = () => {
 			pieceKeys.accessoryKeys[
 				Math.floor(Math.random() * pieceKeys.accessoryKeys.length)
 			] as AccessoryValues
-		)
+		);
 	};
 
 	const renderPieceSections = (sections: Array<string>) => {
@@ -353,7 +354,9 @@ const PeepsGenerator: React.FC = () => {
 
 	return (
 		<>
-			<a className='header' href='/'><h1>peeps generator</h1></a>
+			<a className='header' href='/'>
+				<h1>peeps generator</h1>
+			</a>
 			<div style={styles.showcaseWrapper}>
 				<Peep
 					style={styles.peepStyle}
@@ -369,7 +372,7 @@ const PeepsGenerator: React.FC = () => {
 					position: 'absolute',
 					top: '11em',
 					right: '12em',
-					width: 280,
+					width: 310,
 					height: 500,
 					backgroundColor: '#FFFFFF',
 					borderRadius: 20,
@@ -398,21 +401,23 @@ const PeepsGenerator: React.FC = () => {
 						'Hair'
 					])}
 				</ul>
-			</div>
-			<div
-				className='pieceSectionDiv'
-				style={{
-					...styles.pieceSection,
-					backgroundColor: '#fdd365',
-					position: 'absolute',
-					bottom: '20px',
-					right: '20px',
-					cursor: 'pointer'
-				}}
-				onClick={() => {
-					randomizePeep();
-				}}>
-				<span style={{ textAlign: 'center' }}>Shuffle</span>
+				<div
+					className='pieceSectionDiv'
+					style={{
+						...styles.pieceSection,
+						backgroundColor: '#fdd365',
+						position: 'absolute',
+						bottom: '8em',
+						right: '14.2em',
+						cursor: 'pointer',
+						width: 310,
+						height: 50
+					}}
+					onClick={() => {
+						randomizePeep();
+					}}>
+					<span style={{ textAlign: 'center' }}>Shuffle</span>
+				</div>
 			</div>
 		</>
 	);
