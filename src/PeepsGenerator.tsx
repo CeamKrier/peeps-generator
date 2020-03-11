@@ -12,7 +12,6 @@ import Peep, {
 	FaceType,
 	FacialHairType,
 	HairType
-	
 } from 'react-peeps';
 import './css/index.css';
 
@@ -22,7 +21,8 @@ const styles = {
 		height: 300,
 		justifyContent: 'center',
 		alignSelf: 'center',
-		overflow: 'initial'
+		overflow: 'initial',
+		transform: 'unset'
 	},
 	circleStyle: {
 		backgroundColor: '#F3D34A',
@@ -65,6 +65,13 @@ const styles = {
 };
 
 type SectionValues = 'Accessories' | 'Body' | 'Face' | 'FacialHair' | 'Hair';
+type PieceKeyType = {
+	hairKeys: string[];
+	bodyKeys: string[];
+	faceKeys: string[];
+	facialHairKeys: string[];
+	accessoryKeys: string[];
+};
 
 const PeepsGenerator: React.FC = () => {
 	const [pickedHair, setPickedHair] = useState<HairType>('Long');
@@ -76,16 +83,10 @@ const PeepsGenerator: React.FC = () => {
 	const [pickedAccessory, setPickedAccessory] = useState<AccessoryType>(
 		'GlassRoundThick'
 	);
-	console.log(Hair);
 	const [pickedSection, setPickedSection] = useState<SectionValues>('Hair');
+	const [pieceKeys, setPieceKeys] = useState<PieceKeyType>();
+	const [mirrorSvg, setMirrorSvg] = useState(false);
 
-	const [pieceKeys, setPieceKeys] = useState<{
-		hairKeys: string[];
-		bodyKeys: string[];
-		faceKeys: string[];
-		facialHairKeys: string[];
-		accessoryKeys: string[];
-	}>();
 
 	useEffect(() => {
 		const keys = {
@@ -285,9 +286,10 @@ const PeepsGenerator: React.FC = () => {
 			<a className='header' href='/'>
 				<h1>peeps generator</h1>
 			</a>
+
 			<div style={styles.showcaseWrapper}>
 				<Peep
-					style={styles.peepStyle}
+					style={{...styles.peepStyle, transform: mirrorSvg ? 'scale(-1, 1)' : 'scale(1, 1)'}}
 					accessory={Accessories[pickedAccessory]}
 					body={Body[pickedBody]}
 					face={Face[pickedFace]}
@@ -295,28 +297,48 @@ const PeepsGenerator: React.FC = () => {
 					facialHair={FacialHair[pickedFacialHair]}
 				/>
 			</div>
-			<ul
+
+			<div
 				style={{
 					position: 'absolute',
-					top: '11em',
-					right: '12em',
-					width: 310,
-					height: 500,
-					backgroundColor: '#FFFFFF',
-					borderRadius: 20,
-					listStyle: 'none',
-					paddingLeft: 0,
-					overflow: 'auto',
-					boxShadow: '3px 3px 10px 3px #ccc',
-					fontSize: 'larger'
+					top: '8em',
+					right: '15em'
 				}}>
-				{renderPieceList(pickedSectionObject() as string[])}
-			</ul>
+				<ul
+					style={{
+						width: 310,
+						height: 500,
+						backgroundColor: '#FFFFFF',
+						borderRadius: 20,
+						listStyle: 'none',
+						paddingLeft: 0,
+						overflow: 'auto',
+						boxShadow: '3px 3px 10px 3px #ccc',
+						fontSize: 'larger'
+					}}>
+					{renderPieceList(pickedSectionObject() as string[])}
+				</ul>
+				<div
+					className='pieceSectionDiv'
+					style={{
+						...styles.pieceSection,
+						backgroundColor: '#fdd365',
+						cursor: 'pointer',
+						width: 310,
+						height: 50
+					}}
+					onClick={() => {
+						randomizePeep();
+					}}>
+					<span style={{ textAlign: 'center' }}>Shuffle</span>
+				</div>
+			</div>
+
 			<div>
 				<ul
 					style={{
 						position: 'absolute',
-						top: '12em',
+						top: '8em',
 						right: '5em',
 						listStyle: 'none',
 						fontSize: 'larger'
@@ -329,26 +351,25 @@ const PeepsGenerator: React.FC = () => {
 						'Hair'
 					])}
 				</ul>
+
 				<div
-					className='pieceSectionDiv'
+					onClick={() => setMirrorSvg(prev => !prev)}
 					style={{
 						...styles.pieceSection,
 						backgroundColor: '#fdd365',
 						position: 'absolute',
-						bottom: '8em',
+						bottom: '5em',
 						right: '14.2em',
 						cursor: 'pointer',
-						width: 310,
-						height: 50
+						width: 80,
+						height: 80
 					}}
-					onClick={() => {
-						randomizePeep();
-					}}>
-					<span style={{ textAlign: 'center' }}>Shuffle</span>
-				</div>
+				/>
 			</div>
 		</>
 	);
 };
-
+/**
+ * Revert -> scale(-1, 1) | scale(1, 1), resize -> scale(1.5), rotate(deg)
+ */
 ReactDOM.render(<PeepsGenerator />, document.getElementById('main'));
