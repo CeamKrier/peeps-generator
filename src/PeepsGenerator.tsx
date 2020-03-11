@@ -6,7 +6,13 @@ import Peep, {
 	Face,
 	FacialHair,
 	Hair,
-	CirclePeep
+	CirclePeep,
+	AccessoryType,
+	BodyType,
+	FaceType,
+	FacialHairType,
+	HairType
+	
 } from 'react-peeps';
 import './css/index.css';
 
@@ -58,109 +64,28 @@ const styles = {
 	}
 };
 
-type HairValues =
-	| 'Afro'
-	| 'Bald'
-	| 'BaldSides'
-	| 'BaldTop'
-	| 'Bangs'
-	| 'BangsFilled'
-	| 'Bear'
-	| 'Bun'
-	| 'BunCurly'
-	| 'Buns'
-	| 'FlatTop'
-	| 'FlatTopLong'
-	| 'HatHip'
-	| 'Long'
-	| 'LongAfro'
-	| 'LongBangs'
-	| 'LongCurly'
-	| 'Medium'
-	| 'MediumBangs'
-	| 'MediumBangsFilled'
-	| 'MediumLong'
-	| 'MediumShort'
-	| 'MediumStraight'
-	| 'Mohawk'
-	| 'MohawkDino'
-	| 'Pomp'
-	| 'ShavedRight'
-	| 'ShavedSides'
-	| 'ShavedWavy'
-	| 'Short'
-	| 'ShortCurly'
-	| 'ShortMessy'
-	| 'ShortScratch'
-	| 'ShortVolumed'
-	| 'ShortWavy';
-
-type BodyValues =
-	| 'BlazerBlackTee'
-	| 'Bust'
-	| 'ButtonShirt'
-	| 'Dress'
-	| 'Gaming'
-	| 'Geek'
-	| 'Hoodie'
-	| 'PointingUp'
-	| 'Selena'
-	| 'Thunder'
-	| 'Turtleneck';
-type AccessoryValues =
-	| 'Eyepatch'
-	| 'GlassRoundThick'
-	| 'SunglassClubmaster'
-	| 'SunglassWayfarer';
-type FaceValues =
-	| 'Angry'
-	| 'Blank'
-	| 'Calm'
-	| 'Cheeky'
-	| 'Concerned'
-	| 'Contempt'
-	| 'Cute'
-	| 'Driven'
-	| 'EatingHappy'
-	| 'EyesClosed'
-	| 'OldAged'
-	| 'Serious'
-	| 'Smile'
-	| 'Solemn'
-	| 'Suspicious'
-	| 'Tired'
-	| 'VeryAngry';
-type FacialHairValues =
-	| 'Chin'
-	| 'Full'
-	| 'FullMajestic'
-	| 'FullMedium'
-	| 'Goatee'
-	| 'GoateeCircle'
-	| 'MoustacheDali'
-	| 'MoustacheHandlebar'
-	| 'MoustacheImperial'
-	| 'MoustachePainters'
-	| 'MoustachePaintersFilled'
-	| 'MoustacheSwashbuckler'
-	| 'MoustacheThin'
-	| 'MoustacheYosemite';
-
 type SectionValues = 'Accessories' | 'Body' | 'Face' | 'FacialHair' | 'Hair';
+
 const PeepsGenerator: React.FC = () => {
-	const [pickedHair, setPickedHair] = useState<HairValues>('Long');
-	const [pickedBody, setPickedBody] = useState<BodyValues>('Bust');
-	const [pickedFace, setPickedFace] = useState<FaceValues>('Smile');
-	const [pickedFacialHair, setPickedFacialHair] = useState<FacialHairValues>(
+	const [pickedHair, setPickedHair] = useState<HairType>('Long');
+	const [pickedBody, setPickedBody] = useState<BodyType>('Shirt');
+	const [pickedFace, setPickedFace] = useState<FaceType>('Smile');
+	const [pickedFacialHair, setPickedFacialHair] = useState<FacialHairType>(
 		'Goatee'
 	);
-	const [pickedAccessory, setPickedAccessory] = useState<AccessoryValues>(
+	const [pickedAccessory, setPickedAccessory] = useState<AccessoryType>(
 		'GlassRoundThick'
 	);
-
+	console.log(Hair);
 	const [pickedSection, setPickedSection] = useState<SectionValues>('Hair');
 
-	const [pieceKeys, setPieceKeys] = useState();
+	const [pieceKeys, setPieceKeys] = useState<{
+		hairKeys: string[];
+		bodyKeys: string[];
+		faceKeys: string[];
+		facialHairKeys: string[];
+		accessoryKeys: string[];
+	}>();
 
 	useEffect(() => {
 		const keys = {
@@ -179,34 +104,37 @@ const PeepsGenerator: React.FC = () => {
 	}, []);
 
 	const randomizePeep = () => {
+		if (!pieceKeys) {
+			return;
+		}
 		setPickedHair(
 			pieceKeys.hairKeys[
 				Math.floor(Math.random() * pieceKeys.hairKeys.length)
-			] as HairValues
+			] as HairType
 		);
 
 		setPickedBody(
 			pieceKeys.bodyKeys[
 				Math.floor(Math.random() * pieceKeys.bodyKeys.length)
-			] as BodyValues
+			] as BodyType
 		);
 
 		setPickedFace(
 			pieceKeys.faceKeys[
 				Math.floor(Math.random() * pieceKeys.faceKeys.length)
-			] as FaceValues
+			] as FaceType
 		);
 
 		setPickedFacialHair(
 			pieceKeys.facialHairKeys[
 				Math.floor(Math.random() * pieceKeys.facialHairKeys.length)
-			] as FacialHairValues
+			] as FacialHairType
 		);
 
 		setPickedAccessory(
 			pieceKeys.accessoryKeys[
 				Math.floor(Math.random() * pieceKeys.accessoryKeys.length)
-			] as AccessoryValues
+			] as AccessoryType
 		);
 	};
 
@@ -235,15 +163,15 @@ const PeepsGenerator: React.FC = () => {
 	const renderPiece = (piece: string) => {
 		switch (pickedSection) {
 			case 'Accessories':
-				return React.createElement(Accessories[piece as AccessoryValues]);
+				return React.createElement(Accessories[piece as AccessoryType]);
 			case 'Body':
-				return React.createElement(Body[piece as BodyValues]);
+				return React.createElement(Body[piece as BodyType]);
 			case 'Hair':
-				return React.createElement(Hair[piece as HairValues]);
+				return React.createElement(Hair[piece as HairType]);
 			case 'FacialHair':
-				return React.createElement(FacialHair[piece as FacialHairValues]);
+				return React.createElement(FacialHair[piece as FacialHairType]);
 			case 'Face':
-				return React.createElement(Face[piece as FaceValues]);
+				return React.createElement(Face[piece as FaceType]);
 			default:
 				break;
 		}
@@ -309,19 +237,19 @@ const PeepsGenerator: React.FC = () => {
 					onClick={() => {
 						switch (pickedSection) {
 							case 'Accessories':
-								setPickedAccessory(piece as AccessoryValues);
+								setPickedAccessory(piece as AccessoryType);
 								break;
 							case 'Body':
-								setPickedBody(piece as BodyValues);
+								setPickedBody(piece as BodyType);
 								break;
 							case 'Hair':
-								setPickedHair(piece as HairValues);
+								setPickedHair(piece as HairType);
 								break;
 							case 'FacialHair':
-								setPickedFacialHair(piece as FacialHairValues);
+								setPickedFacialHair(piece as FacialHairType);
 								break;
 							case 'Face':
-								setPickedFace(piece as FaceValues);
+								setPickedFace(piece as FaceType);
 								break;
 							default:
 								break;

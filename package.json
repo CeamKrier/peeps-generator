@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/CeamKrier/peeps-generator#readme",
   "dependencies": {
-    "react-peeps": "0.0.2"
+    "react-peeps": "0.0.7"
   },
   "devDependencies": {
     "@types/react": "^16.9.17",
