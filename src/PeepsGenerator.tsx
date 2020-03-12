@@ -13,6 +13,11 @@ import Peep, {
 	FacialHairType,
 	HairType
 } from 'react-peeps';
+// @ts-ignore
+import CircularSlider from '@fseehawer/react-circular-slider';
+// @ts-ignore
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 import './css/index.css';
 
 const styles = {
@@ -72,6 +77,11 @@ type PieceKeyType = {
 	facialHairKeys: string[];
 	accessoryKeys: string[];
 };
+type SvgTransformInputType = {
+	scale?: string;
+	rotate?: string;
+	flip?: string;
+};
 
 const PeepsGenerator: React.FC = () => {
 	const [pickedHair, setPickedHair] = useState<HairType>('Long');
@@ -85,8 +95,8 @@ const PeepsGenerator: React.FC = () => {
 	);
 	const [pickedSection, setPickedSection] = useState<SectionValues>('Hair');
 	const [pieceKeys, setPieceKeys] = useState<PieceKeyType>();
-	const [mirrorSvg, setMirrorSvg] = useState(false);
-
+	const [rotationDegree, setRotationDegree] = useState(0);
+	const [svgTransform, setSvgTransform] = useState<SvgTransformInputType>();
 
 	useEffect(() => {
 		const keys = {
@@ -103,6 +113,13 @@ const PeepsGenerator: React.FC = () => {
 		keys.accessoryKeys = Object.keys(Accessories);
 		setPieceKeys(keys);
 	}, []);
+
+	useEffect(() => {
+		setSvgTransform({
+			...svgTransform,
+			rotate: `rotate(${rotationDegree}deg)`
+		});
+	}, [rotationDegree]);
 
 	const randomizePeep = () => {
 		if (!pieceKeys) {
@@ -289,7 +306,11 @@ const PeepsGenerator: React.FC = () => {
 
 			<div style={styles.showcaseWrapper}>
 				<Peep
-					style={{...styles.peepStyle, transform: mirrorSvg ? 'scale(-1, 1)' : 'scale(1, 1)'}}
+					style={{
+						...styles.peepStyle,
+						transform: `${svgTransform?.scale || ''} ${svgTransform?.rotate ||
+							''} ${svgTransform?.flip || ''}`
+					}}
 					accessory={Accessories[pickedAccessory]}
 					body={Body[pickedBody]}
 					face={Face[pickedFace]}
@@ -314,7 +335,8 @@ const PeepsGenerator: React.FC = () => {
 						paddingLeft: 0,
 						overflow: 'auto',
 						boxShadow: '3px 3px 10px 3px #ccc',
-						fontSize: 'larger'
+						fontSize: 'larger',
+						position: 'relative'
 					}}>
 					{renderPieceList(pickedSectionObject() as string[])}
 				</ul>
@@ -353,7 +375,7 @@ const PeepsGenerator: React.FC = () => {
 				</ul>
 
 				<div
-					onClick={() => setMirrorSvg(prev => !prev)}
+					className='pieceSectionDiv'
 					style={{
 						...styles.pieceSection,
 						backgroundColor: '#fdd365',
@@ -364,7 +386,62 @@ const PeepsGenerator: React.FC = () => {
 						width: 80,
 						height: 80
 					}}
-				/>
+					onClick={() => {
+						setSvgTransform({
+							...svgTransform,
+							flip:
+								svgTransform?.flip === 'scale(-1, 1)'
+									? 'scale(1, 1)'
+									: 'scale(-1, 1)'
+						});
+					}}>
+					<span style={{ textAlign: 'center' }}>Flip</span>
+				</div>
+
+				<div
+					className='rotateWrapper'
+					style={{
+						position: 'absolute',
+						bottom: '3em'
+					}}
+					onWheel={({ nativeEvent }) => {
+						if (nativeEvent.deltaY > 0) {
+							setRotationDegree((degree: number) => {
+								return degree + 10 > 360 ? 10 : degree + 10;
+							});
+						} else {
+							setRotationDegree((degree: number) => {
+								return degree - 10 < 0 ? 350 : degree - 10;
+							});
+						}
+					}}>
+					<span className='rotateTitle'>Rotate</span>
+					<CircularSlider
+						width={100}
+						min={0}
+						max={360}
+						direction={-1}
+						knobPosition='right'
+						knobColor='#000000'
+						trackColor='#f1f3f4'
+						progressColorFrom='#FDE7AB'
+						progressColorTo='#FCCE5A'
+						appendToValue='°'
+						valueFontSize='15px'
+						onChange={(val: number) => {
+							setRotationDegree(val);
+						}}
+						label='Angle'
+						dataIndex={rotationDegree}
+					/>
+					<Slider
+						min={20}
+						defaultValue={20}
+						marks={{ 20: 20, 40: 40, 100: 100 }}
+						step={null}
+					/>
+				</div>
+
 			</div>
 		</>
 	);

@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/CeamKrier/peeps-generator#readme",
   "dependencies": {
+    "@fseehawer/react-circular-slider": "^2.2.1",
+    "rc-slider": "^9.2.3",
     "react-peeps": "0.0.7"
   },
   "devDependencies": {
