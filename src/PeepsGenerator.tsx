@@ -65,10 +65,6 @@ const styles = {
 		alignItems: 'center',
 		justifyContent: 'center',
 		display: 'flex'
-	},
-	placeInnerPeace: {
-		outline: '1px dashed #fff',
-		outlineOffset: '-10px'
 	}
 };
 
@@ -121,14 +117,14 @@ const PeepsGenerator: React.FC = () => {
 		keys.accessoryKeys = Object.keys(Accessories);
 		setPieceKeys(keys);
 
-		// TODO: version change in the library will change those class names.
-		// select them in more generic way!
-		// remove the ripple animation of circular slider
-		document.getElementsByClassName('_wpa99b')[0]?.remove();
+		// removes the ripple animation of circular slider
+		(document
+			.querySelector('.rotateWrapper > div > div > div > svg > circle') as HTMLElement)
+			.remove();
 
-		// remove stripes from the circular slide knob
+		// removes the stripes from the circular slide knob
 		document
-			.querySelectorAll('._gx1tpo > svg > rect')
+			.querySelectorAll('.rotateWrapper > div > div > div > svg > rect')
 			.forEach(rect => rect?.remove());
 	}, []);
 
@@ -150,8 +146,8 @@ const PeepsGenerator: React.FC = () => {
 		setSvgTransform({
 			...svgTransform,
 			flip: `scale(${flipDirection}, 1)`
-		})
-	}, [flipDirection])
+		});
+	}, [flipDirection]);
 
 	useEffect(() => {
 		if (!(pressedKey && wheelDirection && wheelActive)) {
@@ -175,9 +171,9 @@ const PeepsGenerator: React.FC = () => {
 			case 'f':
 				// flip
 				if (wheelDirection === 'up') {
-					flipDirection === 1 && setFlipDirection(-1)
+					flipDirection === 1 && setFlipDirection(-1);
 				} else {
-					flipDirection === -1 && setFlipDirection(1)
+					flipDirection === -1 && setFlipDirection(1);
 				}
 
 				break;
@@ -196,7 +192,6 @@ const PeepsGenerator: React.FC = () => {
 			default:
 				break;
 		}
-		console.log(pressedKey, wheelDirection, rotationDegree);
 	}, [pressedKey, wheelDirection, wheelActive]);
 
 	const randomizePeep = () => {
@@ -244,7 +239,6 @@ const PeepsGenerator: React.FC = () => {
 						setPickedSection(section as SectionValues);
 					}}>
 					<div
-						className='pieceSectionDiv'
 						style={{
 							...styles.pieceSection,
 							backgroundColor: pickedSection === section ? '#fdd365' : '#FFFFFF'
@@ -464,7 +458,6 @@ const PeepsGenerator: React.FC = () => {
 				</ul>
 
 				<div
-					className='pieceSectionDiv'
 					style={{
 						...styles.shuffleButton,
 						backgroundColor: '#fdd365',
@@ -478,7 +471,7 @@ const PeepsGenerator: React.FC = () => {
 					<span style={{ textAlign: 'center' }}>Shuffle</span>
 				</div>
 
-				{/* <div
+				<div
 					style={{
 						display: 'flex',
 						justifyContent: 'space-around'
@@ -545,7 +538,6 @@ const PeepsGenerator: React.FC = () => {
 				</div>
 				<div className='rotateWrapper'>
 					<div
-						className='pieceSectionDiv'
 						style={{
 							...styles.pieceSection,
 							backgroundColor: '#fdd365',
@@ -566,10 +558,7 @@ const PeepsGenerator: React.FC = () => {
 					</div>
 
 					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column'
-						}}
+						className='circularSliderWrapper'
 						onWheel={({ nativeEvent }) => {
 							setTimeout(() => {
 								if (nativeEvent.deltaY > 0) {
@@ -602,7 +591,7 @@ const PeepsGenerator: React.FC = () => {
 							dataIndex={rotationDegree}
 						/>
 					</div>
-				</div> */}
+				</div>
 			</div>
 
 			<div

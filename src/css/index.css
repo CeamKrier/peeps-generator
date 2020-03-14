@@ -105,3 +105,8 @@ div._1im8gyo > div {
 .header:focus {
   outline: none !important;
 }
+
+.circularSliderWrapper {
+  display: flex;
+  flex-direction: column;
+}
