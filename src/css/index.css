@@ -172,6 +172,18 @@ div._1im8gyo > div {
 	overflow: initial;
 }
 
+.leftMenu {
+	position: absolute;
+	top: 5em;
+  left: 2em;
+  width: 18em;
+	height: 30em;
+	background-color: #ffffff;
+	border-radius: 1em;
+	box-shadow: 3px 3px 10px 3px #ccc;
+	font-size: larger;
+}
+
 .rigthMenu {
 	position: absolute;
 	top: 5em;

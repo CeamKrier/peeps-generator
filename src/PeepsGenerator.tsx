@@ -55,7 +55,9 @@ const PeepsGenerator: React.FC = () => {
 	const [pickedAccessory, setPickedAccessory] = useState<AccessoryType>(
 		'GlassRoundThick'
 	);
-	const [pickedSection, setPickedSection] = useState<SectionValues>('Accessories');
+	const [pickedSection, setPickedSection] = useState<SectionValues>(
+		'Accessories'
+	);
 	const [pieceKeys, setPieceKeys] = useState<PieceKeyType>();
 	const [rotationDegree, setRotationDegree] = useState(0);
 	const [scaleVector, setScaleVector] = useState(1.0);
@@ -202,7 +204,9 @@ const PeepsGenerator: React.FC = () => {
 						setPickedSection(section as SectionValues);
 					}}>
 					<div
-						className={`pieceSectionButton ${pickedSection === section ? 'pickedSection' : ''}`}>
+						className={`pieceSectionButton ${
+							pickedSection === section ? 'pickedSection' : ''
+						}`}>
 						<span>{section}</span>
 					</div>
 				</li>
@@ -383,42 +387,8 @@ const PeepsGenerator: React.FC = () => {
 				/>
 			</div>
 
-			{/* <div
-				style={{
-					position: 'absolute',
-					top: '5em',
-					left: '15em',
-					width: 310,
-					height: 500,
-					backgroundColor: '#FFFFFF',
-					borderRadius: 20,
-					boxShadow: '3px 3px 10px 3px #ccc'
-				}}></div> */}
-
-			<div className='rigthMenu'>
-				<div className='listWrapper'>
-					<ul className='pieceList'>
-						{renderPieceList(pickedSectionObject() as string[])}
-					</ul>
-					<ul className='sectionList'>
-						{renderPieceSections([
-							'Accessories',
-							'Body',
-							'Face',
-							'FacialHair',
-							'Hair'
-						])}
-					</ul>
-				</div>
-
-				<div
-					className='shuffleButton'
-					onClick={() => {
-						randomizePeep();
-					}}>
-					<span style={{ textAlign: 'center' }}>Shuffle</span>
-				</div>
-
+			<div
+				className='leftMenu'>
 				<div
 					className='scaleWrapper'
 					onWheel={({ nativeEvent }) => {
@@ -533,6 +503,31 @@ const PeepsGenerator: React.FC = () => {
 							dataIndex={rotationDegree}
 						/>
 					</div>
+				</div>
+			</div>
+
+			<div className='rigthMenu'>
+				<div className='listWrapper'>
+					<ul className='pieceList'>
+						{renderPieceList(pickedSectionObject() as string[])}
+					</ul>
+					<ul className='sectionList'>
+						{renderPieceSections([
+							'Accessories',
+							'Body',
+							'Face',
+							'FacialHair',
+							'Hair'
+						])}
+					</ul>
+				</div>
+
+				<div
+					className='shuffleButton'
+					onClick={() => {
+						randomizePeep();
+					}}>
+					<span style={{ textAlign: 'center' }}>Shuffle</span>
 				</div>
 			</div>
 		</>
