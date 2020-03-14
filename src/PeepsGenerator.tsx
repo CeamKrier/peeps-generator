@@ -40,12 +40,6 @@ const styles = {
 		borderColor: 'black',
 		borderStyle: 'solid'
 	},
-	showcaseWrapper: {
-		display: 'flex',
-		justifyContent: 'center',
-		height: '-webkit-fill-available',
-		marginTop: -20
-	},
 	pieceListContentWrapper: {
 		display: 'flex',
 		justifyContent: 'flex-start',
@@ -58,7 +52,16 @@ const styles = {
 		width: 70,
 		height: 70,
 		borderRadius: 20,
-		marginBottom: 15,
+		marginBottom: 20,
+		alignItems: 'center',
+		justifyContent: 'center',
+		display: 'flex'
+	},
+	shuffleButton: {
+		width: 70,
+		height: 70,
+		borderRadius: 20,
+		marginBottom: '4em',
 		alignItems: 'center',
 		justifyContent: 'center',
 		display: 'flex'
@@ -96,7 +99,12 @@ const PeepsGenerator: React.FC = () => {
 	const [pickedSection, setPickedSection] = useState<SectionValues>('Hair');
 	const [pieceKeys, setPieceKeys] = useState<PieceKeyType>();
 	const [rotationDegree, setRotationDegree] = useState(0);
+	const [scaleVector, setScaleVector] = useState(1.0);
+	const [flipDirection, setFlipDirection] = useState<1 | -1>(1);
 	const [svgTransform, setSvgTransform] = useState<SvgTransformInputType>();
+	const [pressedKey, setPressedKey] = useState<string>();
+	const [wheelDirection, setWheelDirection] = useState<string>();
+	const [wheelActive, setWheelActive] = useState<boolean>(false);
 
 	useEffect(() => {
 		const keys = {
@@ -112,6 +120,16 @@ const PeepsGenerator: React.FC = () => {
 		keys.facialHairKeys = Object.keys(FacialHair);
 		keys.accessoryKeys = Object.keys(Accessories);
 		setPieceKeys(keys);
+
+		// TODO: version change in the library will change those class names.
+		// select them in more generic way!
+		// remove the ripple animation of circular slider
+		document.getElementsByClassName('_wpa99b')[0]?.remove();
+
+		// remove stripes from the circular slide knob
+		document
+			.querySelectorAll('._gx1tpo > svg > rect')
+			.forEach(rect => rect?.remove());
 	}, []);
 
 	useEffect(() => {
@@ -120,6 +138,66 @@ const PeepsGenerator: React.FC = () => {
 			rotate: `rotate(${rotationDegree}deg)`
 		});
 	}, [rotationDegree]);
+
+	useEffect(() => {
+		setSvgTransform({
+			...svgTransform,
+			scale: `scale(${scaleVector})`
+		});
+	}, [scaleVector]);
+
+	useEffect(() => {
+		setSvgTransform({
+			...svgTransform,
+			flip: `scale(${flipDirection}, 1)`
+		})
+	}, [flipDirection])
+
+	useEffect(() => {
+		if (!(pressedKey && wheelDirection && wheelActive)) {
+			return;
+		}
+
+		switch (pressedKey) {
+			case 'r':
+				// rotate
+				if (wheelDirection === 'up') {
+					setRotationDegree((degree: number) => {
+						return degree + 10 > 360 ? 10 : degree + 10;
+					});
+				} else {
+					setRotationDegree((degree: number) => {
+						return degree - 10 < 0 ? 350 : degree - 10;
+					});
+				}
+
+				break;
+			case 'f':
+				// flip
+				if (wheelDirection === 'up') {
+					flipDirection === 1 && setFlipDirection(-1)
+				} else {
+					flipDirection === -1 && setFlipDirection(1)
+				}
+
+				break;
+			case 's':
+				// scale
+				if (wheelDirection === 'up') {
+					scaleVector > 0.5 &&
+						setScaleVector(scaleVector <= 0.5 ? 0.5 : scaleVector - 0.25);
+				} else {
+					scaleVector < 1.5 &&
+						setScaleVector(scaleVector >= 1.5 ? 1.5 : scaleVector + 0.25);
+				}
+
+				break;
+
+			default:
+				break;
+		}
+		console.log(pressedKey, wheelDirection, rotationDegree);
+	}, [pressedKey, wheelDirection, wheelActive]);
 
 	const randomizePeep = () => {
 		if (!pieceKeys) {
@@ -304,7 +382,39 @@ const PeepsGenerator: React.FC = () => {
 				<h1>peeps generator</h1>
 			</a>
 
-			<div style={styles.showcaseWrapper}>
+			<div
+				className='svgWrapper'
+				tabIndex={0}
+				onMouseEnter={() => {
+					(document.getElementsByClassName(
+						'svgWrapper'
+					)[0] as HTMLElement).focus();
+				}}
+				onMouseLeave={() => {
+					(document.getElementsByClassName('header')[0] as HTMLElement).focus();
+					setWheelDirection(undefined);
+					setPressedKey(undefined);
+				}}
+				onKeyDown={({ nativeEvent }) => {
+					if (pressedKey === nativeEvent.key) {
+						return;
+					}
+					setPressedKey(nativeEvent.key);
+				}}
+				onKeyUp={() => {
+					setPressedKey(undefined);
+				}}
+				onWheel={({ nativeEvent }) => {
+					setWheelActive(true);
+					if (nativeEvent.deltaY > 0) {
+						setWheelDirection('down');
+					} else {
+						setWheelDirection('up');
+					}
+					setTimeout(() => {
+						setWheelActive(false);
+					}, 0);
+				}}>
 				<Peep
 					style={{
 						...styles.peepStyle,
@@ -319,10 +429,22 @@ const PeepsGenerator: React.FC = () => {
 				/>
 			</div>
 
+			{/* <div
+				style={{
+					position: 'absolute',
+					top: '5em',
+					left: '15em',
+					width: 310,
+					height: 500,
+					backgroundColor: '#FFFFFF',
+					borderRadius: 20,
+					boxShadow: '3px 3px 10px 3px #ccc'
+				}}></div> */}
+
 			<div
 				style={{
 					position: 'absolute',
-					top: '8em',
+					top: '5em',
 					right: '15em'
 				}}>
 				<ul
@@ -340,10 +462,11 @@ const PeepsGenerator: React.FC = () => {
 					}}>
 					{renderPieceList(pickedSectionObject() as string[])}
 				</ul>
+
 				<div
 					className='pieceSectionDiv'
 					style={{
-						...styles.pieceSection,
+						...styles.shuffleButton,
 						backgroundColor: '#fdd365',
 						cursor: 'pointer',
 						width: 310,
@@ -354,14 +477,142 @@ const PeepsGenerator: React.FC = () => {
 					}}>
 					<span style={{ textAlign: 'center' }}>Shuffle</span>
 				</div>
+
+				{/* <div
+					style={{
+						display: 'flex',
+						justifyContent: 'space-around'
+					}}
+					onWheel={({ nativeEvent }) => {
+						if (nativeEvent.deltaY > 0) {
+							setScaleVector(scaleVector <= 0.5 ? 0.5 : scaleVector - 0.25);
+						} else {
+							setScaleVector(scaleVector >= 1.5 ? 1.5 : scaleVector + 0.25);
+						}
+					}}>
+					<span className='rotateTitle'>Scale</span>
+					<Slider
+						value={scaleVector}
+						min={0.5}
+						max={1.5}
+						defaultValue={1}
+						onChange={(vector: number) => {
+							setScaleVector(vector);
+						}}
+						marks={{ 0.5: 0.5, 0.75: 0.75, 1.0: 1.0, 1.25: 1.25, 1.5: 1.5 }}
+						step={null}
+						railStyle={{
+							position: 'absolute',
+							width: '100%',
+							backgroundColor: '#f1f3f4',
+							height: '8px',
+							borderRadius: '6px'
+						}}
+						trackStyle={{
+							position: 'absolute',
+							left: 0,
+							height: '8px',
+							borderRadius: '6px',
+							backgroundColor: '#FCCE5A'
+						}}
+						dotStyle={{
+							position: 'absolute',
+							bottom: '-7px',
+							marginLeft: '-8px',
+							width: '14px',
+							height: '14px',
+							border: '2px solid #e9e9e9',
+							backgroundColor: '#fff',
+							cursor: 'pointer',
+							borderRadius: '50%',
+							verticalAlign: 'middle'
+						}}
+						activeDotStyle={{
+							position: 'absolute',
+							width: '18px',
+							height: '18px',
+							cursor: 'pointer',
+							marginTop: '-5px',
+							borderRadius: '50%',
+							border: 'solid 2px #000',
+							backgroundColor: '#000',
+							touchAction: 'pan-x',
+							bottom: '-8px',
+							marginLeft: '-9px',
+							zIndex: 2
+						}}
+					/>
+				</div>
+				<div className='rotateWrapper'>
+					<div
+						className='pieceSectionDiv'
+						style={{
+							...styles.pieceSection,
+							backgroundColor: '#fdd365',
+							cursor: 'pointer',
+							width: 80,
+							height: 80
+						}}
+						onClick={() => {
+							setSvgTransform({
+								...svgTransform,
+								flip:
+									svgTransform?.flip === 'scale(-1, 1)'
+										? 'scale(1, 1)'
+										: 'scale(-1, 1)'
+							});
+						}}>
+						<span style={{ textAlign: 'center' }}>Flip</span>
+					</div>
+
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column'
+						}}
+						onWheel={({ nativeEvent }) => {
+							setTimeout(() => {
+								if (nativeEvent.deltaY > 0) {
+									setRotationDegree((degree: number) => {
+										return degree + 10 > 360 ? 10 : degree + 10;
+									});
+								} else {
+									setRotationDegree((degree: number) => {
+										return degree - 10 < 0 ? 350 : degree - 10;
+									});
+								}
+							}, 0);
+						}}>
+						<CircularSlider
+							width={100}
+							min={0}
+							max={360}
+							direction={-1}
+							knobPosition='right'
+							knobColor='#000000'
+							trackColor='#f1f3f4'
+							progressColorFrom='#FDE7AB'
+							progressColorTo='#FCCE5A'
+							appendToValue='°'
+							valueFontSize='15px'
+							onChange={(val: number) => {
+								setRotationDegree(val);
+							}}
+							label='Rotate'
+							dataIndex={rotationDegree}
+						/>
+					</div>
+				</div> */}
 			</div>
 
-			<div>
+			<div
+				style={{
+					position: 'absolute',
+					top: '8em',
+					right: '5em'
+				}}>
 				<ul
 					style={{
-						position: 'absolute',
-						top: '8em',
-						right: '5em',
 						listStyle: 'none',
 						fontSize: 'larger'
 					}}>
@@ -373,75 +624,6 @@ const PeepsGenerator: React.FC = () => {
 						'Hair'
 					])}
 				</ul>
-
-				<div
-					className='pieceSectionDiv'
-					style={{
-						...styles.pieceSection,
-						backgroundColor: '#fdd365',
-						position: 'absolute',
-						bottom: '5em',
-						right: '14.2em',
-						cursor: 'pointer',
-						width: 80,
-						height: 80
-					}}
-					onClick={() => {
-						setSvgTransform({
-							...svgTransform,
-							flip:
-								svgTransform?.flip === 'scale(-1, 1)'
-									? 'scale(1, 1)'
-									: 'scale(-1, 1)'
-						});
-					}}>
-					<span style={{ textAlign: 'center' }}>Flip</span>
-				</div>
-
-				<div
-					className='rotateWrapper'
-					style={{
-						position: 'absolute',
-						bottom: '3em'
-					}}
-					onWheel={({ nativeEvent }) => {
-						if (nativeEvent.deltaY > 0) {
-							setRotationDegree((degree: number) => {
-								return degree + 10 > 360 ? 10 : degree + 10;
-							});
-						} else {
-							setRotationDegree((degree: number) => {
-								return degree - 10 < 0 ? 350 : degree - 10;
-							});
-						}
-					}}>
-					<span className='rotateTitle'>Rotate</span>
-					<CircularSlider
-						width={100}
-						min={0}
-						max={360}
-						direction={-1}
-						knobPosition='right'
-						knobColor='#000000'
-						trackColor='#f1f3f4'
-						progressColorFrom='#FDE7AB'
-						progressColorTo='#FCCE5A'
-						appendToValue='°'
-						valueFontSize='15px'
-						onChange={(val: number) => {
-							setRotationDegree(val);
-						}}
-						label='Angle'
-						dataIndex={rotationDegree}
-					/>
-					<Slider
-						min={20}
-						defaultValue={20}
-						marks={{ 20: 20, 40: 40, 100: 100 }}
-						step={null}
-					/>
-				</div>
-
 			</div>
 		</>
 	);

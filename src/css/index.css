@@ -61,10 +61,47 @@ div._1im8gyo > div {
 
 .rotateWrapper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
+  margin-top: 20px;
 }
 
 .rotateTitle {
   text-align: center;
   margin-bottom: 0.5em;
+}
+
+/*
+ React-component Slider Styless
+*/
+.rc-slider {
+  position: relative;
+  height: 14px;
+  padding: 5px 0;
+  width: 75%;
+  border-radius: 6px;
+  -ms-touch-action: none;
+  touch-action: none;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.svgWrapper {
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  margin: auto;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.svgWrapper:focus {
+  outline: none !important;
+}
+
+.header:focus {
+  outline: none !important;
 }
