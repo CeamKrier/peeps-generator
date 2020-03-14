@@ -1,112 +1,217 @@
 body {
-  font-family: "Itim", cursive;
-}
-
-.pieceListRadioButton {
-  align-self: center;
-}
-
-.pieceListRadioButton:not(checked) {
-  visibility: hidden;
-  width: 0px;
-  height: 0px;
-}
-
-div.selectionIndicator {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #fdd365;
-  align-self: center;
-  visibility: hidden;
-  margin-left: -10px;
-  margin-right: 15px;
-}
-
-.pieceListRadioButton:checked + div.selectionIndicator {
-  visibility: visible;
-}
-
-.pieceListItem {
-  cursor: pointer;
-}
-
-.pieceListItem:hover {
-  background-color: #f1f3f4;
+	font-family: 'Itim', cursive;
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
+	width: 0px;
 }
 
-.pieceSection:hover {
-  cursor: pointer;
+div.selectionIndicator {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: #fdd365;
+	align-self: center;
+	visibility: hidden;
+	margin-left: -10px;
+	margin-right: 15px;
+}
+
+.pieceListRadioButton:checked + div.selectionIndicator {
+	visibility: visible;
+}
+
+.pieceListRadioButton {
+	align-self: center;
+}
+
+.pieceListRadioButton:not(checked) {
+	visibility: hidden;
+	width: 0px;
+	height: 0px;
+}
+
+.pieceListItem {
+	cursor: pointer;
+}
+
+.pieceListItem:hover {
+	background-color: #f1f3f4;
+}
+
+.pieceSectionItem {
+	cursor: pointer;
 }
 
 .header {
-  font-family: "Gochi Hand", cursive;
-  text-decoration: none;
-  color: black;
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: fit-content;
-  margin: 0 auto;
+	font-family: 'Gochi Hand', cursive;
+	text-decoration: none;
+	color: black;
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: fit-content;
+	margin: 0 auto;
 }
 
 div._1im8gyo > div {
-  margin-top: 1em;
+	margin-top: 1em;
 }
 
 .rotateWrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-end;
-  margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: flex-end;
+	margin-top: 2em;
 }
 
 .rotateTitle {
-  text-align: center;
-  margin-bottom: 0.5em;
+	text-align: center;
+	margin-bottom: 0.5em;
 }
 
 /*
  React-component Slider Styless
 */
 .rc-slider {
-  position: relative;
-  height: 14px;
-  padding: 5px 0;
-  width: 75%;
-  border-radius: 6px;
-  -ms-touch-action: none;
-  touch-action: none;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	position: relative;
+	height: 14px;
+	padding: 5px 0;
+	width: 75%;
+	border-radius: 6px;
+	-ms-touch-action: none;
+	touch-action: none;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .svgWrapper {
-  position: absolute;
-  height: fit-content;
-  width: fit-content;
-  margin: auto;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+	position: absolute;
+	height: fit-content;
+	width: fit-content;
+	margin: auto;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
 }
 
 .svgWrapper:focus {
-  outline: none !important;
+	outline: none !important;
 }
 
 .header:focus {
-  outline: none !important;
+	outline: none !important;
 }
 
 .circularSliderWrapper {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
+}
+
+.scaleWrapper {
+	display: flex;
+	justify-content: space-around;
+}
+
+.flipButton {
+	background-color: #fdd365;
+	cursor: pointer;
+	width: 2em;
+	height: 2em;
+	border-radius: 1em;
+	margin-bottom: 0.3em;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+
+.pieceSectionButton {
+	width: 6em;
+	height: 4em;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+
+.pieceSectionButton:not(.pickedSection):hover {
+  background-color: rgba(253, 211, 101, 0.65)!important;
+}
+
+.pickedSection {
+  background-color: #fdd365;
+}
+
+.shuffleButton {
+	border-radius: 1em;
+	margin-bottom: 4em;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	background-color: #fdd365;
+	cursor: pointer;
+	width: 22em;
+	height: 3em;
+}
+
+.pieceListWrapper {
+	display: flex;
+	justify-content: flex-start;
+	margin-top: 1em;
+	margin-left: 1em;
+}
+
+.pieceText {
+	align-self: center;
+	margin-left: 1em;
+}
+
+.pieceListSvg {
+	overflow: initial;
+}
+
+.rigthMenu {
+	position: absolute;
+	top: 5em;
+	right: 2em;
+}
+
+.pieceList {
+	width: 18em;
+	height: 30em;
+	background-color: #ffffff;
+	border-radius: 1em;
+	list-style: none;
+	padding-left: 0;
+	overflow: auto;
+	box-shadow: 3px 3px 10px 3px #ccc;
+	font-size: larger;
+	position: relative;
+}
+
+.sectionList {
+	position: relative;
+	list-style: none;
+	padding: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	border-left: 1px solid #d4d4d4;
+	box-shadow: 8px 5px 15px 0px #ccc;
+	border-top-right-radius: 1em;
+	border-bottom-right-radius: 1em;
+}
+
+.listWrapper {
+	display: flex;
+}
+
+.sectionList > li:first-child > div {
+	border-top-right-radius: 1em;
+}
+
+.sectionList > li:last-child > div {
+	border-bottom-right-radius: 1em;
 }

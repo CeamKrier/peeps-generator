@@ -6,7 +6,6 @@ import Peep, {
 	Face,
 	FacialHair,
 	Hair,
-	CirclePeep,
 	AccessoryType,
 	BodyType,
 	FaceType,
@@ -17,6 +16,7 @@ import Peep, {
 import CircularSlider from '@fseehawer/react-circular-slider';
 // @ts-ignore
 import Slider from 'rc-slider';
+
 import 'rc-slider/assets/index.css';
 import './css/index.css';
 
@@ -28,43 +28,6 @@ const styles = {
 		alignSelf: 'center',
 		overflow: 'initial',
 		transform: 'unset'
-	},
-	circleStyle: {
-		backgroundColor: '#F3D34A',
-		width: 270,
-		height: 270,
-		alignSelf: 'center',
-		borderRadius: 135,
-		overflow: 'hidden',
-		borderWidth: 3,
-		borderColor: 'black',
-		borderStyle: 'solid'
-	},
-	pieceListContentWrapper: {
-		display: 'flex',
-		justifyContent: 'flex-start',
-		marginTop: 20,
-		marginLeft: 20
-	},
-	pieceListItem: { width: '280px' },
-	pieceText: { alignSelf: 'center', marginLeft: 20 },
-	pieceSection: {
-		width: 70,
-		height: 70,
-		borderRadius: 20,
-		marginBottom: 20,
-		alignItems: 'center',
-		justifyContent: 'center',
-		display: 'flex'
-	},
-	shuffleButton: {
-		width: 70,
-		height: 70,
-		borderRadius: 20,
-		marginBottom: '4em',
-		alignItems: 'center',
-		justifyContent: 'center',
-		display: 'flex'
 	}
 };
 
@@ -92,7 +55,7 @@ const PeepsGenerator: React.FC = () => {
 	const [pickedAccessory, setPickedAccessory] = useState<AccessoryType>(
 		'GlassRoundThick'
 	);
-	const [pickedSection, setPickedSection] = useState<SectionValues>('Hair');
+	const [pickedSection, setPickedSection] = useState<SectionValues>('Accessories');
 	const [pieceKeys, setPieceKeys] = useState<PieceKeyType>();
 	const [rotationDegree, setRotationDegree] = useState(0);
 	const [scaleVector, setScaleVector] = useState(1.0);
@@ -118,9 +81,9 @@ const PeepsGenerator: React.FC = () => {
 		setPieceKeys(keys);
 
 		// removes the ripple animation of circular slider
-		(document
-			.querySelector('.rotateWrapper > div > div > div > svg > circle') as HTMLElement)
-			.remove();
+		(document.querySelector(
+			'.rotateWrapper > div > div > div > svg > circle'
+		) as HTMLElement).remove();
 
 		// removes the stripes from the circular slide knob
 		document
@@ -233,17 +196,14 @@ const PeepsGenerator: React.FC = () => {
 		return sections.map((section, index) => {
 			return (
 				<li
-					className='pieceSection'
+					className='pieceSectionItem'
 					key={index}
 					onClick={() => {
 						setPickedSection(section as SectionValues);
 					}}>
 					<div
-						style={{
-							...styles.pieceSection,
-							backgroundColor: pickedSection === section ? '#fdd365' : '#FFFFFF'
-						}}>
-						<span style={{ textAlign: 'center' }}>{section}</span>
+						className={`pieceSectionButton ${pickedSection === section ? 'pickedSection' : ''}`}>
+						<span>{section}</span>
 					</div>
 				</li>
 			);
@@ -345,7 +305,7 @@ const PeepsGenerator: React.FC = () => {
 								break;
 						}
 					}}>
-					<div style={styles.pieceListContentWrapper}>
+					<div className='pieceListWrapper'>
 						<input
 							className='pieceListRadioButton'
 							type='radio'
@@ -356,14 +316,14 @@ const PeepsGenerator: React.FC = () => {
 						<div className='selectionIndicator' />
 						<div>
 							<svg
-								style={{ overflow: 'initial' }}
+								className='pieceListSvg'
 								viewBox={adjustSvgViewbox()}
 								width='70'
 								height='70'>
 								{renderPiece(piece)}
 							</svg>
 						</div>
-						<span style={styles.pieceText}>{piece}</span>
+						<span className='pieceText'>{piece}</span>
 					</div>
 				</li>
 			);
@@ -435,36 +395,24 @@ const PeepsGenerator: React.FC = () => {
 					boxShadow: '3px 3px 10px 3px #ccc'
 				}}></div> */}
 
-			<div
-				style={{
-					position: 'absolute',
-					top: '5em',
-					right: '15em'
-				}}>
-				<ul
-					style={{
-						width: 310,
-						height: 500,
-						backgroundColor: '#FFFFFF',
-						borderRadius: 20,
-						listStyle: 'none',
-						paddingLeft: 0,
-						overflow: 'auto',
-						boxShadow: '3px 3px 10px 3px #ccc',
-						fontSize: 'larger',
-						position: 'relative'
-					}}>
-					{renderPieceList(pickedSectionObject() as string[])}
-				</ul>
+			<div className='rigthMenu'>
+				<div className='listWrapper'>
+					<ul className='pieceList'>
+						{renderPieceList(pickedSectionObject() as string[])}
+					</ul>
+					<ul className='sectionList'>
+						{renderPieceSections([
+							'Accessories',
+							'Body',
+							'Face',
+							'FacialHair',
+							'Hair'
+						])}
+					</ul>
+				</div>
 
 				<div
-					style={{
-						...styles.shuffleButton,
-						backgroundColor: '#fdd365',
-						cursor: 'pointer',
-						width: 310,
-						height: 50
-					}}
+					className='shuffleButton'
 					onClick={() => {
 						randomizePeep();
 					}}>
@@ -472,10 +420,7 @@ const PeepsGenerator: React.FC = () => {
 				</div>
 
 				<div
-					style={{
-						display: 'flex',
-						justifyContent: 'space-around'
-					}}
+					className='scaleWrapper'
 					onWheel={({ nativeEvent }) => {
 						if (nativeEvent.deltaY > 0) {
 							setScaleVector(scaleVector <= 0.5 ? 0.5 : scaleVector - 0.25);
@@ -536,15 +481,12 @@ const PeepsGenerator: React.FC = () => {
 						}}
 					/>
 				</div>
+				{/**
+				 * TODO: rename rotateWrapper to a better one to include the flip button too
+				 */}
 				<div className='rotateWrapper'>
 					<div
-						style={{
-							...styles.pieceSection,
-							backgroundColor: '#fdd365',
-							cursor: 'pointer',
-							width: 80,
-							height: 80
-						}}
+						className='flipButton'
 						onClick={() => {
 							setSvgTransform({
 								...svgTransform,
@@ -592,27 +534,6 @@ const PeepsGenerator: React.FC = () => {
 						/>
 					</div>
 				</div>
-			</div>
-
-			<div
-				style={{
-					position: 'absolute',
-					top: '8em',
-					right: '5em'
-				}}>
-				<ul
-					style={{
-						listStyle: 'none',
-						fontSize: 'larger'
-					}}>
-					{renderPieceSections([
-						'Accessories',
-						'Body',
-						'Face',
-						'FacialHair',
-						'Hair'
-					])}
-				</ul>
 			</div>
 		</>
 	);
