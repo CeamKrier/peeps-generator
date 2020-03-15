@@ -45,6 +45,8 @@ type SvgTransformInputType = {
 	flip?: string;
 };
 
+type FlipDirectionType = 1 | -1;
+
 const PeepsGenerator: React.FC = () => {
 	const [pickedHair, setPickedHair] = useState<HairType>('Long');
 	const [pickedBody, setPickedBody] = useState<BodyType>('Shirt');
@@ -61,7 +63,7 @@ const PeepsGenerator: React.FC = () => {
 	const [pieceKeys, setPieceKeys] = useState<PieceKeyType>();
 	const [rotationDegree, setRotationDegree] = useState(0);
 	const [scaleVector, setScaleVector] = useState(1.0);
-	const [flipDirection, setFlipDirection] = useState<1 | -1>(1);
+	const [flipDirection, setFlipDirection] = useState<FlipDirectionType>(1);
 	const [svgTransform, setSvgTransform] = useState<SvgTransformInputType>();
 	const [pressedKey, setPressedKey] = useState<string>();
 	const [wheelDirection, setWheelDirection] = useState<string>();
@@ -387,8 +389,7 @@ const PeepsGenerator: React.FC = () => {
 				/>
 			</div>
 
-			<div
-				className='leftMenu'>
+			<div className='leftMenu'>
 				<div
 					className='scaleWrapper'
 					onWheel={({ nativeEvent }) => {
@@ -398,7 +399,7 @@ const PeepsGenerator: React.FC = () => {
 							setScaleVector(scaleVector >= 1.5 ? 1.5 : scaleVector + 0.25);
 						}
 					}}>
-					<span className='rotateTitle'>Scale</span>
+					<span className='scaleTitle'>Scale</span>
 					<Slider
 						value={scaleVector}
 						min={0.5}
@@ -450,40 +451,31 @@ const PeepsGenerator: React.FC = () => {
 							zIndex: 2
 						}}
 					/>
-				</div>
-				{/**
-				 * TODO: rename rotateWrapper to a better one to include the flip button too
-				 */}
-				<div className='rotateWrapper'>
-					<div
-						className='flipButton'
-						onClick={() => {
-							setSvgTransform({
-								...svgTransform,
-								flip:
-									svgTransform?.flip === 'scale(-1, 1)'
-										? 'scale(1, 1)'
-										: 'scale(-1, 1)'
-							});
-						}}>
-						<span style={{ textAlign: 'center' }}>Flip</span>
+					<div className='scaleShortcutWrapper'>
+						<span>or</span>
+						<span className='boldText'>press s</span>
+						<span>+</span>
+						<span className='boldText'>scroll on mouse</span>
 					</div>
+				</div>
 
-					<div
-						className='circularSliderWrapper'
-						onWheel={({ nativeEvent }) => {
-							setTimeout(() => {
-								if (nativeEvent.deltaY > 0) {
-									setRotationDegree((degree: number) => {
-										return degree + 10 > 360 ? 10 : degree + 10;
-									});
-								} else {
-									setRotationDegree((degree: number) => {
-										return degree - 10 < 0 ? 350 : degree - 10;
-									});
-								}
-							}, 0);
-						}}>
+				<div
+					className='rotateWrapper'
+					onWheel={({ nativeEvent }) => {
+						setTimeout(() => {
+							if (nativeEvent.deltaY > 0) {
+								setRotationDegree((degree: number) => {
+									return degree + 10 > 360 ? 10 : degree + 10;
+								});
+							} else {
+								setRotationDegree((degree: number) => {
+									return degree - 10 < 0 ? 350 : degree - 10;
+								});
+							}
+						}, 0);
+					}}>
+					<span className='rotateTitle'>Rotate</span>
+					<div className='rotateRow'>
 						<CircularSlider
 							width={100}
 							min={0}
@@ -499,9 +491,31 @@ const PeepsGenerator: React.FC = () => {
 							onChange={(val: number) => {
 								setRotationDegree(val);
 							}}
-							label='Rotate'
+							label='Degree'
 							dataIndex={rotationDegree}
 						/>
+						<span>or</span>
+						<div className='rotateShortcutWrapper'>
+							<span className='boldText'>press r</span>
+							<span>+</span>
+							<span className='boldText'>scroll on mouse</span>
+						</div>
+					</div>
+				</div>
+
+				<div className='flipWrapper'>
+					<div
+						className='flipButton'
+						onClick={() => {
+							setFlipDirection(-flipDirection as FlipDirectionType);
+						}}>
+						<span style={{ textAlign: 'center' }}>Flip</span>
+					</div>
+					<span>or</span>
+					<div className='rotateShortcutWrapper'>
+						<span className='boldText'>press f</span>
+						<span>+</span>
+						<span className='boldText'>scroll on mouse</span>
 					</div>
 				</div>
 			</div>
@@ -533,7 +547,5 @@ const PeepsGenerator: React.FC = () => {
 		</>
 	);
 };
-/**
- * Revert -> scale(-1, 1) | scale(1, 1), resize -> scale(1.5), rotate(deg)
- */
+
 ReactDOM.render(<PeepsGenerator />, document.getElementById('main'));

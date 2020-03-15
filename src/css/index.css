@@ -55,23 +55,6 @@ div.selectionIndicator {
 	margin: 0 auto;
 }
 
-div._1im8gyo > div {
-	margin-top: 1em;
-}
-
-.rotateWrapper {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: flex-end;
-	margin-top: 2em;
-}
-
-.rotateTitle {
-	text-align: center;
-	margin-bottom: 0.5em;
-}
-
 /*
  React-component Slider Styless
 */
@@ -106,26 +89,78 @@ div._1im8gyo > div {
 	outline: none !important;
 }
 
-.circularSliderWrapper {
+.rotateWrapper {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.rotateRow {
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.rotateShortcutWrapper {
+	flex-direction: column;
+	display: flex;
+	align-items: center;
+}
+
+.rotateTitle {
+	margin-bottom: 0.5em;
+	margin-left: 2em;
+	margin-top: 1em;
+	align-self: flex-start;
+}
+
+.rotateWrapper > div > div > div > div {
+	margin-top: 1em;
 }
 
 .scaleWrapper {
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.scaleTitle {
+	margin-bottom: 0.5em;
+	margin-left: 2em;
+	margin-top: 1.5em;
+	align-self: flex-start;
+}
+
+.scaleShortcutWrapper {
+	flex-direction: column;
+	display: flex;
+	align-items: center;
+	margin-top: 1.5em;
+}
+
+.flipWrapper {
+	display: flex;
+	flex-direction: column;
 	justify-content: space-around;
+	align-items: center;
 }
 
 .flipButton {
 	background-color: #fdd365;
 	cursor: pointer;
-	width: 2em;
-	height: 2em;
+	width: 5em;
+	height: 5em;
 	border-radius: 1em;
 	margin-bottom: 0.3em;
 	align-items: center;
 	justify-content: center;
 	display: flex;
+}
+
+.boldText {
+	font-weight: bold;
 }
 
 .pieceSectionButton {
@@ -137,11 +172,11 @@ div._1im8gyo > div {
 }
 
 .pieceSectionButton:not(.pickedSection):hover {
-  background-color: rgba(253, 211, 101, 0.65)!important;
+	background-color: rgba(253, 211, 101, 0.65) !important;
 }
 
 .pickedSection {
-  background-color: #fdd365;
+	background-color: #fdd365;
 }
 
 .shuffleButton {
@@ -175,8 +210,8 @@ div._1im8gyo > div {
 .leftMenu {
 	position: absolute;
 	top: 5em;
-  left: 2em;
-  width: 18em;
+	left: 2em;
+	width: 18em;
 	height: 30em;
 	background-color: #ffffff;
 	border-radius: 1em;
