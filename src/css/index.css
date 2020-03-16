@@ -1,264 +1,289 @@
 body {
-	font-family: 'Itim', cursive;
+  font-family: "Itim", cursive;
 }
 
 ::-webkit-scrollbar {
-	width: 0px;
+  width: 0px;
 }
 
 div.selectionIndicator {
-	position: absolute;
-	width: 10px;
-	height: 10px;
-	border-radius: 5px;
-	background-color: #fdd365;
-	align-self: center;
-	visibility: hidden;
-	margin-left: -10px;
-	margin-right: 15px;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #fdd365;
+  align-self: center;
+  visibility: hidden;
+  margin-left: -10px;
+  margin-right: 15px;
 }
 
 .pieceListRadioButton:checked + div.selectionIndicator {
-	visibility: visible;
+  visibility: visible;
 }
 
 .pieceListRadioButton {
-	align-self: center;
+  align-self: center;
 }
 
 .pieceListRadioButton:not(checked) {
-	visibility: hidden;
-	width: 0px;
-	height: 0px;
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
 }
 
 .pieceListItem {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .pieceListItem:hover {
-	background-color: #f1f3f4;
+  background-color: #f1f3f4;
 }
 
 .pieceSectionItem {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .header {
-	font-family: 'Gochi Hand', cursive;
-	text-decoration: none;
-	color: black;
-	position: absolute;
-	left: 0;
-	right: 0;
-	width: fit-content;
-	margin: 0 auto;
+  font-family: "Gochi Hand", cursive;
+  text-decoration: none;
+  color: black;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 /*
  React-component Slider Styless
 */
 .rc-slider {
-	position: relative;
-	height: 14px;
-	padding: 5px 0;
-	width: 75%;
-	border-radius: 6px;
-	-ms-touch-action: none;
-	touch-action: none;
-	box-sizing: border-box;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  position: relative;
+  height: 14px;
+  padding: 5px 0;
+  width: 75%;
+  border-radius: 6px;
+  -ms-touch-action: none;
+  touch-action: none;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .svgWrapper {
-	position: absolute;
-	height: fit-content;
-	width: fit-content;
-	margin: auto;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  margin: auto;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
 }
 
 .svgWrapper:focus {
-	outline: none !important;
+  outline: none !important;
 }
 
 .header:focus {
-	outline: none !important;
+  outline: none !important;
 }
 
 .rotateWrapper {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .rotateRow {
-	width: 100%;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .rotateShortcutWrapper {
-	flex-direction: column;
-	display: flex;
-	align-items: center;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
 }
 
 .rotateTitle {
-	margin-bottom: 0.5em;
-	margin-left: 2em;
-	margin-top: 1em;
-	align-self: flex-start;
+  margin-bottom: 0.5em;
+  margin-left: 2em;
+  margin-top: 1em;
+  align-self: flex-start;
 }
 
 .rotateWrapper > div > div > div > div {
-	margin-top: 1em;
+  margin-top: 1em;
 }
 
 .scaleWrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .scaleTitle {
-	margin-bottom: 0.5em;
-	margin-left: 2em;
-	margin-top: 1.5em;
-	align-self: flex-start;
+  margin-bottom: 0.5em;
+  margin-left: 2em;
+  margin-top: 1.5em;
+  align-self: flex-start;
 }
 
 .scaleShortcutWrapper {
-	flex-direction: column;
-	display: flex;
-	align-items: center;
-	margin-top: 1.5em;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  margin-top: 1.5em;
 }
 
 .flipWrapper {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .flipButton {
-	background-color: #fdd365;
-	cursor: pointer;
-	width: 5em;
-	height: 5em;
-	border-radius: 1em;
-	margin-bottom: 0.3em;
-	align-items: center;
-	justify-content: center;
-	display: flex;
+  background-color: #fdd365;
+  cursor: pointer;
+  width: 5em;
+  height: 5em;
+  border-radius: 1em;
+  margin-bottom: 0.3em;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .boldText {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 .pieceSectionButton {
-	width: 6em;
-	height: 4em;
-	align-items: center;
-	justify-content: center;
-	display: flex;
+  width: 6em;
+  height: 4em;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .pieceSectionButton:not(.pickedSection):hover {
-	background-color: rgba(253, 211, 101, 0.65) !important;
+  background-color: rgba(253, 211, 101, 0.65) !important;
 }
 
 .pickedSection {
-	background-color: #fdd365;
+  background-color: #fdd365;
 }
 
 .shuffleButton {
-	border-radius: 1em;
-	margin-bottom: 4em;
-	align-items: center;
-	justify-content: center;
-	display: flex;
-	background-color: #fdd365;
-	cursor: pointer;
-	width: 22em;
-	height: 3em;
+  border-radius: 1em;
+  margin-bottom: 4em;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-color: #fdd365;
+  cursor: pointer;
+  width: 22em;
+  height: 3em;
 }
 
 .pieceListWrapper {
-	display: flex;
-	justify-content: flex-start;
-	margin-top: 1em;
-	margin-left: 1em;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1em;
+  margin-left: 1em;
 }
 
 .pieceText {
-	align-self: center;
-	margin-left: 1em;
+  align-self: center;
+  margin-left: 1em;
 }
 
 .pieceListSvg {
-	overflow: initial;
+  overflow: initial;
 }
 
 .leftMenu {
-	position: absolute;
-	top: 5em;
-	left: 2em;
-	width: 18em;
-	height: 30em;
-	background-color: #ffffff;
-	border-radius: 1em;
-	box-shadow: 3px 3px 10px 3px #ccc;
-	font-size: larger;
+  position: absolute;
+  top: 5em;
+  left: 2em;
+  display: flex;
+  transition: left 0.5s cubic-bezier(0.82, 0.085, 0.395, 0.895);
+}
+
+.leftMenuContentWrapper {
+  width: 18em;
+  height: 30em;
+  background-color: #ffffff;
+  border-radius: 1em;
+  box-shadow: 3px 3px 10px 3px #ccc;
+  font-size: larger;
+}
+
+.leftMenuDrawerButton {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 3em;
+  height: 2em;
+  background-color: #fdd365;
+  border-top-right-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.drawerClosed {
+  left: -22em;
 }
 
 .rigthMenu {
-	position: absolute;
-	top: 5em;
-	right: 2em;
+  position: absolute;
+  top: 5em;
+  right: 2em;
 }
 
 .pieceList {
-	width: 18em;
-	height: 30em;
-	background-color: #ffffff;
-	border-radius: 1em;
-	list-style: none;
-	padding-left: 0;
-	overflow: auto;
-	box-shadow: 3px 3px 10px 3px #ccc;
-	font-size: larger;
-	position: relative;
+  width: 18em;
+  height: 30em;
+  background-color: #ffffff;
+  border-radius: 1em;
+  list-style: none;
+  padding-left: 0;
+  overflow: auto;
+  box-shadow: 3px 3px 10px 3px #ccc;
+  font-size: larger;
+  position: relative;
 }
 
 .sectionList {
-	position: relative;
-	list-style: none;
-	padding: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	border-left: 1px solid #d4d4d4;
-	box-shadow: 8px 5px 15px 0px #ccc;
-	border-top-right-radius: 1em;
-	border-bottom-right-radius: 1em;
+  position: relative;
+  list-style: none;
+  padding: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-left: 1px solid #d4d4d4;
+  box-shadow: 8px 5px 15px 0px #ccc;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
 }
 
 .listWrapper {
-	display: flex;
+  display: flex;
 }
 
 .sectionList > li:first-child > div {
-	border-top-right-radius: 1em;
+  border-top-right-radius: 1em;
 }
 
 .sectionList > li:last-child > div {
-	border-bottom-right-radius: 1em;
+  border-bottom-right-radius: 1em;
 }
