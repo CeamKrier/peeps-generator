@@ -26,10 +26,12 @@
   "homepage": "https://github.com/CeamKrier/peeps-generator#readme",
   "dependencies": {
     "@fseehawer/react-circular-slider": "^2.2.1",
+    "file-saver": "^2.0.2",
     "rc-slider": "^9.2.3",
     "react-peeps": "0.0.7"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.1",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "css-loader": "^3.4.0",
