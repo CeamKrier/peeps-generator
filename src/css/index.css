@@ -305,53 +305,48 @@ div.selectionIndicator {
 	width: 10em;
 	height: 3em;
 }
+.footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: fit-content;
+	margin: 0 auto;
+	bottom: 0;
+}
+.removeDefaultAnchorStyle {
+	text-decoration: none;
+	color: black;
+}
 
 @media screen and (max-width: 1200px) {
+	.leftMenu {
+		display: none;
+	}
 	.pieceList {
 		width: 100%;
 		height: 3.5em;
-		background-color: #ffffff;
-		border-radius: 1em;
-		list-style: none;
-		padding-left: 0;
-		overflow: auto;
-		box-shadow: 3px 3px 10px 3px #ccc;
-		font-size: larger;
-		position: relative;
 		overflow-y: hidden;
 		margin-bottom: 0;
 	}
 	.rigthMenu {
-		position: absolute;
-		top: 25em;
+		top: unset;
 		right: 1em;
 		left: 1em;
+		bottom: 1em;
 	}
 	.pieceListItem {
-		cursor: pointer;
 		display: table-cell;
 	}
 	.pieceListWrapper {
-		display: flex;
-		justify-content: flex-start;
 		margin-top: 0em;
-		margin-left: 1em;
 	}
 	.listWrapper {
-		display: flex;
 		flex-direction: column;
 	}
 	.pieceSectionItem {
-		cursor: pointer;
 		display: table-cell;
 	}
 	.sectionList {
-		position: relative;
-		list-style: none;
-		padding: 0;
-		/* top: 0; */
-		/* bottom: 0; */
-		/* margin: auto; */
 		border-left: 0px solid #d4d4d4;
 		box-shadow: 0px 5px 15px 4px #ccc;
 		border-bottom-left-radius: 1em;
@@ -360,19 +355,10 @@ div.selectionIndicator {
 		margin-top: 0;
 	}
 	.shuffleButton {
-		border-radius: 1em;
-		margin-bottom: 1em;
-		align-items: center;
-		justify-content: center;
-		display: flex;
-		background-color: #fdd365;
-		cursor: pointer;
-		width: 22em;
-		height: 3em;
 		right: 0;
 		left: 0;
-    margin: auto;
-    margin-top: 1em;
+		margin: auto;
+		margin-top: 1em;
 	}
 	.sectionList > li:first-child > div {
 		border-bottom-left-radius: 1em;
@@ -381,15 +367,60 @@ div.selectionIndicator {
 
 	.pieceSectionButton {
 		width: 5em;
-		height: 4em;
-		align-items: center;
-		justify-content: center;
-		display: flex;
 	}
 	.saveButtonWrapper {
 		right: 0;
 		left: 0;
-    margin: auto;
-    margin-top: 1em;
+		margin: auto;
+		margin-top: 1em;
+	}
+	.svgWrapper {
+		top: 4em;
+		margin-top: 0;
+	}
+}
+
+@media screen and (max-width: 460px) {
+	.sectionList {
+		overflow: hidden;
+	}
+	.shuffleButton {
+		width: 90%;
+	}
+	.saveButtonWrapper {
+		width: 90%;
+	}
+	.svgWrapper > svg {
+		width: 320px !important;
+		height: 320px !important;
+	}
+	.saveButton {
+		width: 7em;
+	}
+	.Body .pieceListSvg {
+		width: 50px !important;
+		height: 50px !important;
+	}
+	.Body .pieceListWrapper {
+		margin-top: 0.5em;
+	}
+	.pieceSectionButton {
+		font-size: 0.7rem;
+		width: 4.6em;
+	}
+	.pieceSectionButton.Accessories span {
+		font-size: 0;
+	}
+	.pieceSectionButton.Accessories span::before {
+		content: 'Accessory';
+		font-size: 0.7rem;
+	}
+
+	.pieceSectionButton.FacialHair span {
+		font-size: 0;
+	}
+	.pieceSectionButton.FacialHair span::before {
+		content: 'Beard';
+		font-size: 0.7rem;
 	}
 }

@@ -65,7 +65,7 @@ export const PeepsGenerator: React.FC = () => {
 	const [pressedKey, setPressedKey] = useState<string>();
 	const [wheelDirection, setWheelDirection] = useState<string>();
 	const [wheelActive, setWheelActive] = useState<boolean>(false);
-	const [leftMenuVisibility, setLeftMenuVisibility] = useState<boolean>(false);
+	const [leftMenuVisibility, setLeftMenuVisibility] = useState<boolean>(true);
 
 	useEffect(() => {
 		const keys = {
@@ -197,7 +197,7 @@ export const PeepsGenerator: React.FC = () => {
 						setPickedSection(section as SectionValues);
 					}}>
 					<div
-						className={`pieceSectionButton ${
+						className={`pieceSectionButton ${section} ${
 							pickedSection === section ? 'pickedSection' : ''
 						}`}>
 						<span>{section}</span>
@@ -526,7 +526,7 @@ export const PeepsGenerator: React.FC = () => {
 
 			<div className='rigthMenu'>
 				<div className='listWrapper'>
-					<ul className='pieceList'>
+					<ul className={`pieceList ${pickedSection}`}>
 						{renderPieceList(pickedSectionObject() as string[])}
 					</ul>
 					<ul className='sectionList'>
@@ -570,6 +570,24 @@ export const PeepsGenerator: React.FC = () => {
 						}}>
 						Save as PNG
 					</div>
+				</div>
+			</div>
+			<div className='footer'>
+				<div>
+					library available for{' '}
+					<a
+						target='_blank'
+						href='https://github.com/CeamKrier/react-peeps'
+						className='boldText removeDefaultAnchorStyle'>
+						react
+					</a>{' '}
+					and{' '}
+					<a
+						target='_blank'
+						href='https://github.com/CeamKrier/react-native-peeps'
+						className='boldText removeDefaultAnchorStyle'>
+						react native
+					</a>
 				</div>
 			</div>
 		</>
