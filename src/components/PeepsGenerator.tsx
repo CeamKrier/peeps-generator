@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Peep, {
 	Accessories,
-	Body,
+	BustPose,
 	Face,
 	FacialHair,
 	Hair,
 	AccessoryType,
-	BodyType,
+	BustPoseType,
 	FaceType,
 	FacialHairType,
 	HairType
 } from 'react-peeps';
-import { saveSvg, savePng } from './utils/save';
+import { saveSvg, savePng } from '../utils/save';
 
 // @ts-ignore
 import CircularSlider from '@fseehawer/react-circular-slider';
@@ -46,7 +46,7 @@ type FlipDirectionType = 1 | -1;
 
 export const PeepsGenerator: React.FC = () => {
 	const [pickedHair, setPickedHair] = useState<HairType>('Long');
-	const [pickedBody, setPickedBody] = useState<BodyType>('Shirt');
+	const [pickedBody, setPickedBody] = useState<BustPoseType>('Shirt');
 	const [pickedFace, setPickedFace] = useState<FaceType>('Smile');
 	const [pickedFacialHair, setPickedFacialHair] = useState<FacialHairType>(
 		'Goatee'
@@ -76,7 +76,7 @@ export const PeepsGenerator: React.FC = () => {
 			accessoryKeys: ['']
 		};
 		keys.hairKeys = Object.keys(Hair);
-		keys.bodyKeys = Object.keys(Body);
+		keys.bodyKeys = Object.keys(BustPose);
 		keys.faceKeys = Object.keys(Face);
 		keys.facialHairKeys = Object.keys(FacialHair);
 		keys.accessoryKeys = Object.keys(Accessories);
@@ -165,7 +165,7 @@ export const PeepsGenerator: React.FC = () => {
 		setPickedBody(
 			pieceKeys.bodyKeys[
 				Math.floor(Math.random() * pieceKeys.bodyKeys.length)
-			] as BodyType
+			] as BustPoseType
 		);
 
 		setPickedFace(
@@ -212,7 +212,7 @@ export const PeepsGenerator: React.FC = () => {
 			case 'Accessories':
 				return React.createElement(Accessories[piece as AccessoryType]);
 			case 'Body':
-				return React.createElement(Body[piece as BodyType]);
+				return React.createElement(BustPose[piece as BustPoseType]);
 			case 'Hair':
 				return React.createElement(Hair[piece as HairType]);
 			case 'FacialHair':
@@ -246,7 +246,7 @@ export const PeepsGenerator: React.FC = () => {
 			case 'Accessories':
 				return Object.keys(Accessories);
 			case 'Body':
-				return Object.keys(Body);
+				return Object.keys(BustPose);
 			case 'Hair':
 				return Object.keys(Hair);
 			case 'FacialHair':
@@ -287,7 +287,7 @@ export const PeepsGenerator: React.FC = () => {
 								setPickedAccessory(piece as AccessoryType);
 								break;
 							case 'Body':
-								setPickedBody(piece as BodyType);
+								setPickedBody(piece as BustPoseType);
 								break;
 							case 'Hair':
 								setPickedHair(piece as HairType);
@@ -374,11 +374,11 @@ export const PeepsGenerator: React.FC = () => {
 						transform: `${svgTransform?.rotate || ''} ${svgTransform?.flip ||
 							''}`
 					}}
-					accessory={Accessories[pickedAccessory]}
-					body={Body[pickedBody]}
-					face={Face[pickedFace]}
-					hair={Hair[pickedHair]}
-					facialHair={FacialHair[pickedFacialHair]}
+					accessory={Accessories[pickedAccessory as AccessoryType]}
+					body={BustPose[pickedBody as BustPoseType]}
+					face={Face[pickedFace as FaceType]}
+					hair={Hair[pickedHair as HairType]}
+					facialHair={FacialHair[pickedFacialHair as FacialHairType]}
 					viewBox={{ x: '-235', y: '-150', width: '1250', height: '1400' }}
 				/>
 			</div>
@@ -577,6 +577,7 @@ export const PeepsGenerator: React.FC = () => {
 					library available for{' '}
 					<a
 						target='_blank'
+						rel="noopener noreferrer"
 						href='https://github.com/CeamKrier/react-peeps'
 						className='boldText removeDefaultAnchorStyle'>
 						react
@@ -584,6 +585,7 @@ export const PeepsGenerator: React.FC = () => {
 					and{' '}
 					<a
 						target='_blank'
+						rel="noopener noreferrer"
 						href='https://github.com/CeamKrier/react-native-peeps'
 						className='boldText removeDefaultAnchorStyle'>
 						react native

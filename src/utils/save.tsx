@@ -24,7 +24,7 @@ export const savePng = (
 
   const canvasContext = canvas.getContext('2d');
 
-  const DOMURL = self.URL || self.webkitURL || self;
+  const DOMURL = window.self.URL || window.self.webkitURL || window.self;
   const image = new Image();
   const svgBlob = new Blob([preface, svgData], {
     type: 'image/svg+xml;charset=utf-8'
