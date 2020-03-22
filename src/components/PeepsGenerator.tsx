@@ -574,7 +574,7 @@ export const PeepsGenerator: React.FC = () => {
 			</div>
 			<div className='footer'>
 				<div>
-					library available for{' '}
+					library available for both{' '}
 					<a
 						target='_blank'
 						rel="noopener noreferrer"
