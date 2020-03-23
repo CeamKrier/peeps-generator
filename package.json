@@ -20,12 +20,13 @@
 	},
 	"dependencies": {
 		"@fseehawer/react-circular-slider": "^2.2.1",
+		"compression": "^1.7.4",
 		"express": "^4.17.1",
 		"file-saver": "^2.0.2",
 		"rc-slider": "^9.2.3",
-		"react-peeps": "0.0.9",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
+		"react-peeps": "0.0.9",
 		"react-scripts": "3.4.1",
 		"typescript": "~3.7.2"
 	},
