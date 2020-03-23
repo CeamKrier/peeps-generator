@@ -318,6 +318,10 @@ div.selectionIndicator {
 }
 
 @media screen and (max-width: 1200px) {
+	#main {
+		min-height: 750px;
+		position: relative;
+	}
 	.leftMenu {
 		display: none;
 	}
@@ -332,6 +336,7 @@ div.selectionIndicator {
 		right: 1em;
 		left: 1em;
 		bottom: 1em;
+		margin-bottom: 1em;
 	}
 	.pieceListItem {
 		display: table-cell;
@@ -380,6 +385,10 @@ div.selectionIndicator {
 }
 
 @media screen and (max-width: 460px) {
+	#main {
+		min-height: 650px;
+		position: relative;
+	}
 	.sectionList {
 		overflow: hidden;
 	}
@@ -421,5 +430,11 @@ div.selectionIndicator {
 	.pieceSectionButton.FacialHair span::before {
 		content: 'Beard';
 		font-size: 0.7rem;
+	}
+}
+
+@media screen and (max-width: 340px) {
+	.footer {
+		display: none;
 	}
 }
