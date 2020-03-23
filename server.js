@@ -1,12 +1,11 @@
-import express, { Request, Response } from 'express'
+const express = require('express');
 const path = require('path');
 const server = express();
 const port = process.env.PORT || 8080;
 
 server.use(express.static(path.join(__dirname, 'build')));
-console.log(path.join(__dirname, 'build'));
 
-server.get('/', (req: Request, res: Response) => {
+server.get('*', (req, res) => {
 	res.sendfile(path.join(__dirname, 'build', 'index.html'));
 });
 

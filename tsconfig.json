@@ -20,9 +20,11 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "noEmit": true,  
+    "noEmit": true,
+    "isolatedModules": true
   },
   "include": [
-    "src", "server.tsx"
+    "src",
+    "server.js"
   ]
 }
