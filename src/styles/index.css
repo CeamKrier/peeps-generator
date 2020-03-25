@@ -316,11 +316,59 @@ div.selectionIndicator {
 	text-decoration: none;
 	color: black;
 }
+.colorIndicator {
+	position: absolute;
+	width: fit-content;
+	height: fit-content;
+	display: flex;
+	bottom: -1em;
+	margin: auto;
+	right: 0;
+	left: 0;
+}
+.colorSwatch {
+	padding: 5px;
+	background: #fff;
+	border-radius: 1px;
+	display: inline-block;
+	cursor: pointer;
+}
+.pickedColor {
+	width: 36px;
+	height: 14px;
+	border-radius: 2px;
+}
+.colorPopover {
+	position: absolute;
+	top: 2em;
+	right: -4em;
+	z-index: 2;
+}
+.colorCover {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+}
+.block-picker {
+	box-shadow: 3px 3px 10px 3px #ccc!important;
+}
 
 @media screen and (max-width: 1200px) {
 	#main {
 		min-height: 750px;
 		position: relative;
+	}
+	.colorIndicator {
+		left: unset;
+		margin: auto;
+		top: 0;
+	}
+	.colorPopover {
+		top: -5em;
+    right: unset;
+    left: 3.5em;
 	}
 	.leftMenu {
 		display: none;
@@ -340,6 +388,9 @@ div.selectionIndicator {
 	}
 	.pieceListItem {
 		display: table-cell;
+	}
+	.pieceListItem:hover {
+		background-color: unset;
 	}
 	.pieceListWrapper {
 		margin-top: 0em;
@@ -383,11 +434,17 @@ div.selectionIndicator {
 		margin-top: 0;
 	}
 }
+.block-picker > div:nth-child(2) {
+	height: 60px!important;
+}
 
 @media screen and (max-width: 460px) {
 	#main {
 		min-height: 650px;
 		position: relative;
+	}
+	.colorPopover {
+    left: -7em;
 	}
 	.sectionList {
 		overflow: hidden;
@@ -437,4 +494,7 @@ div.selectionIndicator {
 	.footer {
 		display: none;
 	}
+	.colorIndicator {
+    right: 1em;
+}
 }

@@ -17,6 +17,11 @@ import { saveSvg, savePng } from '../utils/save';
 import CircularSlider from '@fseehawer/react-circular-slider';
 // @ts-ignore
 import Slider from 'rc-slider';
+import {
+	RGBColor,
+	ColorResult,
+	BlockPicker
+} from 'react-color';
 
 const styles = {
 	peepStyle: {
@@ -66,6 +71,13 @@ export const PeepsGenerator: React.FC = () => {
 	const [wheelDirection, setWheelDirection] = useState<string>();
 	const [wheelActive, setWheelActive] = useState<boolean>(false);
 	const [leftMenuVisibility, setLeftMenuVisibility] = useState<boolean>(true);
+	const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
+	const [pickedColor, setPickedColor] = useState<RGBColor>({
+		r: 0,
+		b: 0,
+		g: 0,
+		a: 1
+	});
 
 	useEffect(() => {
 		const keys = {
@@ -327,6 +339,10 @@ export const PeepsGenerator: React.FC = () => {
 		});
 	};
 
+	const handleColorChange = (color: ColorResult) => {
+		setPickedColor(color.rgb);
+	};
+
 	return (
 		<>
 			<a className='header' href='/'>
@@ -374,13 +390,63 @@ export const PeepsGenerator: React.FC = () => {
 						transform: `${svgTransform?.rotate || ''} ${svgTransform?.flip ||
 							''}`
 					}}
-					accessory={Accessories[pickedAccessory as AccessoryType]}
-					body={BustPose[pickedBody as BustPoseType]}
-					face={Face[pickedFace as FaceType]}
-					hair={Hair[pickedHair as HairType]}
-					facialHair={FacialHair[pickedFacialHair as FacialHairType]}
+					accessory={pickedAccessory}
+					body={pickedBody}
+					face={pickedFace}
+					hair={pickedHair}
+					facialHair={pickedFacialHair}
+					strokeColor={`rgba(${pickedColor.r}, ${pickedColor.g}, ${pickedColor.b}, ${pickedColor.a})`}
 					viewBox={{ x: '-235', y: '-150', width: '1250', height: '1400' }}
 				/>
+				<div className='colorIndicator'>
+					<div
+						className='colorSwatch'
+						style={{
+							boxShadow: `0 0 0 1px rgba(${pickedColor.r}, ${pickedColor.g}, ${pickedColor.b}, ${pickedColor.a})`
+						}}
+						onClick={() => {
+							setDisplayColorPicker(!displayColorPicker);
+						}}>
+						<div
+							className='pickedColor'
+							style={{
+								background: `rgba(${pickedColor.r}, ${pickedColor.g}, ${pickedColor.b}, ${pickedColor.a})`
+							}}
+						/>
+					</div>
+					{displayColorPicker ? (
+						<div className='colorPopover'>
+							<div
+								className='colorCover'
+								onClick={() => {
+									setDisplayColorPicker(false);
+								}}
+							/>
+							<BlockPicker
+								triangle='hide'
+								color={pickedColor}
+								onChange={handleColorChange}
+								colors={[
+									'#4D4D4D',
+									'#999999',
+									'#F44E3B',
+									'#FE9200',
+									'#FCDC00',
+									'#DBDF00',
+									'#A4DD00',
+									'#68CCCA',
+									'#73D8FF',
+									'#AEA1FF',
+									'#FDA1FF',
+									'#333333',
+									'#808080',
+									'#cccccc',
+									'#D33115'
+								]}
+							/>
+						</div>
+					) : null}
+				</div>
 			</div>
 
 			<div className={`leftMenu ${leftMenuVisibility ? '' : 'drawerClosed'}`}>
@@ -577,7 +643,7 @@ export const PeepsGenerator: React.FC = () => {
 					library available for both{' '}
 					<a
 						target='_blank'
-						rel="noopener noreferrer"
+						rel='noopener noreferrer'
 						href='https://github.com/CeamKrier/react-peeps'
 						className='boldText removeDefaultAnchorStyle'>
 						react
@@ -585,7 +651,7 @@ export const PeepsGenerator: React.FC = () => {
 					and{' '}
 					<a
 						target='_blank'
-						rel="noopener noreferrer"
+						rel='noopener noreferrer'
 						href='https://github.com/CeamKrier/react-native-peeps'
 						className='boldText removeDefaultAnchorStyle'>
 						react native
