@@ -8,7 +8,7 @@ server.use(compression())
 server.use(express.static(path.join(__dirname, 'build')));
 
 server.get('*', (req, res) => {
-	res.sendfile(path.join(__dirname, 'build', 'index.html'));
+	res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 server.listen(port, () => {
