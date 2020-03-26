@@ -1,6 +1,6 @@
-## Open Peeps Generator
+<p align="center"><img src="logo.png" alt="peeps example" width="400"/></p>
 
-Generate your hand-drawn illustrations right away! 
+Generate your hand-drawn illustrations right away!
 
 [opeeps](https://www.opeeps.fun/) is a simple generator of the illustration library called [Open Peeps](https://www.openpeeps.com/) by [Pablo Stanley](https://www.pablostanley.com/).
 
