@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { PeepsGenerator } from './components/PeepsGenerator';
+import { PeepsGenerator } from './components/peepsGenerator';
+import { Provider } from './utils/contextProvider';
 import * as serviceWorker from './serviceWorker';
 
 import 'rc-slider/assets/index.css';
 import './styles/index.css';
 
-ReactDOM.render(<PeepsGenerator />, document.getElementById('main'));
+ReactDOM.render(
+	<Provider>
+		<PeepsGenerator />
+	</Provider>,
+	document.getElementById('main')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
