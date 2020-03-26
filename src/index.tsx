@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { PeepsGenerator } from './components/peepsGenerator';
+import { PeepsGenerator } from './components/App';
 import { Provider } from './utils/contextProvider';
 import * as serviceWorker from './serviceWorker';
 
