@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { ColorResult, BlockPicker } from 'react-color';
+import { GradientBuilder } from './gradientBuilder';
 import { useProvider } from '../utils/contextProvider';
+
+type ColoringType = 'basic' | 'gradient';
 
 export const ColorPicker = () => {
 	const { state, dispatch } = useProvider();
 	const { strokeColor } = state;
 	const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
-	const [rgbColorString, setRgbColorString] = useState('rgba(0 0 0 1)')
+	const [rgbColorString, setRgbColorString] = useState('rgba(0 0 0 1)');
+	const [colorType, setColorType] = useState<ColoringType>('basic');
 	const initialColors = [
 		'#4D4D4D',
 		'#999999',
@@ -26,8 +30,10 @@ export const ColorPicker = () => {
 	];
 
 	useEffect(() => {
-		setRgbColorString(`rgba(${strokeColor.r}, ${strokeColor.g}, ${strokeColor.b}, ${strokeColor.a})`)
-	}, [strokeColor])
+		setRgbColorString(
+			`rgba(${strokeColor.r}, ${strokeColor.g}, ${strokeColor.b}, ${strokeColor.a})`
+		);
+	}, [strokeColor]);
 
 	const handleColorChange = (color: ColorResult) => {
 		dispatch({
@@ -41,6 +47,12 @@ export const ColorPicker = () => {
 			isVisible === false
 				? setDisplayColorPicker(isVisible)
 				: setDisplayColorPicker(!displayColorPicker);
+		};
+	};
+
+	const handleColorTypeChange = (type: ColoringType) => {
+		return () => {
+			setColorType(type);
 		};
 	};
 	return (
@@ -64,12 +76,30 @@ export const ColorPicker = () => {
 						className='colorCover'
 						onClick={handlePickerVisibiltyChange(false)}
 					/>
-					<BlockPicker
-						triangle='hide'
-						color={strokeColor}
-						onChange={handleColorChange}
-						colors={initialColors}
-					/>
+					{colorType === 'basic' ? (
+						<div className='basicPicker'>
+							<BlockPicker
+								triangle='hide'
+								color={strokeColor}
+								onChange={handleColorChange}
+								colors={initialColors}
+							/>
+							<div
+								className='colorTypeChangeButton gradientColorButton'
+								onClick={handleColorTypeChange('gradient')}>
+								G
+							</div>
+						</div>
+					) : (
+						<div className='gradientPicker'>
+							<GradientBuilder />
+							<div
+								className='colorTypeChangeButton basicColorButton'
+								onClick={handleColorTypeChange('basic')}>
+								B
+							</div>
+						</div>
+					)}
 				</div>
 			) : null}
 		</div>

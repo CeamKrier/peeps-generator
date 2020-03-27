@@ -352,7 +352,71 @@ div.selectionIndicator {
 	left: 0px;
 }
 .block-picker {
-	box-shadow: 3px 3px 10px 3px #ccc!important;
+	box-shadow: 3px 3px 10px 3px #ccc !important;
+}
+.basicPicker {
+	display: flex;
+	flex-direction: row-reverse;
+}
+.gradientPicker {
+	display: flex;
+	flex-direction: row-reverse;
+}
+.colorTypeChangeButton {
+	position: relative;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 2em;
+	height: 2em;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.gradientColorButton {
+	background: linear-gradient(
+		90deg,
+		rgba(131, 58, 180, 1) 0%,
+		rgba(253, 29, 29, 1) 60%,
+		rgba(252, 176, 69, 1) 100%
+	);
+	color: white;
+}
+.basicColorButton {
+	background: #fdd365;
+	color: black;
+}
+.gradientBlock {
+	width: 170px;
+	background: rgb(255, 255, 255);
+	box-shadow: 3px 3px 10px 3px #ccc !important;
+	border-radius: 6px;
+	position: relative;
+	height: 198px;
+}
+.gradientPreview {
+	height: 160px;
+	background: linear-gradient(45deg, gold, red);
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.gradientInputWrapper {
+	display: flex;
+	margin-top: 0.5em;
+}
+.gradientInputWrapper > div {
+	display: flex;
+	justify-content: center;
+}
+.gradientPreview > div > div > div {
+	margin-top: 1em;
+	color: white;
 }
 
 @media screen and (max-width: 1200px) {
@@ -367,8 +431,8 @@ div.selectionIndicator {
 	}
 	.colorPopover {
 		top: -5em;
-    right: unset;
-    left: 3.5em;
+		right: unset;
+		left: 3.5em;
 	}
 	.leftMenu {
 		display: none;
@@ -435,7 +499,7 @@ div.selectionIndicator {
 	}
 }
 .block-picker > div:nth-child(2) {
-	height: 60px!important;
+	height: 60px !important;
 }
 
 @media screen and (max-width: 460px) {
@@ -444,7 +508,7 @@ div.selectionIndicator {
 		position: relative;
 	}
 	.colorPopover {
-    left: -7em;
+		left: -7em;
 	}
 	.sectionList {
 		overflow: hidden;
@@ -495,6 +559,6 @@ div.selectionIndicator {
 		display: none;
 	}
 	.colorIndicator {
-    right: 1em;
-}
+		right: 1em;
+	}
 }
