@@ -15,12 +15,7 @@ const initialState: StateKeys = {
 	pickedFacialHair: 'None',
 	pickedAccessory: 'None',
 	pickedSection: 'Accessories',
-	strokeColor: {
-		r: 0,
-		b: 0,
-		g: 0,
-		a: 1
-	}
+	strokeColor: '#000000'
 };
 
 export const Context = React.createContext<ContextProps>({

@@ -113,7 +113,7 @@ export const PeepsGenerator: React.FC = () => {
 					face={pickedFace}
 					hair={pickedHair}
 					facialHair={pickedFacialHair}
-					strokeColor={`rgba(${strokeColor.r}, ${strokeColor.g}, ${strokeColor.b}, ${strokeColor.a})`}
+					strokeColor={strokeColor}
 					viewBox={{ x: '-235', y: '-150', width: '1250', height: '1400' }}
 				/>
 

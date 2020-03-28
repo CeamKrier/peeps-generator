@@ -1,5 +1,11 @@
 import { ReactElement } from 'react';
-import { HairType, BustPoseType, FaceType, FacialHairType, AccessoryType } from 'react-peeps';
+import {
+	HairType,
+	BustPoseType,
+	FaceType,
+	FacialHairType,
+	AccessoryType
+} from 'react-peeps';
 import { SectionValues } from '../components/types';
 import { RGBColor } from 'react-color';
 
@@ -28,6 +34,12 @@ export interface DispatchParameters {
 	payload: any;
 }
 
+type GradientType = {
+	degree?: number;
+	firstColor: string;
+	secondColor: string;
+};
+
 export interface StateKeys {
 	rotationDegree: number;
 	flipDirection: number;
@@ -42,7 +54,7 @@ export interface StateKeys {
 	pickedFacialHair: FacialHairType;
 	pickedAccessory: AccessoryType;
 	pickedSection: SectionValues;
-	strokeColor: RGBColor;
+	strokeColor: string | GradientType;
 }
 
 export interface ContextProps {

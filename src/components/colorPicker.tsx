@@ -9,7 +9,6 @@ export const ColorPicker = () => {
 	const { state, dispatch } = useProvider();
 	const { strokeColor } = state;
 	const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
-	const [rgbColorString, setRgbColorString] = useState('rgba(0 0 0 1)');
 	const [colorType, setColorType] = useState<ColoringType>('basic');
 	const initialColors = [
 		'#4D4D4D',
@@ -29,16 +28,10 @@ export const ColorPicker = () => {
 		'#D33115'
 	];
 
-	useEffect(() => {
-		setRgbColorString(
-			`rgba(${strokeColor.r}, ${strokeColor.g}, ${strokeColor.b}, ${strokeColor.a})`
-		);
-	}, [strokeColor]);
-
 	const handleColorChange = (color: ColorResult) => {
 		dispatch({
 			type: 'SET_STROKE_COLOR',
-			payload: color.rgb
+			payload: color.hex
 		});
 	};
 
@@ -48,6 +41,14 @@ export const ColorPicker = () => {
 				? setDisplayColorPicker(isVisible)
 				: setDisplayColorPicker(!displayColorPicker);
 		};
+	};
+
+	const adjustStrokeColor = () => {
+		return typeof strokeColor === 'object'
+			? `linear-gradient(${strokeColor.degree || 0}, ${
+					strokeColor.firstColor
+			  }, ${strokeColor.secondColor})`
+			: strokeColor;
 	};
 
 	const handleColorTypeChange = (type: ColoringType) => {
@@ -60,13 +61,13 @@ export const ColorPicker = () => {
 			<div
 				className='colorSwatch'
 				style={{
-					boxShadow: `0 0 0 2px ${rgbColorString}`
+					boxShadow: `0 0 0 2px ${adjustStrokeColor()}`
 				}}
 				onClick={handlePickerVisibiltyChange()}>
 				<div
 					className='pickedColor'
 					style={{
-						background: rgbColorString
+						background: adjustStrokeColor()
 					}}
 				/>
 			</div>
@@ -80,7 +81,7 @@ export const ColorPicker = () => {
 						<div className='basicPicker'>
 							<BlockPicker
 								triangle='hide'
-								color={strokeColor}
+								color={adjustStrokeColor()}
 								onChange={handleColorChange}
 								colors={initialColors}
 							/>

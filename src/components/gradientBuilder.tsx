@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import { useProvider } from '../utils/contextProvider';
 import { EditableInput } from 'react-color/lib/components/common';
 // @ts-ignore
 import CircularSlider from '@fseehawer/react-circular-slider';
 import { ColorResult } from 'react-color';
 //@ts-ignore
 import { isValidHex } from 'react-color/lib/helpers/color';
+import { GradientType } from 'react-peeps/lib/peeps/types';
 
 export const GradientBuilder = () => {
-	const [firstColor, setFirstColor] = useState<string>('#ffd402');
-	const [secondColor, setSecondColor] = useState<string>('#ff141c');
-	const [gradientDegree, setGradientDegree] = useState(0);
+	const { state, dispatch } = useProvider();
+	const { strokeColor } = state;
+	const [firstColor, setFirstColor] = useState<string | GradientType>(
+		(strokeColor as GradientType).firstColor || '#81087F'
+	);
+	const [secondColor, setSecondColor] = useState<string | GradientType>(
+		(strokeColor as GradientType).secondColor || '#ffd402'
+	);
+	const [gradientDegree, setGradientDegree] = useState(
+		(strokeColor as GradientType).degree || 0
+	);
 
 	useEffect(() => {
-		console.log(
-			`background: linear-gradient(${gradientDegree}deg, ${firstColor}, ${secondColor})`
-		);
+		dispatch({
+			type: 'SET_STROKE_COLOR',
+			payload: {
+				degree: gradientDegree,
+				firstColor,
+				secondColor
+			}
+		});
 	}, [firstColor, secondColor, gradientDegree]);
 
 	const handleColorChange = (caller: string) => {
