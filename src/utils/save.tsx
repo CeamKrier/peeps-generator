@@ -5,7 +5,7 @@ export const saveSvg = (svgEl: HTMLElement, name: string) => {
   const svgData = svgEl.outerHTML;
   const preface = '<?xml version="1.0" standalone="no"?>\r\n';
   const svgBlob = new Blob([preface, svgData], {
-    type: 'image/svg+xml;charset=utf-8'
+    type: 'image/svg+xml'
   });
   downloadResource(svgBlob, name);
 };
@@ -27,7 +27,7 @@ export const savePng = (
   const DOMURL = window.self.URL || window.self.webkitURL || window.self;
   const image = new Image();
   const svgBlob = new Blob([preface, svgData], {
-    type: 'image/svg+xml;charset=utf-8'
+    type: 'image/svg+xml'
   });
   const url = DOMURL.createObjectURL(svgBlob);
 
@@ -35,7 +35,7 @@ export const savePng = (
   document.body.appendChild(canvas)
 
   image.onload = () => {
-    canvasContext?.drawImage(image, 0, 0);
+    canvasContext && canvasContext.drawImage(image, 0, 0);
     DOMURL.revokeObjectURL(url);
     canvas.toBlob(pngBlob => {
       pngBlob && downloadResource(pngBlob, name);
