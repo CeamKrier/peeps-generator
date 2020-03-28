@@ -14,6 +14,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Thanks :raised_hands:
 
+## Sponsors
+
+ <a href="https://www.browserstack.com/" target="_blank"><img src="browserstack.png" alt="peeps example" width="200"/></a>
+
 ## License
 
 [MIT](<[https://choosealicense.com/licenses/mit/](https://choosealicense.com/licenses/mit/)>)
