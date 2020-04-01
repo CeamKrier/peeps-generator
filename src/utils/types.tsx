@@ -4,10 +4,11 @@ import {
 	BustPoseType,
 	FaceType,
 	FacialHairType,
-	AccessoryType
+	AccessoryType,
+	SittingPoseType,
+	StandingPoseType
 } from 'react-peeps';
 import { SectionValues } from '../components/types';
-import { RGBColor } from 'react-color';
 
 export interface ProviderProps {
 	children: ReactElement;
@@ -49,7 +50,7 @@ export interface StateKeys {
 	scaleVector: number;
 	svgTransform: { rotate?: string; flip?: string; scale?: string };
 	pickedHair: HairType;
-	pickedBody: BustPoseType;
+	pickedBody: BustPoseType | SittingPoseType | StandingPoseType;
 	pickedFace: FaceType;
 	pickedFacialHair: FacialHairType;
 	pickedAccessory: AccessoryType;

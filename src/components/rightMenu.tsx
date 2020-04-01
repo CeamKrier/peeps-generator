@@ -9,13 +9,18 @@ import {
 	BustPoseType,
 	FaceType,
 	FacialHairType,
-	HairType
+	HairType,
+	SittingPoseType,
+	StandingPose,
+	StandingPoseType,
+	SittingPose
 } from 'react-peeps';
 import { saveSvg, savePng } from '../utils/save';
 import { PieceKeyType, SectionValues } from './types';
 import { useProvider } from '../utils/contextProvider';
+import { distinguishBodyViewbox } from '../utils/viewbox';
 
-export const RightMenu = () => {
+export const RightMenu = React.memo(() => {
 	const { state, dispatch } = useProvider();
 
 	const {
@@ -39,7 +44,11 @@ export const RightMenu = () => {
 			accessoryKeys: ['']
 		};
 		keys.hairKeys = Object.keys(Hair);
-		keys.bodyKeys = Object.keys(BustPose);
+		keys.bodyKeys = [
+			...Object.keys(BustPose),
+			...Object.keys(SittingPose),
+			...Object.keys(StandingPose)
+		];
 		keys.faceKeys = Object.keys(Face);
 		keys.facialHairKeys = Object.keys(FacialHair);
 		keys.accessoryKeys = Object.keys(Accessories);
@@ -111,7 +120,7 @@ export const RightMenu = () => {
 		updateBody(
 			pieceKeys.bodyKeys[
 				Math.floor(Math.random() * pieceKeys.bodyKeys.length)
-			] as BustPoseType
+			] as BustPoseType & SittingPoseType & StandingPoseType
 		);
 
 		updateFace(
@@ -162,7 +171,11 @@ export const RightMenu = () => {
 			case 'Accessories':
 				return React.createElement(Accessories[piece as AccessoryType]);
 			case 'Body':
-				return React.createElement(BustPose[piece as BustPoseType]);
+				return React.createElement(
+					BustPose[piece as BustPoseType] ||
+						SittingPose[piece as SittingPoseType] ||
+						StandingPose[piece as StandingPoseType]
+				);
 			case 'Hair':
 				return React.createElement(Hair[piece as HairType]);
 			case 'FacialHair':
@@ -196,7 +209,11 @@ export const RightMenu = () => {
 			case 'Accessories':
 				return Object.keys(Accessories);
 			case 'Body':
-				return Object.keys(BustPose);
+				return [
+					...Object.keys(BustPose),
+					...Object.keys(SittingPose),
+					...Object.keys(StandingPose)
+				];
 			case 'Hair':
 				return Object.keys(Hair);
 			case 'FacialHair':
@@ -208,12 +225,12 @@ export const RightMenu = () => {
 		}
 	};
 
-	const adjustSvgViewbox = () => {
+	const adjustSvgViewbox = (piece: string) => {
 		switch (pickedSection) {
 			case 'Accessories':
 				return '-75 -125 500 400';
 			case 'Body':
-				return '0 350 800 800';
+				return distinguishBodyViewbox(piece);
 			case 'Hair':
 				return '0 -100 550 750';
 			case 'FacialHair':
@@ -232,7 +249,9 @@ export const RightMenu = () => {
 					updateAccessory(piece as AccessoryType);
 					break;
 				case 'Body':
-					updateBody(piece as BustPoseType);
+					updateBody(
+						piece as BustPoseType & SittingPoseType & StandingPoseType
+					);
 					break;
 				case 'Hair':
 					updateHair(piece as HairType);
@@ -268,7 +287,7 @@ export const RightMenu = () => {
 						<div>
 							<svg
 								className='pieceListSvg'
-								viewBox={adjustSvgViewbox()}
+								viewBox={adjustSvgViewbox(piece)}
 								width='70'
 								height='70'>
 								{renderPiece(piece)}
@@ -327,4 +346,4 @@ export const RightMenu = () => {
 			</div>
 		</div>
 	);
-};
+});

@@ -8,7 +8,7 @@ import { ColorResult } from 'react-color';
 import { isValidHex } from 'react-color/lib/helpers/color';
 import { GradientType } from 'react-peeps/lib/peeps/types';
 
-export const GradientBuilder = () => {
+export const GradientBuilder = React.memo(() => {
 	const { state, dispatch } = useProvider();
 	const { strokeColor } = state;
 	const [firstColor, setFirstColor] = useState<string | GradientType>(
@@ -122,4 +122,4 @@ export const GradientBuilder = () => {
 			</div>
 		</div>
 	);
-};
+});

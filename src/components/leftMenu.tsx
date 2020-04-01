@@ -48,7 +48,7 @@ const styles = {
 	}
 };
 
-export const LeftMenu = () => {
+export const LeftMenu = React.memo(() => {
 	const { state, dispatch } = useProvider();
 	const {
 		flipDirection,
@@ -251,4 +251,4 @@ export const LeftMenu = () => {
 			</div>
 		</div>
 	);
-};
+});

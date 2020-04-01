@@ -6,6 +6,7 @@ import { RightMenu } from './rightMenu';
 import { useProvider } from '../utils/contextProvider';
 import { ColorPicker } from './colorPicker';
 import { Footer } from './footer';
+import { adjustPeepsViewbox } from '../utils/viewbox';
 
 const styles = {
 	peepStyle: {
@@ -17,7 +18,7 @@ const styles = {
 	}
 };
 
-export const PeepsGenerator: React.FC = () => {
+export const PeepsGenerator: React.FC = React.memo(() => {
 	const { state, dispatch } = useProvider();
 
 	const {
@@ -114,7 +115,7 @@ export const PeepsGenerator: React.FC = () => {
 					hair={pickedHair}
 					facialHair={pickedFacialHair}
 					strokeColor={strokeColor}
-					viewBox={{ x: '-235', y: '-150', width: '1250', height: '1400' }}
+					viewBox={adjustPeepsViewbox(pickedBody)}
 				/>
 
 				<ColorPicker />
@@ -127,4 +128,4 @@ export const PeepsGenerator: React.FC = () => {
 			<Footer />
 		</>
 	);
-};
+});
