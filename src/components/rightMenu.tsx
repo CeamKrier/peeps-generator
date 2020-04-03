@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
 	Accessories,
 	BustPose,
@@ -20,7 +20,7 @@ import { PieceKeyType, SectionValues } from './types';
 import { useProvider } from '../utils/contextProvider';
 import { distinguishBodyViewbox } from '../utils/viewbox';
 
-export const RightMenu = React.memo(() => {
+const RightMenu = () => {
 	const { state, dispatch } = useProvider();
 
 	const {
@@ -53,16 +53,6 @@ export const RightMenu = React.memo(() => {
 		keys.facialHairKeys = Object.keys(FacialHair);
 		keys.accessoryKeys = Object.keys(Accessories);
 		setPieceKeys(keys);
-
-		// removes the ripple animation of circular slider
-		(document.querySelector(
-			'.rotateWrapper > div > div > div > svg > circle'
-		) as HTMLElement)?.remove();
-
-		// removes the stripes from the circular slide knob
-		document
-			.querySelectorAll('.rotateWrapper > div > div > div > svg > rect')
-			.forEach(rect => rect?.remove());
 	}, []);
 
 	const updateHair = (hair: HairType) => {
@@ -107,7 +97,7 @@ export const RightMenu = React.memo(() => {
 		});
 	};
 
-	const randomizePeep = () => {
+	const randomizePeep = useCallback(() => {
 		if (!pieceKeys) {
 			return;
 		}
@@ -140,7 +130,7 @@ export const RightMenu = React.memo(() => {
 				Math.floor(Math.random() * pieceKeys.accessoryKeys.length)
 			] as AccessoryType
 		);
-	};
+	}, [pieceKeys]);
 
 	const handlePieceSectionClick = (section: string) => {
 		return () => {
@@ -199,27 +189,6 @@ export const RightMenu = React.memo(() => {
 				return piece === pickedFacialHair;
 			case 'Face':
 				return piece === pickedFace;
-			default:
-				break;
-		}
-	};
-
-	const pickedSectionObject = () => {
-		switch (pickedSection) {
-			case 'Accessories':
-				return Object.keys(Accessories);
-			case 'Body':
-				return [
-					...Object.keys(BustPose),
-					...Object.keys(SittingPose),
-					...Object.keys(StandingPose)
-				];
-			case 'Hair':
-				return Object.keys(Hair);
-			case 'FacialHair':
-				return Object.keys(FacialHair);
-			case 'Face':
-				return Object.keys(Face);
 			default:
 				break;
 		}
@@ -300,23 +269,44 @@ export const RightMenu = React.memo(() => {
 		});
 	};
 
-	const handleSaveSvgButtonClick = () => {
+	const handleSaveSvgButtonClick = useCallback(() => {
 		saveSvg(
 			document.querySelector('.svgWrapper > svg') as HTMLElement,
 			'peep.svg'
 		);
-	};
+	}, []);
 
-	const handleSavePngButtonClick = () => {
+	const handleSavePngButtonClick = useCallback(() => {
 		savePng(
 			document.querySelector('.svgWrapper > svg') as HTMLElement,
 			'peep.png',
 			scaleVector
 		);
+	}, []);
+
+	const pickedSectionObject = () => {
+		switch (pickedSection) {
+			case 'Accessories':
+				return Object.keys(Accessories);
+			case 'Body':
+				return [
+					...Object.keys(BustPose),
+					...Object.keys(SittingPose),
+					...Object.keys(StandingPose)
+				];
+			case 'Hair':
+				return Object.keys(Hair);
+			case 'FacialHair':
+				return Object.keys(FacialHair);
+			case 'Face':
+				return Object.keys(Face);
+			default:
+				break;
+		}
 	};
 
-	return (
-		<div className='rigthMenu'>
+	const renderSelectedPieceSet = useMemo(() => {
+		return (
 			<div className='listWrapper'>
 				<ul className={`pieceList ${pickedSection}`}>
 					{renderPieceList(pickedSectionObject() as string[])}
@@ -331,11 +321,11 @@ export const RightMenu = React.memo(() => {
 					])}
 				</ul>
 			</div>
+		);
+	}, [pickedSection]);
 
-			<div className='shuffleButton' onClick={randomizePeep}>
-				<span style={{ textAlign: 'center' }}>Shuffle</span>
-			</div>
-
+	const renderSaveButtons = useMemo(() => {
+		return (
 			<div className='saveButtonWrapper'>
 				<div className='saveButton' onClick={handleSaveSvgButtonClick}>
 					Save as SVG
@@ -344,6 +334,28 @@ export const RightMenu = React.memo(() => {
 					Save as PNG
 				</div>
 			</div>
-		</div>
-	);
-});
+		);
+	}, [handleSaveSvgButtonClick, handleSavePngButtonClick]);
+
+	const rendererRandomizerButton = useMemo(() => {
+		return (
+			<div className='shuffleButton' onClick={randomizePeep}>
+				<span style={{ textAlign: 'center' }}>Shuffle</span>
+			</div>
+		);
+	}, [randomizePeep]);
+
+	return useMemo(() => {
+		return (
+			<div className='rigthMenu'>
+				{renderSelectedPieceSet}
+
+				{rendererRandomizerButton}
+
+				{renderSaveButtons}
+			</div>
+		);
+	}, [pickedSection, randomizePeep]);
+};
+
+export default RightMenu;

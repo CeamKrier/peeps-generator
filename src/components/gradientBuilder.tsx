@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useProvider } from '../utils/contextProvider';
 import { EditableInput } from 'react-color/lib/components/common';
 // @ts-ignore
@@ -8,7 +8,7 @@ import { ColorResult } from 'react-color';
 import { isValidHex } from 'react-color/lib/helpers/color';
 import { GradientType } from 'react-peeps/lib/peeps/types';
 
-export const GradientBuilder = React.memo(() => {
+export const GradientBuilder = () => {
 	const { state, dispatch } = useProvider();
 	const { strokeColor } = state;
 	const [firstColor, setFirstColor] = useState<string | GradientType>(
@@ -30,7 +30,7 @@ export const GradientBuilder = React.memo(() => {
 				secondColor
 			}
 		});
-	}, [firstColor, secondColor, gradientDegree]);
+	}, [firstColor, secondColor, gradientDegree, dispatch]);
 
 	const handleColorChange = (caller: string) => {
 		return (color: ColorResult) => {
@@ -45,16 +45,16 @@ export const GradientBuilder = React.memo(() => {
 		};
 	};
 
-	const handleMouseWheel = ({ nativeEvent }: React.WheelEvent) => {
+	const handleMouseWheel = useCallback(({ nativeEvent }: React.WheelEvent) => {
 		if (nativeEvent?.deltaY < 0) {
 			setGradientDegree(degree => (degree + 10 > 360 ? 10 : degree + 10));
 		} else {
 			setGradientDegree(degree => (degree - 10 < 0 ? 350 : degree - 10));
 		}
-	};
+	}, []);
 
-	return (
-		<div className='gradientBlock'>
+	const renderGradientPreviewer = useMemo(() => {
+		return (
 			<div
 				className='gradientPreview'
 				style={{
@@ -82,6 +82,11 @@ export const GradientBuilder = React.memo(() => {
 					dataIndex={gradientDegree}
 				/>
 			</div>
+		);
+	}, [gradientDegree, firstColor, secondColor, handleMouseWheel]);
+
+	const renderColorHexInputs = useMemo(() => {
+		return (
 			<div className='gradientInputWrapper'>
 				<EditableInput
 					value={firstColor}
@@ -120,6 +125,15 @@ export const GradientBuilder = React.memo(() => {
 					}}
 				/>
 			</div>
-		</div>
-	);
-});
+		);
+	}, [firstColor, secondColor]);
+
+	return useMemo(() => {
+		return (
+			<div className='gradientBlock'>
+				{renderGradientPreviewer}
+				{renderColorHexInputs}
+			</div>
+		);
+	}, [gradientDegree, firstColor, secondColor, gradientDegree]);
+};

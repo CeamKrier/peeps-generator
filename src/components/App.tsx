@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Peep from 'react-peeps';
-import { LeftMenu } from './leftMenu';
-import { RightMenu } from './rightMenu';
-
 import { useProvider } from '../utils/contextProvider';
-import { ColorPicker } from './colorPicker';
 import { Footer } from './footer';
 import { adjustPeepsViewbox } from '../utils/viewbox';
+
+const LeftMenu = React.lazy(() => import('./leftMenu'));
+const RightMenu = React.lazy(() => import('./rightMenu'));
+const ColorPicker = React.lazy(() => import('./colorPicker'));
 
 const styles = {
 	peepStyle: {
@@ -18,7 +18,7 @@ const styles = {
 	}
 };
 
-export const PeepsGenerator: React.FC = React.memo(() => {
+export const PeepsGenerator: React.FC = () => {
 	const { state, dispatch } = useProvider();
 
 	const {
@@ -117,15 +117,22 @@ export const PeepsGenerator: React.FC = React.memo(() => {
 					strokeColor={strokeColor}
 					viewBox={adjustPeepsViewbox(pickedBody)}
 				/>
-
-				<ColorPicker />
+				<Suspense fallback>
+					<ColorPicker />
+				</Suspense>
 			</div>
 
-			<LeftMenu />
+			<Suspense fallback>
+				<LeftMenu />
+			</Suspense>
 
-			<RightMenu />
+			<Suspense fallback>
+				<RightMenu />
+			</Suspense>
 
-			<Footer />
+			<Suspense fallback>
+				<Footer />
+			</Suspense>
 		</>
 	);
-});
+};

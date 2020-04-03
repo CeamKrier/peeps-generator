@@ -61,6 +61,7 @@
 		"@types/react": "^16.9.25",
 		"@types/react-color": "^3.0.1",
 		"@types/react-dom": "^16.9.5",
+		"@welldone-software/why-did-you-render": "^4.0.6",
 		"rimraf": "^3.0.2"
 	}
 }

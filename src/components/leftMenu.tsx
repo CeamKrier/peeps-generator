@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 // @ts-ignore
 import CircularSlider from '@fseehawer/react-circular-slider';
 // @ts-ignore
@@ -48,7 +48,7 @@ const styles = {
 	}
 };
 
-export const LeftMenu = React.memo(() => {
+const LeftMenu = () => {
 	const { state, dispatch } = useProvider();
 	const {
 		flipDirection,
@@ -60,6 +60,18 @@ export const LeftMenu = React.memo(() => {
 		wheelDirection
 	} = state;
 	const [leftMenuVisibility, setLeftMenuVisibility] = useState<boolean>(true);
+
+	useEffect(() => {
+		// removes the ripple animation of circular slider
+		(document.querySelector(
+			'.rotateWrapper > div > div > div > svg > circle'
+		) as HTMLElement)?.remove();
+
+		// removes the stripes from the circular slide knob
+		document
+			.querySelectorAll('.rotateWrapper > div > div > div > svg > rect')
+			.forEach(rect => rect?.remove());
+	}, []);
 
 	const updateRotationDegree = (wheelEvent?: WheelEvent) => {
 		let degree = rotationDegree;
@@ -175,80 +187,102 @@ export const LeftMenu = React.memo(() => {
 		setLeftMenuVisibility(!leftMenuVisibility);
 	};
 
-	return (
-		<div className={`leftMenu ${leftMenuVisibility ? '' : 'drawerClosed'}`}>
-			<div className='leftMenuContentWrapper'>
-				<div
-					className='scaleWrapper'
-					onWheel={({ nativeEvent }) => {
-						updateScaleVector(nativeEvent);
-					}}>
-					<span className='scaleTitle'>Scale</span>
-					<Slider
-						value={scaleVector}
-						min={0.5}
-						max={1.5}
-						defaultValue={1}
-						onChange={handleScaleChange}
-						marks={{ 0.5: 0.5, 0.75: 0.75, 1.0: 1.0, 1.25: 1.25, 1.5: 1.5 }}
-						step={null}
-						railStyle={styles.railStyle}
-						trackStyle={styles.trackStyle}
-						dotStyle={styles.dotStyle}
-						activeDotStyle={styles.activeDotStyle}
+	const renderScaleMeter = useMemo(() => {
+		return (
+			<div
+				className='scaleWrapper'
+				onWheel={({ nativeEvent }) => {
+					updateScaleVector(nativeEvent);
+				}}>
+				<span className='scaleTitle'>Scale</span>
+				<Slider
+					value={scaleVector}
+					min={0.5}
+					max={1.5}
+					defaultValue={1}
+					onChange={handleScaleChange}
+					marks={{ 0.5: 0.5, 0.75: 0.75, 1.0: 1.0, 1.25: 1.25, 1.5: 1.5 }}
+					step={null}
+					railStyle={styles.railStyle}
+					trackStyle={styles.trackStyle}
+					dotStyle={styles.dotStyle}
+					activeDotStyle={styles.activeDotStyle}
+				/>
+				<div className='scaleShortcutWrapper'>
+					<span>or</span>
+					<span className='boldText'>press s</span>
+					<span>+</span>
+					<span className='boldText'>scroll on illustration</span>
+				</div>
+			</div>
+		);
+	}, [scaleVector]);
+
+	const renderRotateMeter = useMemo(() => {
+		return (
+			<div className='rotateWrapper' onWheel={handleScaleMouseWheel}>
+				<span className='rotateTitle'>Rotate</span>
+				<div className='rotateRow'>
+					<CircularSlider
+						width={100}
+						min={0}
+						max={360}
+						direction={-1}
+						knobPosition='right'
+						knobColor='#000000'
+						trackColor='#f1f3f4'
+						progressColorFrom='#FDE7AB'
+						progressColorTo='#FCCE5A'
+						appendToValue='°'
+						valueFontSize='15px'
+						onChange={handleRotateDegreeChange}
+						label='Degree'
+						dataIndex={rotationDegree}
 					/>
-					<div className='scaleShortcutWrapper'>
-						<span>or</span>
-						<span className='boldText'>press s</span>
-						<span>+</span>
-						<span className='boldText'>scroll on illustration</span>
-					</div>
-				</div>
-
-				<div className='rotateWrapper' onWheel={handleScaleMouseWheel}>
-					<span className='rotateTitle'>Rotate</span>
-					<div className='rotateRow'>
-						<CircularSlider
-							width={100}
-							min={0}
-							max={360}
-							direction={-1}
-							knobPosition='right'
-							knobColor='#000000'
-							trackColor='#f1f3f4'
-							progressColorFrom='#FDE7AB'
-							progressColorTo='#FCCE5A'
-							appendToValue='°'
-							valueFontSize='15px'
-							onChange={handleRotateDegreeChange}
-							label='Degree'
-							dataIndex={rotationDegree}
-						/>
-						<span>or</span>
-						<div className='rotateShortcutWrapper'>
-							<span className='boldText'>press r</span>
-							<span>+</span>
-							<span className='boldText'>scroll on</span>
-							<span className='boldText'>illustration</span>
-						</div>
-					</div>
-				</div>
-
-				<div className='flipWrapper'>
-					<div className='flipButton' onClick={handleFlipButtonClick}>
-						<span style={{ textAlign: 'center' }}>Flip</span>
-					</div>
 					<span>or</span>
 					<div className='rotateShortcutWrapper'>
-						<span className='boldText'>press f</span>
+						<span className='boldText'>press r</span>
 						<span>+</span>
-						<span className='boldText'>scroll on illustration</span>
+						<span className='boldText'>scroll on</span>
+						<span className='boldText'>illustration</span>
 					</div>
 				</div>
 			</div>
-			<div className='leftMenuDrawerButton' onClick={handleDrawerButtonClick}>
-				{leftMenuVisibility ? 'Close' : 'Open'}
+		);
+	}, [rotationDegree]);
+
+	const renderFlipper = useMemo(() => {
+		return (
+			<div className='flipWrapper'>
+				<div className='flipButton' onClick={handleFlipButtonClick}>
+					<span style={{ textAlign: 'center' }}>Flip</span>
+				</div>
+				<span>or</span>
+				<div className='rotateShortcutWrapper'>
+					<span className='boldText'>press f</span>
+					<span>+</span>
+					<span className='boldText'>scroll on illustration</span>
+				</div>
 			</div>
-		</div>
-	);
-});
+		);
+	}, [flipDirection]);
+
+	return useMemo(() => {
+		return (
+			<div className={`leftMenu ${leftMenuVisibility ? '' : 'drawerClosed'}`}>
+				<div className='leftMenuContentWrapper'>
+					{renderScaleMeter}
+
+					{renderRotateMeter}
+
+					{renderFlipper}
+				</div>
+				<div className='leftMenuDrawerButton' onClick={handleDrawerButtonClick}>
+					{leftMenuVisibility ? 'Close' : 'Open'}
+				</div>
+			</div>
+		);
+	}, [leftMenuVisibility, scaleVector, rotationDegree, flipDirection]);
+};
+
+export default LeftMenu;

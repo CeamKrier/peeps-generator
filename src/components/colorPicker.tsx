@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ColorResult, BlockPicker } from 'react-color';
 import { GradientBuilder } from './gradientBuilder';
 import { useProvider } from '../utils/contextProvider';
 
 type ColoringType = 'basic' | 'gradient';
 
-export const ColorPicker = () => {
+const ColorPicker = () => {
 	const { state, dispatch } = useProvider();
 	const { strokeColor } = state;
 	const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
@@ -56,53 +56,66 @@ export const ColorPicker = () => {
 			setColorType(type);
 		};
 	};
-	return (
-		<div className='colorIndicator'>
-			<div
-				className='colorSwatch'
-				style={{
-					boxShadow: `0 0 0 2px ${adjustStrokeColor()}`
-				}}
-				onClick={handlePickerVisibiltyChange()}>
-				<div
-					className='pickedColor'
-					style={{
-						background: adjustStrokeColor()
-					}}
+
+	const renderBasicPalette = useMemo(() => {
+		return (
+			<div className='basicPicker'>
+				<BlockPicker
+					triangle='hide'
+					color={adjustStrokeColor()}
+					onChange={handleColorChange}
+					colors={initialColors}
 				/>
-			</div>
-			{displayColorPicker ? (
-				<div className='colorPopover'>
-					<div
-						className='colorCover'
-						onClick={handlePickerVisibiltyChange(false)}
-					/>
-					{colorType === 'basic' ? (
-						<div className='basicPicker'>
-							<BlockPicker
-								triangle='hide'
-								color={adjustStrokeColor()}
-								onChange={handleColorChange}
-								colors={initialColors}
-							/>
-							<div
-								className='colorTypeChangeButton gradientColorButton'
-								onClick={handleColorTypeChange('gradient')}>
-								G
-							</div>
-						</div>
-					) : (
-						<div className='gradientPicker'>
-							<GradientBuilder />
-							<div
-								className='colorTypeChangeButton basicColorButton'
-								onClick={handleColorTypeChange('basic')}>
-								B
-							</div>
-						</div>
-					)}
+				<div
+					className='colorTypeChangeButton gradientColorButton'
+					onClick={handleColorTypeChange('gradient')}>
+					G
 				</div>
-			) : null}
-		</div>
-	);
+			</div>
+		);
+	}, [initialColors]);
+
+	const renderGradientPalette = useMemo(() => {
+		return (
+			<div className='gradientPicker'>
+				<GradientBuilder />
+				<div
+					className='colorTypeChangeButton basicColorButton'
+					onClick={handleColorTypeChange('basic')}>
+					B
+				</div>
+			</div>
+		);
+	}, []);
+
+	return useMemo(() => {
+		return (
+			<div className='colorIndicator'>
+				<div
+					className='colorSwatch'
+					style={{
+						boxShadow: `0 0 0 2px ${adjustStrokeColor()}`
+					}}
+					onClick={handlePickerVisibiltyChange()}>
+					<div
+						className='pickedColor'
+						style={{
+							background: adjustStrokeColor()
+						}}
+					/>
+				</div>
+				{displayColorPicker ? (
+					<div className='colorPopover'>
+						<div
+							className='colorCover'
+							onClick={handlePickerVisibiltyChange(false)}
+						/>
+						{colorType === 'basic' ? renderBasicPalette : renderGradientPalette}
+					</div>
+				) : null}
+			</div>
+		);
+	}, [displayColorPicker, initialColors, colorType]);
 };
+
+export default ColorPicker;
