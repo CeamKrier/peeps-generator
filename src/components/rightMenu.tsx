@@ -13,7 +13,7 @@ import {
 	SittingPoseType,
 	StandingPose,
 	StandingPoseType,
-	SittingPose
+	SittingPose,
 } from 'react-peeps';
 import { saveSvg, savePng } from '../utils/save';
 import { PieceKeyType, SectionValues } from './types';
@@ -30,7 +30,7 @@ const RightMenu = () => {
 		pickedFacialHair,
 		pickedHair,
 		pickedSection,
-		scaleVector
+		scaleVector,
 	} = state;
 
 	const [pieceKeys, setPieceKeys] = useState<PieceKeyType>();
@@ -41,13 +41,13 @@ const RightMenu = () => {
 			bodyKeys: [''],
 			faceKeys: [''],
 			facialHairKeys: [''],
-			accessoryKeys: ['']
+			accessoryKeys: [''],
 		};
 		keys.hairKeys = Object.keys(Hair);
 		keys.bodyKeys = [
 			...Object.keys(BustPose),
 			...Object.keys(SittingPose),
-			...Object.keys(StandingPose)
+			...Object.keys(StandingPose),
 		];
 		keys.faceKeys = Object.keys(Face);
 		keys.facialHairKeys = Object.keys(FacialHair);
@@ -58,42 +58,42 @@ const RightMenu = () => {
 	const updateHair = (hair: HairType) => {
 		dispatch({
 			type: 'SET_HAIR',
-			payload: hair
+			payload: hair,
 		});
 	};
 
 	const updateBody = (body: BustPoseType) => {
 		dispatch({
 			type: 'SET_BODY',
-			payload: body
+			payload: body,
 		});
 	};
 
 	const updateFace = (face: FaceType) => {
 		dispatch({
 			type: 'SET_FACE',
-			payload: face
+			payload: face,
 		});
 	};
 
 	const updateFacialHair = (facialHair: FacialHairType) => {
 		dispatch({
 			type: 'SET_FACIAL_HAIR',
-			payload: facialHair
+			payload: facialHair,
 		});
 	};
 
 	const updateAccessory = (accessory: AccessoryType) => {
 		dispatch({
 			type: 'SET_ACCESSORY',
-			payload: accessory
+			payload: accessory,
 		});
 	};
 
 	const updateSection = (section: SectionValues) => {
 		dispatch({
 			type: 'SET_PIECE_SECTION',
-			payload: section
+			payload: section,
 		});
 	};
 
@@ -292,7 +292,7 @@ const RightMenu = () => {
 				return [
 					...Object.keys(BustPose),
 					...Object.keys(SittingPose),
-					...Object.keys(StandingPose)
+					...Object.keys(StandingPose),
 				];
 			case 'Hair':
 				return Object.keys(Hair);
@@ -317,12 +317,12 @@ const RightMenu = () => {
 						'Body',
 						'Face',
 						'FacialHair',
-						'Hair'
+						'Hair',
 					])}
 				</ul>
 			</div>
 		);
-	}, [pickedSection]);
+	}, [pickedSection, renderPieceList]);
 
 	const renderSaveButtons = useMemo(() => {
 		return (
@@ -355,7 +355,15 @@ const RightMenu = () => {
 				{renderSaveButtons}
 			</div>
 		);
-	}, [pickedSection, randomizePeep]);
+	}, [
+		pickedSection,
+		randomizePeep,
+		pickedAccessory,
+		pickedBody,
+		pickedFace,
+		pickedFacialHair,
+		pickedHair,
+	]);
 };
 
 export default RightMenu;
