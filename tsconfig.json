@@ -24,7 +24,6 @@
     "isolatedModules": true
   },
   "include": [
-    "src",
-    "server/server.js"
+    "src"
   ]
 }
