@@ -11,7 +11,9 @@
 		"react-peeps",
 		"illustration",
 		"generate",
-		"build"
+		"build",
+		"builder",
+		"generator"
 	],
 	"author": "Emre Çakır",
 	"license": "MIT",
@@ -66,7 +68,6 @@
 		"@types/react-dom": "^16.9.5",
 		"@welldone-software/why-did-you-render": "^4.0.6",
 		"ignore-styles": "^5.0.1",
-		"prop-types": "^15.7.2",
 		"rimraf": "^3.0.2"
 	}
 }
