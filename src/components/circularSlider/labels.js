@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const Labels = ({
 	labelColor,
@@ -71,19 +70,6 @@ const Labels = ({
 			{labelBottom && <div style={{ fontSize: labelFontSize }}>{label}</div>}
 		</div>
 	);
-};
-
-Labels.propTypes = {
-	label: PropTypes.string.isRequired,
-	value: PropTypes.string.isRequired,
-	labelColor: PropTypes.string,
-	labelBottom: PropTypes.bool,
-	labelFontSize: PropTypes.string,
-	valueFontSize: PropTypes.string,
-	appendToValue: PropTypes.string,
-	prependToValue: PropTypes.string,
-	verticalOffset: PropTypes.string,
-	hideLabelValue: PropTypes.bool,
 };
 
 export default Labels;

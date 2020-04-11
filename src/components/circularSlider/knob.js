@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 
 const Knob = ({
 	isDragging,
@@ -80,17 +79,6 @@ const Knob = ({
 			</svg>
 		</div>
 	);
-};
-
-Knob.propTypes = {
-	isDragging: PropTypes.bool,
-	knobPosition: PropTypes.object,
-	knobColor: PropTypes.string,
-	knobRadius: PropTypes.number,
-	knobSize: PropTypes.number,
-	trackSize: PropTypes.number,
-	children: PropTypes.element,
-	onMouseDown: PropTypes.func,
 };
 
 export default Knob;
