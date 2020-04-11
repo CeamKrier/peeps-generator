@@ -19,7 +19,6 @@
 		"url": "https://github.com/CeamKrier/peeps-generator/issues"
 	},
 	"dependencies": {
-		"@fseehawer/react-circular-slider": "^2.2.1",
 		"compression": "^1.7.4",
 		"express": "^4.17.1",
 		"file-saver": "^2.0.2",
@@ -67,6 +66,7 @@
 		"@types/react-dom": "^16.9.5",
 		"@welldone-software/why-did-you-render": "^4.0.6",
 		"ignore-styles": "^5.0.1",
+		"prop-types": "^15.7.2",
 		"rimraf": "^3.0.2"
 	}
 }

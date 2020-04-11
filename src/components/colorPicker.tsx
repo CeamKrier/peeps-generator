@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ColorResult, BlockPicker } from 'react-color';
 import { GradientBuilder } from './gradientBuilder';
 import { useProvider } from '../utils/contextProvider';

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useProvider } from '../utils/contextProvider';
 import { EditableInput } from 'react-color/lib/components/common';
 // @ts-ignore
-import CircularSlider from '@fseehawer/react-circular-slider';
+import CircularSlider from './circularSlider';
 import { ColorResult } from 'react-color';
 //@ts-ignore
 import { isValidHex } from 'react-color/lib/helpers/color';
@@ -27,8 +27,8 @@ export const GradientBuilder = () => {
 			payload: {
 				degree: gradientDegree,
 				firstColor,
-				secondColor
-			}
+				secondColor,
+			},
 		});
 	}, [firstColor, secondColor, gradientDegree, dispatch]);
 
@@ -47,9 +47,9 @@ export const GradientBuilder = () => {
 
 	const handleMouseWheel = useCallback(({ nativeEvent }: React.WheelEvent) => {
 		if (nativeEvent?.deltaY < 0) {
-			setGradientDegree(degree => (degree + 10 > 360 ? 10 : degree + 10));
+			setGradientDegree((degree) => (degree + 10 > 360 ? 10 : degree + 10));
 		} else {
-			setGradientDegree(degree => (degree - 10 < 0 ? 350 : degree - 10));
+			setGradientDegree((degree) => (degree - 10 < 0 ? 350 : degree - 10));
 		}
 	}, []);
 
@@ -58,29 +58,32 @@ export const GradientBuilder = () => {
 			<div
 				className='gradientPreview'
 				style={{
-					background: `linear-gradient(${gradientDegree}deg, ${firstColor}, ${secondColor})`
+					background: `linear-gradient(${gradientDegree}deg, ${firstColor}, ${secondColor})`,
 				}}
 				onWheel={handleMouseWheel}>
-				<CircularSlider
-					width={130}
-					min={0}
-					max={360}
-					direction={-1}
-					knobPosition='right'
-					progressColorFrom='#FFFFFF'
-					progressColorTo='#FFFFFF'
-					knobColor='#FFFFFF'
-					trackColor='#FFFFFF'
-					appendToValue='°'
-					valueFontSize='15px'
-					trackSize={4}
-					progressSize={4}
-					onChange={(value: number) => {
-						setGradientDegree(value);
-					}}
-					label=''
-					dataIndex={gradientDegree}
-				/>
+				{
+					//@ts-ignore
+					<CircularSlider
+						width={130}
+						min={0}
+						max={360}
+						direction={-1}
+						knobPosition='right'
+						progressColorFrom='#FFFFFF'
+						progressColorTo='#FFFFFF'
+						knobColor='#FFFFFF'
+						trackColor='#FFFFFF'
+						appendToValue='°'
+						valueFontSize='15px'
+						trackSize={4}
+						progressSize={4}
+						onChange={(value: number) => {
+							setGradientDegree(value);
+						}}
+						label=''
+						dataIndex={gradientDegree}
+					/>
+				}
 			</div>
 		);
 	}, [gradientDegree, firstColor, secondColor, handleMouseWheel]);
@@ -102,8 +105,8 @@ export const GradientBuilder = () => {
 							boxShadow: 'inset 0 0 0 1px #ddd',
 							borderRadius: '4px',
 							padding: '0 7px',
-							boxSizing: 'border-box'
-						}
+							boxSizing: 'border-box',
+						},
 					}}
 				/>
 				<EditableInput
@@ -120,8 +123,8 @@ export const GradientBuilder = () => {
 							boxShadow: 'inset 0 0 0 1px #ddd',
 							borderRadius: '4px',
 							padding: '0 7px',
-							boxSizing: 'border-box'
-						}
+							boxSizing: 'border-box',
+						},
 					}}
 				/>
 			</div>

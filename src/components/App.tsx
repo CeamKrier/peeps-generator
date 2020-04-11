@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Peep from 'react-peeps';
 import { useProvider } from '../utils/contextProvider';
 import LeftMenu from './leftMenu';

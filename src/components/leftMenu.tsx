@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 // @ts-ignore
-import CircularSlider from '@fseehawer/react-circular-slider';
+import CircularSlider from './circularSlider';
 // @ts-ignore
 import Slider from 'rc-slider';
 import { useProvider } from '../utils/contextProvider';
@@ -11,14 +11,14 @@ const styles = {
 		width: '100%',
 		backgroundColor: '#f1f3f4',
 		height: '8px',
-		borderRadius: '6px'
+		borderRadius: '6px',
 	},
 	trackStyle: {
 		position: 'absolute',
 		left: 0,
 		height: '8px',
 		borderRadius: '6px',
-		backgroundColor: '#FCCE5A'
+		backgroundColor: '#FCCE5A',
 	},
 	dotStyle: {
 		position: 'absolute',
@@ -30,7 +30,7 @@ const styles = {
 		backgroundColor: '#fff',
 		cursor: 'pointer',
 		borderRadius: '50%',
-		verticalAlign: 'middle'
+		verticalAlign: 'middle',
 	},
 	activeDotStyle: {
 		position: 'absolute',
@@ -44,8 +44,8 @@ const styles = {
 		touchAction: 'pan-x',
 		bottom: '-8px',
 		marginLeft: '-9px',
-		zIndex: 2
-	}
+		zIndex: 2,
+	},
 };
 
 const LeftMenu = () => {
@@ -57,7 +57,7 @@ const LeftMenu = () => {
 		scaleVector,
 		svgTransform,
 		wheelActive,
-		wheelDirection
+		wheelDirection,
 	} = state;
 	const [leftMenuVisibility, setLeftMenuVisibility] = useState<boolean>(true);
 
@@ -70,7 +70,7 @@ const LeftMenu = () => {
 		// removes the stripes from the circular slide knob
 		document
 			.querySelectorAll('.rotateWrapper > div > div > div > svg > rect')
-			.forEach(rect => rect?.remove());
+			.forEach((rect) => rect?.remove());
 	}, []);
 
 	const updateRotationDegree = (wheelEvent?: WheelEvent) => {
@@ -83,7 +83,7 @@ const LeftMenu = () => {
 		}
 		dispatch({
 			type: 'SET_ROTATION_DEGREE',
-			payload: degree
+			payload: degree,
 		});
 	};
 
@@ -92,13 +92,13 @@ const LeftMenu = () => {
 			flipDirection === 1 &&
 				dispatch({
 					type: 'SET_FLIP_DIRECTION',
-					payload: -1
+					payload: -1,
 				});
 		} else {
 			flipDirection === -1 &&
 				dispatch({
 					type: 'SET_FLIP_DIRECTION',
-					payload: 1
+					payload: 1,
 				});
 		}
 	};
@@ -113,7 +113,7 @@ const LeftMenu = () => {
 		}
 		dispatch({
 			type: 'SET_SCALE_VECTOR',
-			payload: vector
+			payload: vector,
 		});
 	};
 
@@ -122,8 +122,8 @@ const LeftMenu = () => {
 			type: 'SET_SVG_TRANSFORM',
 			payload: {
 				...svgTransform,
-				rotate: `rotate(${rotationDegree}deg)`
-			}
+				rotate: `rotate(${rotationDegree}deg)`,
+			},
 		});
 	}, [rotationDegree]);
 
@@ -132,8 +132,8 @@ const LeftMenu = () => {
 			type: 'SET_SVG_TRANSFORM',
 			payload: {
 				...svgTransform,
-				flip: `scale(${flipDirection}, 1)`
-			}
+				flip: `scale(${flipDirection}, 1)`,
+			},
 		});
 	}, [flipDirection]);
 
@@ -161,7 +161,7 @@ const LeftMenu = () => {
 	const handleScaleChange = (vector: number) => {
 		dispatch({
 			type: 'SET_SCALE_VECTOR',
-			payload: vector
+			payload: vector,
 		});
 	};
 
@@ -172,14 +172,14 @@ const LeftMenu = () => {
 	const handleRotateDegreeChange = (degree: number) => {
 		dispatch({
 			type: 'SET_ROTATION_DEGREE',
-			payload: degree
+			payload: degree,
 		});
 	};
 
 	const handleFlipButtonClick = () => {
 		dispatch({
 			type: 'SET_FLIP_DIRECTION',
-			payload: -flipDirection
+			payload: -flipDirection,
 		});
 	};
 
@@ -223,22 +223,25 @@ const LeftMenu = () => {
 			<div className='rotateWrapper' onWheel={handleScaleMouseWheel}>
 				<span className='rotateTitle'>Rotate</span>
 				<div className='rotateRow'>
-					<CircularSlider
-						width={100}
-						min={0}
-						max={360}
-						direction={-1}
-						knobPosition='right'
-						knobColor='#000000'
-						trackColor='#f1f3f4'
-						progressColorFrom='#FDE7AB'
-						progressColorTo='#FCCE5A'
-						appendToValue='°'
-						valueFontSize='15px'
-						onChange={handleRotateDegreeChange}
-						label='Degree'
-						dataIndex={rotationDegree}
-					/>
+					{
+						//@ts-ignore
+						<CircularSlider
+							width={100}
+							min={0}
+							max={360}
+							direction={-1}
+							knobPosition='right'
+							knobColor='#000000'
+							trackColor='#f1f3f4'
+							progressColorFrom='#FDE7AB'
+							progressColorTo='#FCCE5A'
+							appendToValue='°'
+							valueFontSize='15px'
+							onChange={handleRotateDegreeChange}
+							label='Degree'
+							dataIndex={rotationDegree}
+						/>
+					}
 					<span>or</span>
 					<div className='rotateShortcutWrapper'>
 						<span className='boldText'>press r</span>
