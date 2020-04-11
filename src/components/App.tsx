@@ -1,12 +1,11 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import Peep from 'react-peeps';
 import { useProvider } from '../utils/contextProvider';
+import LeftMenu from './leftMenu';
+import RightMenu from './rightMenu';
+import ColorPicker from './colorPicker';
 import { Footer } from './footer';
 import { adjustPeepsViewbox } from '../utils/viewbox';
-
-const LeftMenu = React.lazy(() => import('./leftMenu'));
-const RightMenu = React.lazy(() => import('./rightMenu'));
-const ColorPicker = React.lazy(() => import('./colorPicker'));
 
 const styles = {
 	peepStyle: {
@@ -14,8 +13,8 @@ const styles = {
 		height: 390,
 		justifyContent: 'center',
 		alignSelf: 'center',
-		transform: 'unset'
-	}
+		transform: 'unset',
+	},
 };
 
 export const PeepsGenerator: React.FC = () => {
@@ -27,7 +26,7 @@ export const PeepsGenerator: React.FC = () => {
 		pickedFace,
 		pickedFacialHair,
 		pickedHair,
-		strokeColor
+		strokeColor,
 	} = state;
 
 	const handleMouseEnter = () => {
@@ -38,11 +37,11 @@ export const PeepsGenerator: React.FC = () => {
 		(document.getElementsByClassName('header')[0] as HTMLElement).focus();
 		dispatch({
 			type: 'SET_WHEEL_DIRECTION',
-			payload: undefined
+			payload: undefined,
 		});
 		dispatch({
 			type: 'SET_PRESSED_KEY',
-			payload: undefined
+			payload: undefined,
 		});
 	};
 
@@ -52,37 +51,37 @@ export const PeepsGenerator: React.FC = () => {
 		}
 		dispatch({
 			type: 'SET_PRESSED_KEY',
-			payload: nativeEvent.key
+			payload: nativeEvent.key,
 		});
 	};
 
 	const handleKeyUp = () => {
 		dispatch({
 			type: 'SET_PRESSED_KEY',
-			payload: undefined
+			payload: undefined,
 		});
 	};
 
 	const handleMouseWheel = ({ nativeEvent }: React.WheelEvent) => {
 		dispatch({
 			type: 'SET_IS_WHEEL_ACTIVE',
-			payload: true
+			payload: true,
 		});
 		if (nativeEvent.deltaY > 0) {
 			dispatch({
 				type: 'SET_WHEEL_DIRECTION',
-				payload: 'down'
+				payload: 'down',
 			});
 		} else {
 			dispatch({
 				type: 'SET_WHEEL_DIRECTION',
-				payload: 'up'
+				payload: 'up',
 			});
 		}
 		setTimeout(() => {
 			dispatch({
 				type: 'SET_IS_WHEEL_ACTIVE',
-				payload: false
+				payload: false,
 			});
 		}, 0);
 	};
@@ -106,8 +105,9 @@ export const PeepsGenerator: React.FC = () => {
 						...styles.peepStyle,
 						width: styles.peepStyle.width * state.scaleVector,
 						height: styles.peepStyle.height * state.scaleVector,
-						transform: `${state.svgTransform?.rotate || ''} ${state.svgTransform
-							?.flip || ''}`
+						transform: `${state.svgTransform?.rotate || ''} ${
+							state.svgTransform?.flip || ''
+						}`,
 					}}
 					accessory={pickedAccessory}
 					body={pickedBody}
@@ -117,22 +117,15 @@ export const PeepsGenerator: React.FC = () => {
 					strokeColor={strokeColor}
 					viewBox={adjustPeepsViewbox(pickedBody)}
 				/>
-				<Suspense fallback>
-					<ColorPicker />
-				</Suspense>
+
+				<ColorPicker />
 			</div>
 
-			<Suspense fallback>
-				<LeftMenu />
-			</Suspense>
+			<LeftMenu />
 
-			<Suspense fallback>
-				<RightMenu />
-			</Suspense>
+			<RightMenu />
 
-			<Suspense fallback>
-				<Footer />
-			</Suspense>
+			<Footer />
 		</>
 	);
 };

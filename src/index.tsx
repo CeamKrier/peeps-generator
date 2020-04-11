@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import 'rc-slider/assets/index.css';
 import './styles/index.css';
 
-ReactDOM.render(
+ReactDOM.hydrate(
 	<Provider>
 		<PeepsGenerator />
 	</Provider>,
