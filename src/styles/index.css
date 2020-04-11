@@ -159,6 +159,13 @@ div.selectionIndicator {
 	display: flex;
 }
 
+.flipButton:active,
+.shuffleButton:active,
+.saveButton:active,
+.leftMenuDrawerButton:active {
+	background-color: #fac641;
+}
+
 .boldText {
 	font-weight: bold;
 }
