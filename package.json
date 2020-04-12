@@ -1,7 +1,7 @@
 {
 	"name": "peeps-generator",
 	"version": "0.1.1",
-	"description": "Generate your hand-drawn illustrations right away!",
+	"description": "Build and customize your open peeps illustrations right away!",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/CeamKrier/peeps-generator.git"
@@ -28,14 +28,8 @@
 		"@babel/preset-typescript": "^7.9.0",
 		"@babel/register": "^7.9.0",
 		"ignore-styles": "^5.0.1",
-		"file-saver": "^2.0.2",
-		"rc-slider": "^9.2.3",
 		"react": "^16.13.1",
-		"react-color": "^2.18.0",
-		"react-dom": "^16.13.1",
-		"react-peeps": "^0.1.4",
-		"react-scripts": "3.4.1",
-		"typescript": "~3.7.2"
+		"react-dom": "^16.13.1"
 	},
 	"scripts": {
 		"start": "node server/index.js",
@@ -68,6 +62,12 @@
 		"@types/react-color": "^3.0.1",
 		"@types/react-dom": "^16.9.5",
 		"@welldone-software/why-did-you-render": "^4.0.6",
-		"rimraf": "^3.0.2"
+		"rimraf": "^3.0.2",
+		"react-peeps": "^0.1.4",
+		"react-scripts": "3.4.1",
+		"typescript": "~3.7.2",
+		"file-saver": "^2.0.2",
+		"rc-slider": "^9.2.3",
+		"react-color": "^2.18.0"
 	}
 }

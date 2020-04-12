@@ -89,7 +89,7 @@ export const PeepsGenerator: React.FC = () => {
 	return (
 		<>
 			<a className='header' href='/'>
-				<h1>peeps generator</h1>
+				<h1>open peeps generator</h1>
 			</a>
 
 			<div

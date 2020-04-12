@@ -273,15 +273,19 @@ const LeftMenu = () => {
 	return useMemo(() => {
 		return (
 			<div className={`leftMenu ${leftMenuVisibility ? '' : 'drawerClosed'}`}>
-				<div className='leftMenuContentWrapper'>
-					{renderScaleMeter}
+				<div className='leftMenuWrapper'>
+					<div className='leftMenuContentWrapper'>
+						{renderScaleMeter}
 
-					{renderRotateMeter}
+						{renderRotateMeter}
 
-					{renderFlipper}
-				</div>
-				<div className='leftMenuDrawerButton' onClick={handleDrawerButtonClick}>
-					{leftMenuVisibility ? 'Close' : 'Open'}
+						{renderFlipper}
+					</div>
+					<div
+						className='leftMenuDrawerButton'
+						onClick={handleDrawerButtonClick}>
+						{leftMenuVisibility ? 'Close' : 'Open'}
+					</div>
 				</div>
 			</div>
 		);

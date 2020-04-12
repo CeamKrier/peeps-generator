@@ -216,10 +216,17 @@ div.selectionIndicator {
 
 .leftMenu {
 	position: absolute;
-	top: 5em;
+	top: 0;
+	bottom: 0;
 	left: 2em;
-	display: flex;
 	transition: left 0.5s cubic-bezier(0.82, 0.085, 0.395, 0.895);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.leftMenuWrapper {
+	display: flex;
 }
 
 .leftMenuContentWrapper {
@@ -253,8 +260,12 @@ div.selectionIndicator {
 
 .rigthMenu {
 	position: absolute;
-	top: 5em;
+	top: 0;
+	bottom: 0;
 	right: 2em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .pieceList {
@@ -317,7 +328,7 @@ div.selectionIndicator {
 	right: 0;
 	width: fit-content;
 	margin: 0 auto;
-	bottom: 0;
+	bottom: 1em;
 }
 .removeDefaultAnchorStyle {
 	text-decoration: none;
@@ -426,6 +437,21 @@ div.selectionIndicator {
 	color: white;
 }
 
+.signature {
+	text-align: center;
+	font-family: 'Gochi Hand', cursive;
+	font-size: large;
+}
+
+.signature a {
+	background-image: linear-gradient(90deg, #31cf1f, #7815e58a);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-animation: sign 10s infinite linear;
+	animation: sign 2s infinite linear;
+}
+
 @media screen and (max-width: 1200px) {
 	#main {
 		min-height: 750px;
@@ -504,6 +530,10 @@ div.selectionIndicator {
 		top: 4em;
 		margin-top: 0;
 	}
+	.footer {
+		bottom: -4em;
+		margin-bottom: 1em;
+	}
 }
 .block-picker > div:nth-child(2) {
 	height: 60px !important;
@@ -559,12 +589,15 @@ div.selectionIndicator {
 		content: 'Beard';
 		font-size: 0.7rem;
 	}
+	.footer {
+		max-width: 15rem;
+		text-align: center;
+		line-height: 1.5em;
+		bottom: -5em;
+	}
 }
 
 @media screen and (max-width: 340px) {
-	.footer {
-		display: none;
-	}
 	.colorIndicator {
 		right: 1em;
 	}
@@ -579,5 +612,16 @@ div.selectionIndicator {
 	}
 	100% {
 		transform: scale(1);
+	}
+}
+
+@keyframes sign {
+	from {
+		-webkit-filter: hue-rotate(0deg);
+		filter: hue-rotate(0deg);
+	}
+	to {
+		-webkit-filter: hue-rotate(-360deg);
+		filter: hue-rotate(-360deg);
 	}
 }
