@@ -32,7 +32,10 @@
 		"react-dom": "^16.13.1",
 		"react-scripts": "3.4.1",
 		"typescript": "~3.7.2",
-		"file-saver": "^2.0.2"
+		"file-saver": "^2.0.2",
+		"react-peeps": "^0.1.4",
+		"rc-slider": "^9.2.3",
+		"react-color": "^2.18.0"
 	},
 	"scripts": {
 		"start": "node server/index.js",
@@ -65,9 +68,6 @@
 		"@types/react-color": "^3.0.1",
 		"@types/react-dom": "^16.9.5",
 		"@welldone-software/why-did-you-render": "^4.0.6",
-		"rimraf": "^3.0.2",
-		"react-peeps": "^0.1.4",
-		"rc-slider": "^9.2.3",
-		"react-color": "^2.18.0"
+		"rimraf": "^3.0.2"
 	}
 }
