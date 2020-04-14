@@ -21,6 +21,13 @@ export const GradientBuilder = () => {
 		(strokeColor as GradientType).degree || 0
 	);
 
+	const [firstColorBoxClicked, setFirstColorBoxClicked] = useState<boolean>(
+		false
+	);
+	const [secondColorBoxClicked, setSecondColorBoxClicked] = useState<boolean>(
+		false
+	);
+
 	useEffect(() => {
 		dispatch({
 			type: 'SET_STROKE_COLOR',
@@ -53,12 +60,33 @@ export const GradientBuilder = () => {
 		}
 	}, []);
 
+	const handleFirstColorBoxClick = useCallback(() => {
+		if (secondColorBoxClicked) {
+			setSecondColorBoxClicked(false);
+		}
+		setFirstColorBoxClicked((state) => !state);
+	}, [secondColorBoxClicked]);
+
+	const handleSecondColorBoxClick = useCallback(() => {
+		if (firstColorBoxClicked) {
+			setFirstColorBoxClicked(false);
+		}
+		setSecondColorBoxClicked((state) => !state);
+	}, [firstColorBoxClicked]);
+
 	const renderGradientPreviewer = useMemo(() => {
+		let backgroundColor = `linear-gradient(${gradientDegree}deg, ${firstColor}, ${secondColor})`;
+		if (firstColorBoxClicked) {
+			backgroundColor = firstColor as string;
+		}
+		if (secondColorBoxClicked) {
+			backgroundColor = secondColor as string;
+		}
 		return (
 			<div
 				className='gradientPreview'
 				style={{
-					background: `linear-gradient(${gradientDegree}deg, ${firstColor}, ${secondColor})`,
+					background: backgroundColor,
 				}}
 				onWheel={handleMouseWheel}>
 				{
@@ -82,11 +110,25 @@ export const GradientBuilder = () => {
 						}}
 						label=''
 						dataIndex={gradientDegree}
+						style={{
+							display:
+								firstColorBoxClicked || secondColorBoxClicked
+									? 'none'
+									: 'inline-block',
+						}}
 					/>
 				}
+				{(firstColorBoxClicked || secondColorBoxClicked) && <div>Boo</div>}
 			</div>
 		);
-	}, [gradientDegree, firstColor, secondColor, handleMouseWheel]);
+	}, [
+		gradientDegree,
+		firstColor,
+		secondColor,
+		firstColorBoxClicked,
+		secondColorBoxClicked,
+		handleMouseWheel,
+	]);
 
 	const renderColorHexInputs = useMemo(() => {
 		return (
@@ -131,29 +173,51 @@ export const GradientBuilder = () => {
 		);
 	}, [firstColor, secondColor]);
 
+	const renderColorBoxes = useMemo(() => {
+		return (
+			<div className='gradientColorBoxWrapper'>
+				<div
+					title={firstColor as string}
+					className='gradientColorBox'
+					style={{
+						background: firstColor as string,
+					}}
+					onClick={handleFirstColorBoxClick}
+				/>
+
+				<div
+					title={secondColor as string}
+					className='gradientColorBox'
+					style={{
+						background: secondColor as string,
+					}}
+					onClick={handleSecondColorBoxClick}
+				/>
+			</div>
+		);
+	}, [
+		firstColor,
+		secondColor,
+		handleFirstColorBoxClick,
+		handleSecondColorBoxClick,
+	]);
+
 	return useMemo(() => {
 		return (
 			<div className='gradientBlock'>
 				{renderGradientPreviewer}
-				<div className='gradientColorBoxWrapper'>
-					<div
-						title={firstColor as string}
-						className='gradientColorBox'
-						style={{
-							background: firstColor as string,
-						}}
-					/>
-					<div
-						title={secondColor as string}
-						className='gradientColorBox'
-						style={{
-							background: secondColor as string,
-						}}
-					/>
-				</div>
+
+				{renderColorBoxes}
 
 				{renderColorHexInputs}
 			</div>
 		);
-	}, [gradientDegree, firstColor, secondColor, gradientDegree]);
+	}, [
+		gradientDegree,
+		firstColor,
+		secondColor,
+		gradientDegree,
+		firstColorBoxClicked,
+		secondColorBoxClicked,
+	]);
 };

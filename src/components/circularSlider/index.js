@@ -101,6 +101,7 @@ const CircularSlider = ({
         progressLineCap = 'round',
         children,
         onChange = value => {},
+        style = {}
     }) => {
     const initialState = {
         mounted: false,
@@ -238,7 +239,7 @@ const CircularSlider = ({
     useEventListener(SLIDER_EVENT.UP, onMouseUp);
 
     return (
-        <div style={{...styles.circularSlider, ...(state.mounted && styles.mounted)}} ref={circularSlider}>
+        <div style={{...styles.circularSlider, ...style, ...(state.mounted && styles.mounted)}} ref={circularSlider}>
             <Svg
                 width={width}
                 label={label.split(" ").join("")}
