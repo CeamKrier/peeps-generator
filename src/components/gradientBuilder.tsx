@@ -64,7 +64,7 @@ export const GradientBuilder = () => {
 				{
 					//@ts-ignore
 					<CircularSlider
-						width={130}
+						width={115}
 						min={0}
 						max={360}
 						direction={-1}
@@ -135,6 +135,23 @@ export const GradientBuilder = () => {
 		return (
 			<div className='gradientBlock'>
 				{renderGradientPreviewer}
+				<div className='gradientColorBoxWrapper'>
+					<div
+						title={firstColor as string}
+						className='gradientColorBox'
+						style={{
+							background: firstColor as string,
+						}}
+					/>
+					<div
+						title={secondColor as string}
+						className='gradientColorBox'
+						style={{
+							background: secondColor as string,
+						}}
+					/>
+				</div>
+
 				{renderColorHexInputs}
 			</div>
 		);

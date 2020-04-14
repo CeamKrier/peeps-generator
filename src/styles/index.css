@@ -416,7 +416,7 @@ div.selectionIndicator {
 	height: 198px;
 }
 .gradientPreview {
-	height: 160px;
+	height: 130px;
 	background: linear-gradient(45deg, gold, red);
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
@@ -435,6 +435,24 @@ div.selectionIndicator {
 .gradientPreview > div > div > div {
 	margin-top: 1em;
 	color: white;
+}
+.gradientColorBoxWrapper {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 0.5em;
+}
+.gradientColorBox {
+	background: rgb(255, 212, 2);
+	height: 22px;
+	width: 22px;
+	cursor: pointer;
+	position: relative;
+	outline: none;
+	float: left;
+	border-radius: 4px;
+	right: 0;
+	left: 0;
+	margin: auto;
 }
 
 .signature {
