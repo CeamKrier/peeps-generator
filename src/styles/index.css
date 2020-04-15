@@ -432,7 +432,7 @@ div.selectionIndicator {
 	display: flex;
 	justify-content: center;
 }
-.gradientPreview > div > div > div {
+div.gradientPreview > div > div:nth-child(3) > div:nth-child(2) {
 	margin-top: 1em;
 	color: white;
 }

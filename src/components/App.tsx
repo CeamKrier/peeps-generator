@@ -3,7 +3,7 @@ import Peep from 'react-peeps';
 import { useProvider } from '../utils/contextProvider';
 import LeftMenu from './leftMenu';
 import RightMenu from './rightMenu';
-import ColorPicker from './colorPicker';
+import ColorModal from './colorModal';
 import { Footer } from './footer';
 import { adjustPeepsViewbox } from '../utils/viewbox';
 
@@ -118,7 +118,7 @@ export const PeepsGenerator: React.FC = () => {
 					viewBox={adjustPeepsViewbox(pickedBody)}
 				/>
 
-				<ColorPicker />
+				<ColorModal />
 			</div>
 
 			<LeftMenu />

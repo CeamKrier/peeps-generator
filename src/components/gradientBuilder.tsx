@@ -108,6 +108,10 @@ export const GradientBuilder = () => {
 				className='gradientPreview'
 				style={{
 					background: backgroundColor,
+					alignItems:
+						firstColorBoxClicked || secondColorBoxClicked
+							? 'baseline'
+							: 'center',
 				}}
 				onWheel={handleMouseWheel}>
 				{

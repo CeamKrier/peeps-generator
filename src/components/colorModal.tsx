@@ -5,7 +5,7 @@ import { useProvider } from '../utils/contextProvider';
 
 type ColoringType = 'basic' | 'gradient';
 
-const ColorPicker = () => {
+const ColorModal = () => {
 	const { state, dispatch } = useProvider();
 	const { strokeColor } = state;
 	const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
@@ -118,4 +118,4 @@ const ColorPicker = () => {
 	}, [displayColorPicker, initialColors, colorType]);
 };
 
-export default ColorPicker;
+export default ColorModal;
