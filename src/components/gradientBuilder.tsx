@@ -7,16 +7,12 @@ import { ColorResult } from 'react-color';
 //@ts-ignore
 import { isValidHex } from 'react-color/lib/helpers/color';
 import { GradientType } from 'react-peeps/lib/peeps/types';
+import { ColorWheel } from './colorWheel';
 
 export const GradientBuilder = () => {
 	const { state, dispatch } = useProvider();
-	const { strokeColor } = state;
-	const [firstColor, setFirstColor] = useState<string | GradientType>(
-		(strokeColor as GradientType).firstColor || '#81087F'
-	);
-	const [secondColor, setSecondColor] = useState<string | GradientType>(
-		(strokeColor as GradientType).secondColor || '#ffd402'
-	);
+	const { strokeColor, firstColor, secondColor } = state;
+
 	const [gradientDegree, setGradientDegree] = useState(
 		(strokeColor as GradientType).degree || 0
 	);
@@ -44,11 +40,13 @@ export const GradientBuilder = () => {
 			if (!isValidHex(color)) {
 				return;
 			}
-			if (caller === 'first') {
-				setFirstColor(`${color}`);
-			} else {
-				setSecondColor(`${color}`);
-			}
+
+			const requestType =
+				caller === 'first' ? 'SET_FIRST_COLOR' : 'SET_SECOND_COLOR';
+			dispatch({
+				type: requestType,
+				payload: color,
+			});
 		};
 	};
 
@@ -74,13 +72,36 @@ export const GradientBuilder = () => {
 		setSecondColorBoxClicked((state) => !state);
 	}, [firstColorBoxClicked]);
 
+	const renderColorWheel = useMemo(() => {
+		const renderHelper: { color: string; target: 'first' | 'second' } = {
+			color: '',
+			target: 'first',
+		};
+		if (firstColorBoxClicked) {
+			renderHelper.color = firstColor;
+			renderHelper.target = 'first';
+		}
+
+		if (secondColorBoxClicked) {
+			renderHelper.color = secondColor;
+			renderHelper.target = 'second';
+		}
+		return (
+			<>
+				{firstColorBoxClicked && (
+					<ColorWheel color={renderHelper.color} target={renderHelper.target} />
+				)}
+				{secondColorBoxClicked && (
+					<ColorWheel color={renderHelper.color} target={renderHelper.target} />
+				)}
+			</>
+		);
+	}, [firstColorBoxClicked, secondColorBoxClicked, firstColor, secondColor]);
+
 	const renderGradientPreviewer = useMemo(() => {
 		let backgroundColor = `linear-gradient(${gradientDegree}deg, ${firstColor}, ${secondColor})`;
-		if (firstColorBoxClicked) {
-			backgroundColor = firstColor as string;
-		}
-		if (secondColorBoxClicked) {
-			backgroundColor = secondColor as string;
+		if (firstColorBoxClicked || secondColorBoxClicked) {
+			backgroundColor = 'white';
 		}
 		return (
 			<div
@@ -118,7 +139,7 @@ export const GradientBuilder = () => {
 						}}
 					/>
 				}
-				{(firstColorBoxClicked || secondColorBoxClicked) && <div>Boo</div>}
+				{renderColorWheel}
 			</div>
 		);
 	}, [
@@ -181,6 +202,7 @@ export const GradientBuilder = () => {
 					className='gradientColorBox'
 					style={{
 						background: firstColor as string,
+						animation: firstColorBoxClicked ? 'pulse 1s infinite' : 'unset',
 					}}
 					onClick={handleFirstColorBoxClick}
 				/>
@@ -190,6 +212,7 @@ export const GradientBuilder = () => {
 					className='gradientColorBox'
 					style={{
 						background: secondColor as string,
+						animation: secondColorBoxClicked ? 'pulse 1s infinite' : 'unset',
 					}}
 					onClick={handleSecondColorBoxClick}
 				/>

@@ -21,21 +21,22 @@
 		"url": "https://github.com/CeamKrier/peeps-generator/issues"
 	},
 	"dependencies": {
-		"compression": "^1.7.4",
-		"express": "^4.17.1",
 		"@babel/preset-env": "^7.9.5",
 		"@babel/preset-react": "^7.9.4",
 		"@babel/preset-typescript": "^7.9.0",
 		"@babel/register": "^7.9.0",
-		"ignore-styles": "^5.0.1",
-		"react": "^16.13.1",
-		"react-dom": "^16.13.1",
-		"react-scripts": "3.4.1",
-		"typescript": "~3.7.2",
+		"@jaames/iro": "^5.1.5",
+		"compression": "^1.7.4",
+		"express": "^4.17.1",
 		"file-saver": "^2.0.2",
-		"react-peeps": "^0.1.4",
+		"ignore-styles": "^5.0.1",
 		"rc-slider": "^9.2.3",
-		"react-color": "^2.18.0"
+		"react": "^16.13.1",
+		"react-color": "^2.18.0",
+		"react-dom": "^16.13.1",
+		"react-peeps": "^0.1.4",
+		"react-scripts": "3.4.1",
+		"typescript": "~3.7.2"
 	},
 	"scripts": {
 		"start": "node server/index.js",

@@ -28,7 +28,9 @@ export type ReducerAction =
 	| 'SET_FACIAL_HAIR'
 	| 'SET_ACCESSORY'
 	| 'SET_PIECE_SECTION'
-	| 'SET_STROKE_COLOR';
+	| 'SET_STROKE_COLOR'
+	| 'SET_FIRST_COLOR'
+	| 'SET_SECOND_COLOR';
 
 export interface DispatchParameters {
 	type: ReducerAction;
@@ -56,6 +58,8 @@ export interface StateKeys {
 	pickedAccessory: AccessoryType;
 	pickedSection: SectionValues;
 	strokeColor: string | GradientType;
+	firstColor: string;
+	secondColor: string;
 }
 
 export interface ContextProps {
