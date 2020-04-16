@@ -454,7 +454,16 @@ div.gradientPreview > div > div:nth-child(3) > div:nth-child(2) {
 	left: 0;
 	margin: auto;
 }
-
+.chrome-picker {
+	box-shadow: none!important;
+	border-radius: 6px!important;
+}
+div.chrome-picker > div:nth-child(2) > div > div:nth-child(1) {
+	display: none!important;
+}
+div.chrome-picker > div:nth-child(1) {
+	border-radius: 6px 6px 0 0!important;
+}
 .signature {
 	text-align: center;
 	font-family: 'Gochi Hand', cursive;

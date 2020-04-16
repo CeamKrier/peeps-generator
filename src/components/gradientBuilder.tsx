@@ -86,6 +86,7 @@ export const GradientBuilder = () => {
 			renderHelper.color = secondColor;
 			renderHelper.target = 'second';
 		}
+
 		return (
 			<>
 				{firstColorBoxClicked && (
