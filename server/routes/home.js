@@ -3,6 +3,6 @@ import { serveApp } from '../controllers/home';
 
 const router = express.Router();
 
-router.get('/', serveApp);
+router.get('*', serveApp);
 
 export default router;

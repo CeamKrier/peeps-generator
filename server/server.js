@@ -12,10 +12,7 @@ server.use(compression());
 server
 	.disable('x-powered-by')
 	.use(express.static(path.resolve(Config.BUILD_FOLDER_PATH), { index: false }))
-	.get('/', HomeRoute)
-	.get('*', (request, response) => {
-		response.status(404).send('error be');
-	});
+	.get('*', HomeRoute);
 
 server.listen(port, () => {
 	console.log('Server is up and running on port ' + port);
