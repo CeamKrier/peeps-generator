@@ -282,7 +282,7 @@ const RightMenu = () => {
 			'peep.png',
 			scaleVector
 		);
-	}, []);
+	}, [scaleVector]);
 
 	const pickedSectionObject = () => {
 		switch (pickedSection) {
@@ -363,6 +363,7 @@ const RightMenu = () => {
 		pickedFace,
 		pickedFacialHair,
 		pickedHair,
+		scaleVector
 	]);
 };
 
