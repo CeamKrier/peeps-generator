@@ -19,8 +19,8 @@ export const savePng = (
 	const svgData = svgEl.outerHTML;
 	const preface = '<?xml version="1.0" standalone="no"?>\r\n';
 	const canvas = document.createElement('canvas');
-	canvas.width = 390 * scaleVector;
-	canvas.height = 390 * scaleVector;
+	canvas.width = svgEl.getBoundingClientRect().width * scaleVector;
+	canvas.height = svgEl.getBoundingClientRect().height * scaleVector;
 
 	const canvasContext = canvas.getContext('2d');
 
