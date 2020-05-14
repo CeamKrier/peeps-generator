@@ -42,6 +42,12 @@ div.selectionIndicator {
 
 .pieceSectionItem {
 	cursor: pointer;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .header {
@@ -157,6 +163,12 @@ div.selectionIndicator {
 	align-items: center;
 	justify-content: center;
 	display: flex;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .flipButton:active,
@@ -196,6 +208,12 @@ div.selectionIndicator {
 	cursor: pointer;
 	width: 22em;
 	height: 3em;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .pieceListWrapper {
@@ -203,6 +221,12 @@ div.selectionIndicator {
 	justify-content: flex-start;
 	margin-top: 1em;
 	margin-left: 1em;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .pieceText {
@@ -270,7 +294,7 @@ div.selectionIndicator {
 
 .pieceList {
 	width: 18em;
-	height: 30em;
+	height: 25em;
 	background-color: #ffffff;
 	border-radius: 1em;
 	list-style: none;
@@ -321,6 +345,12 @@ div.selectionIndicator {
 	cursor: pointer;
 	width: 10em;
 	height: 3em;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .footer {
 	position: absolute;
@@ -455,14 +485,14 @@ div.gradientPreview > div > div:nth-child(3) > div:nth-child(2) {
 	margin: auto;
 }
 .chrome-picker {
-	box-shadow: none!important;
-	border-radius: 6px!important;
+	box-shadow: none !important;
+	border-radius: 6px !important;
 }
 div.chrome-picker > div:nth-child(2) > div > div:nth-child(1) {
-	display: none!important;
+	display: none !important;
 }
 div.chrome-picker > div:nth-child(1) {
-	border-radius: 6px 6px 0 0!important;
+	border-radius: 6px 6px 0 0 !important;
 }
 .signature {
 	text-align: center;
