@@ -71,6 +71,18 @@ const LeftMenu = () => {
 		document
 			.querySelectorAll('.rotateWrapper > div > div > div > svg > rect')
 			.forEach((rect) => rect?.remove());
+		if (window?.innerWidth > 1440) {
+			dispatch({
+				type: 'SET_SCALE_VECTOR',
+				payload: 1.25,
+			});
+		} 
+		if (window?.innerWidth > 1900) {
+			dispatch({
+				type: 'SET_SCALE_VECTOR',
+				payload: 1.5,
+			});
+		}
 	}, []);
 
 	const updateRotationDegree = (wheelEvent?: WheelEvent) => {

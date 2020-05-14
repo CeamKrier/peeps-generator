@@ -118,7 +118,7 @@ export const GradientBuilder = () => {
 				{
 					//@ts-ignore
 					<CircularSlider
-						width={115}
+						width={110}
 						min={0}
 						max={360}
 						direction={-1}
