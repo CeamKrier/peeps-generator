@@ -25,7 +25,22 @@ const ColorModal = () => {
 		'#000000',
 		'#81087f',
 		'#cccccc',
-		'#D33115'
+		'#D33115',
+		'#143D59',
+		'#210070',
+		'#213970',
+		'#FFE042',
+		'#E71989',
+		'#5B0E2D',
+		'#FFD55A',
+		'#6DD47E',
+		'#F93800',
+		'#F9858B',
+		'#761137',
+		'#00154F',
+		'#F2BC94',
+		'#FBEAEB',
+		'#EB2188'
 	];
 
 	const handleColorChange = (color: ColorResult) => {

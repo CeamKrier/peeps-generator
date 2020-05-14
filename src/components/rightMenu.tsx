@@ -18,6 +18,7 @@ import {
 import { saveSvg, savePng } from '../utils/save';
 import { PieceKeyType, SectionValues } from './types';
 import { useProvider } from '../utils/contextProvider';
+import ColorModal from './colorModal';
 import { distinguishBodyViewbox } from '../utils/viewbox';
 
 const RightMenu = () => {
@@ -345,10 +346,16 @@ const RightMenu = () => {
 		);
 	}, [randomizePeep]);
 
+	const renderColorPicker = useMemo(() => {
+		return <ColorModal />;
+	}, []);
+
 	return useMemo(() => {
 		return (
 			<div className='rigthMenu'>
 				{renderSelectedPieceSet}
+
+				{renderColorPicker}
 
 				{rendererRandomizerButton}
 
@@ -363,7 +370,7 @@ const RightMenu = () => {
 		pickedFace,
 		pickedFacialHair,
 		pickedHair,
-		scaleVector
+		scaleVector,
 	]);
 };
 

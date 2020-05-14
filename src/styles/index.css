@@ -365,14 +365,11 @@ div.selectionIndicator {
 	color: black;
 }
 .colorIndicator {
-	position: absolute;
-	width: fit-content;
-	height: fit-content;
+	position: relative;
 	display: flex;
-	bottom: -1em;
-	margin: auto;
-	right: 0;
-	left: 0;
+	width: 22em;
+	justify-content: center;
+	margin-bottom: 1em;
 }
 .colorSwatch {
 	padding: 5px;
@@ -382,14 +379,14 @@ div.selectionIndicator {
 	cursor: pointer;
 }
 .pickedColor {
-	width: 36px;
+	width: 20em;
 	height: 14px;
 	border-radius: 2px;
 }
 .colorPopover {
 	position: absolute;
-	top: 2em;
-	right: -4em;
+	top: -.5em;
+	left: -2em;
 	z-index: 2;
 }
 .colorCover {
@@ -400,6 +397,7 @@ div.selectionIndicator {
 	left: 0px;
 }
 .block-picker {
+	width: 22em!important;
 	box-shadow: 3px 3px 10px 3px #ccc !important;
 }
 .basicPicker {
@@ -432,13 +430,25 @@ div.selectionIndicator {
 		rgba(252, 176, 69, 1) 100%
 	);
 	color: white;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .basicColorButton {
 	background: #fdd365;
 	color: black;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .gradientBlock {
-	width: 170px;
+	width: 22em;
 	background: rgb(255, 255, 255);
 	box-shadow: 3px 3px 10px 3px #ccc !important;
 	border-radius: 6px;
@@ -457,6 +467,7 @@ div.selectionIndicator {
 .gradientInputWrapper {
 	display: flex;
 	margin-top: 0.5em;
+	justify-content: space-evenly;
 }
 .gradientInputWrapper > div {
 	display: flex;
@@ -487,12 +498,14 @@ div.gradientPreview > div > div:nth-child(3) > div:nth-child(2) {
 .chrome-picker {
 	box-shadow: none !important;
 	border-radius: 6px !important;
+	width: 22em!important;
 }
 div.chrome-picker > div:nth-child(2) > div > div:nth-child(1) {
 	display: none !important;
 }
 div.chrome-picker > div:nth-child(1) {
 	border-radius: 6px 6px 0 0 !important;
+	padding-bottom: 28%!important;
 }
 .signature {
 	text-align: center;
@@ -518,11 +531,13 @@ div.chrome-picker > div:nth-child(1) {
 		left: unset;
 		margin: auto;
 		top: 0;
+		margin-top: 1em;
+		width: 20em;
 	}
 	.colorPopover {
-		top: -5em;
+		top: -.5em;
 		right: unset;
-		left: 3.5em;
+		left: -3em;
 	}
 	.leftMenu {
 		display: none;
@@ -537,7 +552,7 @@ div.chrome-picker > div:nth-child(1) {
 		top: unset;
 		right: 1em;
 		left: 1em;
-		bottom: 1em;
+		bottom: -1em;
 		margin-bottom: 1em;
 	}
 	.pieceListItem {
@@ -601,9 +616,7 @@ div.chrome-picker > div:nth-child(1) {
 		min-height: 650px;
 		position: relative;
 	}
-	.colorPopover {
-		left: -8.5em;
-	}
+
 	.sectionList {
 		overflow: hidden;
 	}
@@ -650,13 +663,43 @@ div.chrome-picker > div:nth-child(1) {
 		max-width: 15rem;
 		text-align: center;
 		line-height: 1.5em;
-		bottom: -5em;
+		bottom: -6em;
+	}
+}
+
+@media screen and (max-width: 375px) {
+	.colorPopover {
+		left: -1.2em;
+	}
+	.block-picker {
+		width: 19em!important;
+	}
+	.gradientBlock {
+		width: 19em;
+	}
+	div.chrome-picker > div:nth-child(1) {
+		padding-bottom: 33%!important;
 	}
 }
 
 @media screen and (max-width: 340px) {
 	.colorIndicator {
-		right: 1em;
+		right: 1.5em;
+	}
+	.pickedColor {
+		width: 14em;
+	}
+	.block-picker {
+		width: 14em!important;
+	}
+	.colorPopover {
+		left: 1em;
+	}
+	.gradientBlock {
+		width: 14em;
+	}
+	div.chrome-picker > div:nth-child(1) {
+		padding-bottom: 40%!important;
 	}
 }
 

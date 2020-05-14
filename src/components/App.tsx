@@ -117,8 +117,6 @@ export const PeepsGenerator: React.FC = () => {
 					strokeColor={strokeColor}
 					viewBox={adjustPeepsViewbox(pickedBody)}
 				/>
-
-				<ColorModal />
 			</div>
 
 			<LeftMenu />
