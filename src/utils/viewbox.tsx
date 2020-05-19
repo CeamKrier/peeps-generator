@@ -36,7 +36,7 @@ export const adjustPeepsViewbox = (bodyPiece: string) => {
     }
     if (bodyPiece === 'WheelChair') {
       x = '-700'
-      y = '-100'
+      y = '-150'
     }
     if (bodyPiece === 'Bike') {
       x = '-1200'

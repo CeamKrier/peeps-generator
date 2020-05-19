@@ -33,7 +33,7 @@
 		"react": "^16.13.1",
 		"react-color": "^2.18.0",
 		"react-dom": "^16.13.1",
-		"react-peeps": "^0.1.4",
+		"react-peeps": "^0.1.7",
 		"react-scripts": "3.4.1",
 		"typescript": "~3.7.2"
 	},
