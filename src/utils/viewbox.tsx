@@ -4,7 +4,7 @@ import {
 	StandingPoseType,
 	StandingPose,
 	BustPose,
-	BustPoseType
+	BustPoseType,
 } from 'react-peeps';
 
 export const isSittingPose = (pose: any): pose is SittingPoseType =>
@@ -17,7 +17,7 @@ export const isBustPose = (pose: any): pose is BustPoseType =>
 	Object.keys(BustPose).includes(pose);
 
 export const adjustPeepsViewbox = (bodyPiece: string) => {
-	let x = '-235',
+	let x = '-200',
 		y = '-150',
 		width = '1250',
 		height = '1400';
@@ -26,28 +26,30 @@ export const adjustPeepsViewbox = (bodyPiece: string) => {
 		y = '-300';
 		width = '2600';
 		height = '2600';
-		if (
-			bodyPiece === 'MediumBW' ||
-			bodyPiece === 'MediumWB' ||
-			bodyPiece === 'OneLegUpBW' ||
-			bodyPiece === 'OneLegUpWB'
-		) {
-      x = '-1000'
-    }
-    if (bodyPiece === 'WheelChair') {
-      x = '-700'
-      y = '-150'
-    }
-    if (bodyPiece === 'Bike') {
-      x = '-1200'
-      width = '3600'
-      height = '3600'
-    }
+		if (bodyPiece === 'MediumBW' || bodyPiece === 'MediumWB') {
+			x = '-1000';
+		}
+		if (bodyPiece === 'OneLegUpBW' || bodyPiece === 'OneLegUpWB') {
+			x = '-900';
+		}
+		if (bodyPiece === 'WheelChair') {
+			x = '-700';
+			y = '-150';
+		}
+		if (bodyPiece === 'Bike') {
+			x = '-1200';
+			width = '3600';
+			height = '3600';
+		}
 	} else if (isStandingPose(bodyPiece)) {
 		x = '-1300';
 		y = '-200';
 		width = '3300';
 		height = '3300';
+	} else {
+		if (bodyPiece === 'PocketShirt') {
+			x = '-235';
+		}
 	}
 	return { x, y, width, height };
 };
