@@ -19,8 +19,8 @@ export const isBustPose = (pose: any): pose is BustPoseType =>
 export const adjustPeepsViewbox = (bodyPiece: string) => {
 	let x = '-200',
 		y = '-150',
-		width = '1250',
-		height = '1400';
+		width = '1350',
+		height = '1500';
 	if (isSittingPose(bodyPiece)) {
 		x = '-800';
 		y = '-300';
@@ -32,23 +32,31 @@ export const adjustPeepsViewbox = (bodyPiece: string) => {
 		if (bodyPiece === 'OneLegUpBW' || bodyPiece === 'OneLegUpWB') {
 			x = '-900';
 		}
+		if (bodyPiece === 'CrossedLegs') {
+			x = '-850';
+			width = '2800';
+			height = '2800';
+		}
 		if (bodyPiece === 'WheelChair') {
 			x = '-700';
 			y = '-150';
+			width = '2700';
+			height = '2700';
 		}
 		if (bodyPiece === 'Bike') {
-			x = '-1200';
-			width = '3600';
-			height = '3600';
+			x = '-1450';
+			y = '-450';
+			width = '4200';
+			height = '4200';
 		}
 	} else if (isStandingPose(bodyPiece)) {
 		x = '-1300';
 		y = '-200';
-		width = '3300';
-		height = '3300';
+		width = '3350';
+		height = '3350';
 	} else {
 		if (bodyPiece === 'PocketShirt') {
-			x = '-235';
+			x = '-295';
 		}
 	}
 	return { x, y, width, height };
