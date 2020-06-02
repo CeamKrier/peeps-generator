@@ -17,7 +17,7 @@ export const isBustPose = (pose: any): pose is BustPoseType =>
 	Object.keys(BustPose).includes(pose);
 
 export const adjustPeepsViewbox = (bodyPiece: string) => {
-	let x = '-200',
+	let x = '-250',
 		y = '-150',
 		width = '1350',
 		height = '1500';
