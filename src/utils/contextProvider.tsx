@@ -18,6 +18,7 @@ const initialState: StateKeys = {
 	strokeColor: '#000000',
 	firstColor: '#81087F',
 	secondColor: '#ffd402',
+	isFrameTransparent: true
 };
 
 export const Context = React.createContext<ContextProps>({
@@ -90,7 +91,10 @@ const reducer = (state: any, action: any) => {
 		case 'SET_SECOND_COLOR':
 			state.secondColor = action.payload;
 			return Object.assign({}, state);
-
+		case 'SET_FRAME_TYPE': 
+		console.log(action.payload)
+			state.isFrameTransparent = action.payload;
+			return Object.assign({}, state);
 		default:
 			break;
 	}

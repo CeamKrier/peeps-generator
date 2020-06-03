@@ -30,7 +30,8 @@ export type ReducerAction =
 	| 'SET_PIECE_SECTION'
 	| 'SET_STROKE_COLOR'
 	| 'SET_FIRST_COLOR'
-	| 'SET_SECOND_COLOR';
+	| 'SET_SECOND_COLOR'
+	| 'SET_FRAME_TYPE';
 
 export interface DispatchParameters {
 	type: ReducerAction;
@@ -60,6 +61,7 @@ export interface StateKeys {
 	strokeColor: string | GradientType;
 	firstColor: string;
 	secondColor: string;
+	isFrameTransparent: boolean;
 }
 
 export interface ContextProps {

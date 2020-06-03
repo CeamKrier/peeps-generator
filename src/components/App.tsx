@@ -3,7 +3,6 @@ import Peep from 'react-peeps';
 import { useProvider } from '../utils/contextProvider';
 import LeftMenu from './leftMenu';
 import RightMenu from './rightMenu';
-import ColorModal from './colorModal';
 import { Footer } from './footer';
 import { adjustPeepsViewbox } from '../utils/viewbox';
 
@@ -27,6 +26,10 @@ export const PeepsGenerator: React.FC = () => {
 		pickedFacialHair,
 		pickedHair,
 		strokeColor,
+		pressedKey,
+		scaleVector,
+		svgTransform,
+		isFrameTransparent,
 	} = state;
 
 	const handleMouseEnter = () => {
@@ -46,7 +49,7 @@ export const PeepsGenerator: React.FC = () => {
 	};
 
 	const handleKeyDown = ({ nativeEvent }: React.KeyboardEvent) => {
-		if (state.pressedKey === nativeEvent.key) {
+		if (pressedKey === nativeEvent.key) {
 			return;
 		}
 		dispatch({
@@ -103,10 +106,10 @@ export const PeepsGenerator: React.FC = () => {
 				<Peep
 					style={{
 						...styles.peepStyle,
-						width: styles.peepStyle.width * state.scaleVector,
-						height: styles.peepStyle.height * state.scaleVector,
-						transform: `${state.svgTransform?.rotate || ''} ${
-							state.svgTransform?.flip || ''
+						width: styles.peepStyle.width * scaleVector,
+						height: styles.peepStyle.height * scaleVector,
+						transform: `${svgTransform?.rotate || ''} ${
+							svgTransform?.flip || ''
 						}`,
 					}}
 					accessory={pickedAccessory}
@@ -116,6 +119,15 @@ export const PeepsGenerator: React.FC = () => {
 					facialHair={pickedFacialHair}
 					strokeColor={strokeColor}
 					viewBox={adjustPeepsViewbox(pickedBody)}
+					wrapperBackground={
+						isFrameTransparent
+							? undefined
+							: {
+									type: 'LinearGradient',
+									firstColor: 'red',
+									secondColor: '#df070738',
+							  }
+					}
 				/>
 			</div>
 

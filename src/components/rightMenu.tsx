@@ -32,6 +32,7 @@ const RightMenu = () => {
 		pickedHair,
 		pickedSection,
 		scaleVector,
+		isFrameTransparent,
 	} = state;
 
 	const [pieceKeys, setPieceKeys] = useState<PieceKeyType>();
@@ -83,6 +84,17 @@ const RightMenu = () => {
 			payload: facialHair,
 		});
 	};
+
+	const updateFrameType = useCallback(
+		(isTransparent) => () => {
+			isTransparent !== isFrameTransparent &&
+				dispatch({
+					type: 'SET_FRAME_TYPE',
+					payload: isTransparent,
+				});
+		},
+		[isFrameTransparent]
+	);
 
 	const updateAccessory = (accessory: AccessoryType) => {
 		dispatch({
@@ -350,11 +362,33 @@ const RightMenu = () => {
 		return <ColorModal />;
 	}, []);
 
+	const renderFrameOptions = useMemo(() => {
+		return (
+			<div className='frameOptionsWrapper'>
+				<span>Background</span>
+				<div
+					className={`frameOptionButton ${
+						isFrameTransparent && 'deactiveFrameOptionButton'
+					}`}
+					onClick={updateFrameType(true)}>
+					transparent
+				</div>
+				<div
+					className={`frameOptionButton ${
+						!isFrameTransparent && 'deactiveFrameOptionButton'
+					}`}
+					onClick={updateFrameType(false)}>
+					colorful
+				</div>
+			</div>
+		);
+	}, [isFrameTransparent]);
+
 	return useMemo(() => {
 		return (
 			<div className='rigthMenu'>
 				{renderSelectedPieceSet}
-
+				{renderFrameOptions}
 				{renderColorPicker}
 
 				{rendererRandomizerButton}
@@ -371,6 +405,7 @@ const RightMenu = () => {
 		pickedFacialHair,
 		pickedHair,
 		scaleVector,
+		isFrameTransparent,
 	]);
 };
 

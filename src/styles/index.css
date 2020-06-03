@@ -318,6 +318,41 @@ div.selectionIndicator {
 	border-bottom-right-radius: 1em;
 }
 
+.frameOptionButton {
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	background-color: rgba(253, 211, 101, 0.45);
+	cursor: pointer;
+	width: 7em;
+	height: 2em;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.deactiveFrameOptionButton {
+	background-color: #fdd365;
+}
+
+.frameOptionButton:nth-of-type(1) {
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+}
+
+.frameOptionButton:nth-of-type(2) {
+	border-top-right-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+}
+
+.frameOptionsWrapper {
+	display: flex;
+	margin-bottom: 1em;
+	width: 22em;
+	align-items: center;
+	justify-content: center;
+}
+
 .listWrapper {
 	display: flex;
 }
@@ -385,7 +420,7 @@ div.selectionIndicator {
 }
 .colorPopover {
 	position: absolute;
-	top: -.5em;
+	top: -0.5em;
 	left: -2em;
 	z-index: 2;
 }
@@ -397,7 +432,7 @@ div.selectionIndicator {
 	left: 0px;
 }
 .block-picker {
-	width: 22em!important;
+	width: 22em !important;
 	box-shadow: 3px 3px 10px 3px #ccc !important;
 }
 .basicPicker {
@@ -498,14 +533,14 @@ div.gradientPreview > div > div:nth-child(3) > div:nth-child(2) {
 .chrome-picker {
 	box-shadow: none !important;
 	border-radius: 6px !important;
-	width: 22em!important;
+	width: 22em !important;
 }
 div.chrome-picker > div:nth-child(2) > div > div:nth-child(1) {
 	display: none !important;
 }
 div.chrome-picker > div:nth-child(1) {
 	border-radius: 6px 6px 0 0 !important;
-	padding-bottom: 28%!important;
+	padding-bottom: 28% !important;
 }
 .signature {
 	text-align: center;
@@ -535,7 +570,7 @@ div.chrome-picker > div:nth-child(1) {
 		width: 20em;
 	}
 	.colorPopover {
-		top: -.5em;
+		top: -0.5em;
 		right: unset;
 		left: -3em;
 	}
@@ -672,13 +707,13 @@ div.chrome-picker > div:nth-child(1) {
 		left: -1.2em;
 	}
 	.block-picker {
-		width: 19em!important;
+		width: 19em !important;
 	}
 	.gradientBlock {
 		width: 19em;
 	}
 	div.chrome-picker > div:nth-child(1) {
-		padding-bottom: 33%!important;
+		padding-bottom: 33% !important;
 	}
 }
 
@@ -690,7 +725,7 @@ div.chrome-picker > div:nth-child(1) {
 		width: 14em;
 	}
 	.block-picker {
-		width: 14em!important;
+		width: 14em !important;
 	}
 	.colorPopover {
 		left: 1em;
@@ -699,7 +734,7 @@ div.chrome-picker > div:nth-child(1) {
 		width: 14em;
 	}
 	div.chrome-picker > div:nth-child(1) {
-		padding-bottom: 40%!important;
+		padding-bottom: 40% !important;
 	}
 }
 
