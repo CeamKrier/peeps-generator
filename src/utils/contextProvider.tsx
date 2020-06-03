@@ -92,7 +92,6 @@ const reducer = (state: any, action: any) => {
 			state.secondColor = action.payload;
 			return Object.assign({}, state);
 		case 'SET_FRAME_TYPE': 
-		console.log(action.payload)
 			state.isFrameTransparent = action.payload;
 			return Object.assign({}, state);
 		default:

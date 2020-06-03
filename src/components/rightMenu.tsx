@@ -15,6 +15,7 @@ import {
 	StandingPoseType,
 	SittingPose,
 } from 'react-peeps';
+import { FaTrash } from 'react-icons/fa';
 import { saveSvg, savePng } from '../utils/save';
 import { PieceKeyType, SectionValues } from './types';
 import { useProvider } from '../utils/contextProvider';
@@ -359,27 +360,43 @@ const RightMenu = () => {
 	}, [randomizePeep]);
 
 	const renderColorPicker = useMemo(() => {
-		return <ColorModal />;
+		return (
+			<div className='foregroundColorWrapper'>
+				<span className='marginRightOneEM'>Foreground</span>
+				<ColorModal />
+			</div>
+		);
 	}, []);
 
 	const renderFrameOptions = useMemo(() => {
 		return (
-			<div className='frameOptionsWrapper'>
+			<div className={`frameOptionsWrapper ${!isFrameTransparent && 'increaseFrameWrapperWidth'}`}>
 				<span className='marginRightOneEM'>Background</span>
-				<div
-					className={`frameOptionButton ${
-						isFrameTransparent && 'deactiveFrameOptionButton'
-					}`}
-					onClick={updateFrameType(true)}>
-					transparent
-				</div>
-				<div
-					className={`frameOptionButton ${
-						!isFrameTransparent && 'deactiveFrameOptionButton'
-					}`}
-					onClick={updateFrameType(false)}>
-					colorful
-				</div>
+				{isFrameTransparent ? (
+					<>
+						<div
+							className={`frameOptionButton ${
+								isFrameTransparent && 'deactiveFrameOptionButton'
+							}`}
+							onClick={updateFrameType(true)}>
+							transparent
+						</div>
+						<div
+							className={`frameOptionButton ${
+								!isFrameTransparent && 'deactiveFrameOptionButton'
+							}`}
+							onClick={updateFrameType(false)}>
+							colorful
+						</div>
+					</>
+				) : (
+					<div style={{ display: 'flex' }}>
+						<ColorModal />
+						<div className='trashIconWrapper' onClick={updateFrameType(true)}>
+							<FaTrash color='#fd6565' />
+						</div>
+					</div>
+				)}
 			</div>
 		);
 	}, [isFrameTransparent]);
@@ -388,7 +405,9 @@ const RightMenu = () => {
 		return (
 			<div className='rigthMenu'>
 				{renderSelectedPieceSet}
+
 				{renderFrameOptions}
+
 				{renderColorPicker}
 
 				{rendererRandomizerButton}
