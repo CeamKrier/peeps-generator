@@ -9,9 +9,44 @@ import { isValidHex } from 'react-color/lib/helpers/color';
 import { GradientType } from 'react-peeps/lib/peeps/types';
 import { ColorWheel } from './colorWheel';
 
-export const GradientBuilder = () => {
+export const GradientBuilder: React.FC<{
+	type: 'Background' | 'Foreground';
+}> = ({ type }) => {
 	const { state, dispatch } = useProvider();
-	const { strokeColor, firstColor, secondColor } = state;
+	const {
+		strokeColor,
+		firstColor: foregroundFirstGradientColor,
+		secondColor: foregroundSecondGradientColor,
+		backgroundFirstGradientColor,
+		backgroundSecondGradientColor,
+		isFrameTransparent,
+	} = state;
+
+	const firstColor = useMemo(() => {
+		if (type === 'Background') {
+			return backgroundFirstGradientColor;
+		} else {
+			return foregroundFirstGradientColor;
+		}
+	}, [
+		foregroundFirstGradientColor,
+		foregroundSecondGradientColor,
+		backgroundFirstGradientColor,
+		backgroundSecondGradientColor,
+	]);
+
+	const secondColor = useMemo(() => {
+		if (type === 'Background') {
+			return backgroundSecondGradientColor;
+		} else {
+			return foregroundSecondGradientColor;
+		}
+	}, [
+		foregroundFirstGradientColor,
+		foregroundSecondGradientColor,
+		backgroundFirstGradientColor,
+		backgroundSecondGradientColor,
+	]);
 
 	const [gradientDegree, setGradientDegree] = useState(
 		(strokeColor as GradientType).degree || 0
@@ -26,27 +61,42 @@ export const GradientBuilder = () => {
 
 	useEffect(() => {
 		dispatch({
-			type: 'SET_STROKE_COLOR',
+			type:
+				type === 'Background'
+					? 'SET_BACKGROUND_BASIC_COLOR'
+					: 'SET_STROKE_COLOR',
 			payload: {
 				degree: gradientDegree,
 				firstColor,
 				secondColor,
 			},
 		});
-	}, [firstColor, secondColor, gradientDegree, dispatch]);
+	}, [firstColor, secondColor, gradientDegree, dispatch, isFrameTransparent]);
 
 	const handleColorChange = (caller: string) => {
 		return (color: ColorResult) => {
 			if (!isValidHex(color)) {
 				return;
 			}
-
-			const requestType =
-				caller === 'first' ? 'SET_FIRST_COLOR' : 'SET_SECOND_COLOR';
-			dispatch({
-				type: requestType,
-				payload: color,
-			});
+			if (type === 'Background') {
+				const requestType =
+					caller === 'first'
+						? 'SET_BACKGROUND_FIRST_GRADIENT_COLOR'
+						: 'SET_BACKGROUND_SECOND_GRADIENT_COLOR';
+				dispatch({
+					type: requestType,
+					payload: color,
+				});
+			} else {
+				const requestType =
+					caller === 'first'
+						? 'SET_FOREGROUND_FIRST_COLOR'
+						: 'SET_FOREGROUND_SECOND_COLOR';
+				dispatch({
+					type: requestType,
+					payload: color,
+				});
+			}
 		};
 	};
 
@@ -90,10 +140,10 @@ export const GradientBuilder = () => {
 		return (
 			<>
 				{firstColorBoxClicked && (
-					<ColorWheel color={renderHelper.color} target={renderHelper.target} />
+					<ColorWheel type={type} color={renderHelper.color} target={renderHelper.target} />
 				)}
 				{secondColorBoxClicked && (
-					<ColorWheel color={renderHelper.color} target={renderHelper.target} />
+					<ColorWheel type={type} color={renderHelper.color} target={renderHelper.target} />
 				)}
 			</>
 		);

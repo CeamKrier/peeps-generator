@@ -5,9 +5,11 @@ import { useProvider } from '../utils/contextProvider';
 
 type ColoringType = 'basic' | 'gradient';
 
-const ColorModal = () => {
+const ColorModal: React.FC<{ type: 'Background' | 'Foreground' }> = ({
+	type,
+}) => {
 	const { state, dispatch } = useProvider();
-	const { strokeColor } = state;
+	const { strokeColor, backgroundBasicColor } = state;
 	const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
 	const [colorType, setColorType] = useState<ColoringType>('basic');
 	const initialColors = [
@@ -40,14 +42,21 @@ const ColorModal = () => {
 		'#00154F',
 		'#F2BC94',
 		'#FBEAEB',
-		'#EB2188'
+		'#EB2188',
 	];
 
 	const handleColorChange = (color: ColorResult) => {
-		dispatch({
-			type: 'SET_STROKE_COLOR',
-			payload: color.hex
-		});
+		if (type === 'Background') {
+			dispatch({
+				type: 'SET_BACKGROUND_BASIC_COLOR',
+				payload: color.hex,
+			});
+		} else {
+			dispatch({
+				type: 'SET_STROKE_COLOR',
+				payload: color.hex,
+			});
+		}
 	};
 
 	const handlePickerVisibiltyChange = (isVisible?: boolean) => {
@@ -59,6 +68,13 @@ const ColorModal = () => {
 	};
 
 	const adjustStrokeColor = () => {
+		if (type === 'Background') {
+			return typeof backgroundBasicColor === 'object'
+				? `linear-gradient(${backgroundBasicColor.degree || 0}, ${
+						backgroundBasicColor.firstColor
+				  }, ${backgroundBasicColor.secondColor})`
+				: backgroundBasicColor;
+		}
 		return typeof strokeColor === 'object'
 			? `linear-gradient(${strokeColor.degree || 0}, ${
 					strokeColor.firstColor
@@ -93,7 +109,7 @@ const ColorModal = () => {
 	const renderGradientPalette = useMemo(() => {
 		return (
 			<div className='gradientPicker'>
-				<GradientBuilder />
+				<GradientBuilder type={type} />
 				<div
 					className='colorTypeChangeButton basicColorButton'
 					onClick={handleColorTypeChange('basic')}>
@@ -109,13 +125,13 @@ const ColorModal = () => {
 				<div
 					className='colorSwatch'
 					style={{
-						boxShadow: `0 0 0 2px ${adjustStrokeColor()}`
+						boxShadow: `0 0 0 2px ${adjustStrokeColor()}`,
 					}}
 					onClick={handlePickerVisibiltyChange()}>
 					<div
 						className='pickedColor'
 						style={{
-							background: adjustStrokeColor()
+							background: adjustStrokeColor(),
 						}}
 					/>
 				</div>

@@ -30,6 +30,7 @@ export const PeepsGenerator: React.FC = () => {
 		scaleVector,
 		svgTransform,
 		isFrameTransparent,
+		backgroundBasicColor
 	} = state;
 
 	const handleMouseEnter = () => {
@@ -122,11 +123,7 @@ export const PeepsGenerator: React.FC = () => {
 					wrapperBackground={
 						isFrameTransparent
 							? undefined
-							: {
-									type: 'LinearGradient',
-									firstColor: 'red',
-									secondColor: '#df070738',
-							  }
+							: backgroundBasicColor
 					}
 				/>
 			</div>

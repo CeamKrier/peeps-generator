@@ -363,14 +363,17 @@ const RightMenu = () => {
 		return (
 			<div className='foregroundColorWrapper'>
 				<span className='marginRightOneEM'>Foreground</span>
-				<ColorModal />
+				<ColorModal type='Foreground' />
 			</div>
 		);
 	}, []);
 
 	const renderFrameOptions = useMemo(() => {
 		return (
-			<div className={`frameOptionsWrapper ${!isFrameTransparent && 'increaseFrameWrapperWidth'}`}>
+			<div
+				className={`frameOptionsWrapper ${
+					!isFrameTransparent && 'increaseFrameWrapperWidth'
+				}`}>
 				<span className='marginRightOneEM'>Background</span>
 				{isFrameTransparent ? (
 					<>
@@ -391,7 +394,7 @@ const RightMenu = () => {
 					</>
 				) : (
 					<div style={{ display: 'flex' }}>
-						<ColorModal />
+						<ColorModal type='Background' />
 						<div className='trashIconWrapper' onClick={updateFrameType(true)}>
 							<FaTrash color='#fd6565' />
 						</div>

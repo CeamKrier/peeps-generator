@@ -29,9 +29,12 @@ export type ReducerAction =
 	| 'SET_ACCESSORY'
 	| 'SET_PIECE_SECTION'
 	| 'SET_STROKE_COLOR'
-	| 'SET_FIRST_COLOR'
-	| 'SET_SECOND_COLOR'
-	| 'SET_FRAME_TYPE';
+	| 'SET_FOREGROUND_FIRST_COLOR'
+	| 'SET_FOREGROUND_SECOND_COLOR'
+	| 'SET_FRAME_TYPE'
+	| 'SET_BACKGROUND_BASIC_COLOR'
+	| 'SET_BACKGROUND_FIRST_GRADIENT_COLOR'
+	| 'SET_BACKGROUND_SECOND_GRADIENT_COLOR';
 
 export interface DispatchParameters {
 	type: ReducerAction;
@@ -61,6 +64,9 @@ export interface StateKeys {
 	strokeColor: string | GradientType;
 	firstColor: string;
 	secondColor: string;
+	backgroundBasicColor: string | GradientType;
+	backgroundFirstGradientColor: string;
+	backgroundSecondGradientColor: string;
 	isFrameTransparent: boolean;
 }
 

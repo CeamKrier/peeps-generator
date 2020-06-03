@@ -16,9 +16,12 @@ const initialState: StateKeys = {
 	pickedAccessory: 'None',
 	pickedSection: 'Accessories',
 	strokeColor: '#000000',
+	backgroundBasicColor: '#FFD55A',
+	backgroundFirstGradientColor: '#81087F',
+	backgroundSecondGradientColor: '#ffd402',
 	firstColor: '#81087F',
 	secondColor: '#ffd402',
-	isFrameTransparent: true
+	isFrameTransparent: true,
 };
 
 export const Context = React.createContext<ContextProps>({
@@ -68,7 +71,7 @@ const reducer = (state: any, action: any) => {
 			state.pickedSection = action.payload;
 			return Object.assign({}, state);
 		case 'SET_STROKE_COLOR':
-			let updatedState = action.payload;
+			const updatedState = action.payload;
 			// check if payload comes from the colorWheel
 			if (typeof action.payload === 'object' && !action.payload.degree) {
 				updatedState.degree = state.strokeColor.degree;
@@ -85,13 +88,37 @@ const reducer = (state: any, action: any) => {
 			}
 			state.strokeColor = updatedState;
 			return Object.assign({}, state);
-		case 'SET_FIRST_COLOR':
+		case 'SET_BACKGROUND_BASIC_COLOR':
+			const dispatchedData = action.payload;
+			// check if payload comes from the colorWheel
+			if (typeof action.payload === 'object' && !action.payload.degree) {
+				dispatchedData.degree = state.backgroundBasicColor.degree;
+
+				// Find which color has updated on the gradient builder's color picker
+				if (!dispatchedData.secondColor) {
+					// assing back the original second color
+					dispatchedData.secondColor = state.backgroundBasicColor.secondColor;
+				}
+				if (!dispatchedData.firstColor) {
+					// assing back the original first color
+					dispatchedData.firstColor = state.backgroundBasicColor.firstColor;
+				}
+			}
+			state.backgroundBasicColor = dispatchedData;
+			return Object.assign({}, state);
+		case 'SET_FOREGROUND_FIRST_COLOR':
 			state.firstColor = action.payload;
 			return Object.assign({}, state);
-		case 'SET_SECOND_COLOR':
+		case 'SET_FOREGROUND_SECOND_COLOR':
 			state.secondColor = action.payload;
 			return Object.assign({}, state);
-		case 'SET_FRAME_TYPE': 
+		case 'SET_BACKGROUND_FIRST_GRADIENT_COLOR':
+			state.backgroundFirstGradientColor = action.payload;
+			return Object.assign({}, state);
+			case 'SET_BACKGROUND_SECOND_GRADIENT_COLOR':
+				state.backgroundSecondGradientColor = action.payload;
+				return Object.assign({}, state);
+		case 'SET_FRAME_TYPE':
 			state.isFrameTransparent = action.payload;
 			return Object.assign({}, state);
 		default:
