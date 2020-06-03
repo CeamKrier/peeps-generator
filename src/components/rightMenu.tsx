@@ -365,7 +365,7 @@ const RightMenu = () => {
 	const renderFrameOptions = useMemo(() => {
 		return (
 			<div className='frameOptionsWrapper'>
-				<span>Background</span>
+				<span className='marginRightOneEM'>Background</span>
 				<div
 					className={`frameOptionButton ${
 						isFrameTransparent && 'deactiveFrameOptionButton'

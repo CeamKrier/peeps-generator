@@ -324,7 +324,7 @@ div.selectionIndicator {
 	display: flex;
 	background-color: rgba(253, 211, 101, 0.45);
 	cursor: pointer;
-	width: 7em;
+	width: 6em;
 	height: 2em;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -351,6 +351,10 @@ div.selectionIndicator {
 	width: 22em;
 	align-items: center;
 	justify-content: center;
+}
+
+.marginRightOneEM {
+	margin-right: 1em;
 }
 
 .listWrapper {
@@ -449,13 +453,14 @@ div.selectionIndicator {
 	bottom: 0;
 	margin: auto;
 	width: 2em;
-	height: 2em;
+	height: 6em;
 	border-top-left-radius: 0.5em;
 	border-bottom-left-radius: 0.5em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+	writing-mode: vertical-lr;
 }
 .gradientColorButton {
 	background: linear-gradient(

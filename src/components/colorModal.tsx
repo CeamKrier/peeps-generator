@@ -84,7 +84,7 @@ const ColorModal = () => {
 				<div
 					className='colorTypeChangeButton gradientColorButton'
 					onClick={handleColorTypeChange('gradient')}>
-					G
+					Gradient
 				</div>
 			</div>
 		);
@@ -97,7 +97,7 @@ const ColorModal = () => {
 				<div
 					className='colorTypeChangeButton basicColorButton'
 					onClick={handleColorTypeChange('basic')}>
-					B
+					Basic
 				</div>
 			</div>
 		);
