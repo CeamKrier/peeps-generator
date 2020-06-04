@@ -26,7 +26,7 @@ export const ColorWheel: React.FC<ColorWheelType> = ({ color, target, type }) =>
 			keys.secondColor = 'SET_FOREGROUND_SECOND_COLOR';
 		}
 		return keys
-	}, [])
+	}, [color])
 
 	return (
 		<ChromePicker

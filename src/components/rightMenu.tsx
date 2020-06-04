@@ -375,31 +375,34 @@ const RightMenu = () => {
 					!isFrameTransparent && 'increaseFrameWrapperWidth'
 				}`}>
 				<span className='marginRightOneEM'>Background</span>
-				{isFrameTransparent ? (
-					<>
-						<div
-							className={`frameOptionButton ${
-								isFrameTransparent && 'deactiveFrameOptionButton'
-							}`}
-							onClick={updateFrameType(true)}>
-							transparent
-						</div>
-						<div
-							className={`frameOptionButton ${
-								!isFrameTransparent && 'deactiveFrameOptionButton'
-							}`}
-							onClick={updateFrameType(false)}>
-							colorful
-						</div>
-					</>
-				) : (
-					<div style={{ display: 'flex' }}>
-						<ColorModal type='Background' />
-						<div className='trashIconWrapper' onClick={updateFrameType(true)}>
-							<FaTrash color='#fd6565' />
-						</div>
+
+				<div style={{display: 'flex', ...(!isFrameTransparent && { display: 'none' }) }}>
+					<div
+						className={`frameOptionButton ${
+							isFrameTransparent && 'deactiveFrameOptionButton'
+						}`}
+						onClick={updateFrameType(true)}>
+						transparent
 					</div>
-				)}
+					<div
+						className={`frameOptionButton ${
+							!isFrameTransparent && 'deactiveFrameOptionButton'
+						}`}
+						onClick={updateFrameType(false)}>
+						colorful
+					</div>
+				</div>
+
+				<div
+					style={{
+						display: 'flex',
+						...(isFrameTransparent && { display: 'none' }),
+					}}>
+					<ColorModal type='Background' />
+					<div className='trashIconWrapper' onClick={updateFrameType(true)}>
+						<FaTrash color='#fd6565' />
+					</div>
+				</div>
 			</div>
 		);
 	}, [isFrameTransparent]);

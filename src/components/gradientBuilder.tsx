@@ -10,13 +10,14 @@ import { GradientType } from 'react-peeps/lib/peeps/types';
 import { ColorWheel } from './colorWheel';
 
 export const GradientBuilder: React.FC<{
-	type: 'Background' | 'Foreground';
+	type?: 'Background' | 'Foreground';
 }> = ({ type }) => {
 	const { state, dispatch } = useProvider();
 	const {
 		strokeColor,
 		firstColor: foregroundFirstGradientColor,
 		secondColor: foregroundSecondGradientColor,
+		backgroundBasicColor,
 		backgroundFirstGradientColor,
 		backgroundSecondGradientColor,
 		isFrameTransparent,
@@ -28,12 +29,7 @@ export const GradientBuilder: React.FC<{
 		} else {
 			return foregroundFirstGradientColor;
 		}
-	}, [
-		foregroundFirstGradientColor,
-		foregroundSecondGradientColor,
-		backgroundFirstGradientColor,
-		backgroundSecondGradientColor,
-	]);
+	}, [foregroundFirstGradientColor, backgroundFirstGradientColor]);
 
 	const secondColor = useMemo(() => {
 		if (type === 'Background') {
@@ -41,15 +37,12 @@ export const GradientBuilder: React.FC<{
 		} else {
 			return foregroundSecondGradientColor;
 		}
-	}, [
-		foregroundFirstGradientColor,
-		foregroundSecondGradientColor,
-		backgroundFirstGradientColor,
-		backgroundSecondGradientColor,
-	]);
+	}, [foregroundSecondGradientColor, backgroundSecondGradientColor]);
 
 	const [gradientDegree, setGradientDegree] = useState(
-		(strokeColor as GradientType).degree || 0
+		(type === 'Background'
+			? (backgroundBasicColor  as GradientType).degree
+			: (strokeColor as GradientType).degree) || 0
 	);
 
 	const [firstColorBoxClicked, setFirstColorBoxClicked] = useState<boolean>(
@@ -60,18 +53,17 @@ export const GradientBuilder: React.FC<{
 	);
 
 	useEffect(() => {
+		const dispatchKey =
+			type === 'Background' ? 'SET_BACKGROUND_BASIC_COLOR' : 'SET_STROKE_COLOR';
 		dispatch({
-			type:
-				type === 'Background'
-					? 'SET_BACKGROUND_BASIC_COLOR'
-					: 'SET_STROKE_COLOR',
+			type: dispatchKey,
 			payload: {
 				degree: gradientDegree,
 				firstColor,
 				secondColor,
 			},
 		});
-	}, [firstColor, secondColor, gradientDegree, dispatch, isFrameTransparent]);
+	}, [firstColor, secondColor, gradientDegree, dispatch]);
 
 	const handleColorChange = (caller: string) => {
 		return (color: ColorResult) => {
@@ -140,10 +132,18 @@ export const GradientBuilder: React.FC<{
 		return (
 			<>
 				{firstColorBoxClicked && (
-					<ColorWheel type={type} color={renderHelper.color} target={renderHelper.target} />
+					<ColorWheel
+						type={type}
+						color={renderHelper.color}
+						target={renderHelper.target}
+					/>
 				)}
 				{secondColorBoxClicked && (
-					<ColorWheel type={type} color={renderHelper.color} target={renderHelper.target} />
+					<ColorWheel
+						type={type}
+						color={renderHelper.color}
+						target={renderHelper.target}
+					/>
 				)}
 			</>
 		);

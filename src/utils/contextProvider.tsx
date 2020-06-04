@@ -115,9 +115,9 @@ const reducer = (state: any, action: any) => {
 		case 'SET_BACKGROUND_FIRST_GRADIENT_COLOR':
 			state.backgroundFirstGradientColor = action.payload;
 			return Object.assign({}, state);
-			case 'SET_BACKGROUND_SECOND_GRADIENT_COLOR':
-				state.backgroundSecondGradientColor = action.payload;
-				return Object.assign({}, state);
+		case 'SET_BACKGROUND_SECOND_GRADIENT_COLOR':
+			state.backgroundSecondGradientColor = action.payload;
+			return Object.assign({}, state);
 		case 'SET_FRAME_TYPE':
 			state.isFrameTransparent = action.payload;
 			return Object.assign({}, state);

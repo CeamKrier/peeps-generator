@@ -74,12 +74,13 @@ const ColorModal: React.FC<{ type: 'Background' | 'Foreground' }> = ({
 						backgroundBasicColor.firstColor
 				  }, ${backgroundBasicColor.secondColor})`
 				: backgroundBasicColor;
+		} else {
+			return typeof strokeColor === 'object'
+				? `linear-gradient(${strokeColor.degree || 0}, ${
+						strokeColor.firstColor
+				  }, ${strokeColor.secondColor})`
+				: strokeColor;
 		}
-		return typeof strokeColor === 'object'
-			? `linear-gradient(${strokeColor.degree || 0}, ${
-					strokeColor.firstColor
-			  }, ${strokeColor.secondColor})`
-			: strokeColor;
 	};
 
 	const handleColorTypeChange = (type: ColoringType) => {
@@ -120,18 +121,19 @@ const ColorModal: React.FC<{ type: 'Background' | 'Foreground' }> = ({
 	}, []);
 
 	return useMemo(() => {
+		const pickedColor = adjustStrokeColor();
 		return (
 			<div className='colorIndicator'>
 				<div
 					className='colorSwatch'
 					style={{
-						boxShadow: `0 0 0 2px ${adjustStrokeColor()}`,
+						boxShadow: `0 0 0 2px ${pickedColor}`,
 					}}
 					onClick={handlePickerVisibiltyChange()}>
 					<div
 						className='pickedColor'
 						style={{
-							background: adjustStrokeColor(),
+							background: pickedColor,
 						}}
 					/>
 				</div>
