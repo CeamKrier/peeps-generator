@@ -367,6 +367,7 @@ div.selectionIndicator {
 	width: 22em;
 	justify-content: center;
 	margin-bottom: 1em;
+	align-items: center;
 }
 
 .marginRightOneEM {
@@ -585,20 +586,17 @@ div.chrome-picker > div:nth-child(1) {
 
 @media screen and (max-width: 1200px) {
 	#main {
-		min-height: 750px;
+		min-height: 810px;
 		position: relative;
 	}
 	.colorIndicator {
 		left: unset;
-		margin: auto;
 		top: 0;
-		margin-top: 1em;
-		width: 20em;
 	}
 	.colorPopover {
 		top: -0.5em;
 		right: unset;
-		left: -3em;
+		left: -10em;
 	}
 	.leftMenu {
 		display: none;
@@ -645,6 +643,21 @@ div.chrome-picker > div:nth-child(1) {
 		margin: auto;
 		margin-top: 1em;
 	}
+	.frameOptionsWrapper {
+		right: 0;
+    left: 0;
+    margin: auto;
+    margin-top: 1em;
+	}
+	.foregroundColorWrapper {
+		right: 0;
+    left: 0;
+    margin: auto;
+    margin-top: 1em;
+	}
+	.backgroundPickedColorIndicatior {
+		width: 9.5em;
+	}
 	.sectionList > li:first-child > div {
 		border-bottom-left-radius: 1em;
 		border-top-right-radius: 0;
@@ -674,7 +687,7 @@ div.chrome-picker > div:nth-child(1) {
 
 @media screen and (max-width: 460px) {
 	#main {
-		min-height: 650px;
+		min-height: 720px;
 		position: relative;
 	}
 
@@ -726,11 +739,23 @@ div.chrome-picker > div:nth-child(1) {
 		line-height: 1.5em;
 		bottom: -6em;
 	}
+	.colorPopover {
+    left: -9em;
+}
+}
+
+@media screen and (max-width: 390px) {
+	.frameOptionsWrapper {
+		width: 20em;
+	}
+	.foregroundColorWrapper {
+		width: 20em;
+	}
 }
 
 @media screen and (max-width: 375px) {
 	.colorPopover {
-		left: -1.2em;
+		left: -8.2em;
 	}
 	.block-picker {
 		width: 19em !important;
@@ -744,23 +769,29 @@ div.chrome-picker > div:nth-child(1) {
 }
 
 @media screen and (max-width: 340px) {
-	.colorIndicator {
-		right: 1.5em;
-	}
 	.pickedColor {
-		width: 14em;
+		width: 8em;
 	}
 	.block-picker {
-		width: 14em !important;
+		width: 17em !important;
 	}
 	.colorPopover {
-		left: 1em;
+		left: -8.2em;
 	}
 	.gradientBlock {
-		width: 14em;
+		width: 17em;
 	}
 	div.chrome-picker > div:nth-child(1) {
 		padding-bottom: 40% !important;
+	}
+	.foregroundColorWrapper {
+		width: 15em;
+	}
+	.frameOptionsWrapper {
+		width: 15em;
+	}
+	.backgroundPickedColorIndicatior {
+		width: 6.5em;
 	}
 }
 

@@ -131,7 +131,7 @@ const ColorModal: React.FC<{ type: 'Background' | 'Foreground' }> = ({
 					}}
 					onClick={handlePickerVisibiltyChange()}>
 					<div
-						className='pickedColor'
+						className={`pickedColor ${type === 'Background' ? 'backgroundPickedColorIndicatior' : ''}`}
 						style={{
 							background: pickedColor,
 						}}

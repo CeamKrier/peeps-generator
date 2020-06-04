@@ -21,7 +21,7 @@ const initialState: StateKeys = {
 	backgroundSecondGradientColor: '#ffd402',
 	firstColor: '#81087F',
 	secondColor: '#ffd402',
-	isFrameTransparent: true,
+	isFrameTransparent: false,
 };
 
 export const Context = React.createContext<ContextProps>({
