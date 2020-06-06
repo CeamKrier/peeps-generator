@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 // @ts-ignore
 import CircularSlider from './circularSlider';
 // @ts-ignore
-import Slider from 'rc-slider';
+import Slider from 'rc-slider/lib/Slider';
 import { useProvider } from '../utils/contextProvider';
 
 const styles = {
@@ -76,7 +76,7 @@ const LeftMenu = () => {
 				type: 'SET_SCALE_VECTOR',
 				payload: 1.25,
 			});
-		} 
+		}
 		if (window?.innerWidth > 1900) {
 			dispatch({
 				type: 'SET_SCALE_VECTOR',
@@ -207,19 +207,22 @@ const LeftMenu = () => {
 					updateScaleVector(nativeEvent);
 				}}>
 				<span className='scaleTitle'>Scale</span>
-				<Slider
-					value={scaleVector}
-					min={0.5}
-					max={1.5}
-					defaultValue={1}
-					onChange={handleScaleChange}
-					marks={{ 0.5: 0.5, 0.75: 0.75, 1.0: 1.0, 1.25: 1.25, 1.5: 1.5 }}
-					step={null}
-					railStyle={styles.railStyle}
-					trackStyle={styles.trackStyle}
-					dotStyle={styles.dotStyle}
-					activeDotStyle={styles.activeDotStyle}
-				/>
+				{
+					//@ts-ignore
+					<Slider
+						value={scaleVector}
+						min={0.5}
+						max={1.5}
+						defaultValue={1}
+						onChange={handleScaleChange}
+						marks={{ 0.5: 0.5, 0.75: 0.75, 1.0: 1.0, 1.25: 1.25, 1.5: 1.5 }}
+						step={null}
+						railStyle={styles.railStyle}
+						trackStyle={styles.trackStyle}
+						dotStyle={styles.dotStyle}
+						activeDotStyle={styles.activeDotStyle}
+					/>
+				}
 				<div className='scaleShortcutWrapper'>
 					<span>or</span>
 					<span className='boldText'>press s</span>
