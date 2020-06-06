@@ -645,15 +645,15 @@ div.chrome-picker > div:nth-child(1) {
 	}
 	.frameOptionsWrapper {
 		right: 0;
-    left: 0;
-    margin: auto;
-    margin-top: 1em;
+		left: 0;
+		margin: auto;
+		margin-top: 1em;
 	}
 	.foregroundColorWrapper {
 		right: 0;
-    left: 0;
-    margin: auto;
-    margin-top: 1em;
+		left: 0;
+		margin: auto;
+		margin-top: 1em;
 	}
 	.backgroundPickedColorIndicatior {
 		width: 9.5em;
@@ -737,11 +737,11 @@ div.chrome-picker > div:nth-child(1) {
 		max-width: 15rem;
 		text-align: center;
 		line-height: 1.5em;
-		bottom: -6em;
+		bottom: -7em;
 	}
 	.colorPopover {
-    left: -9em;
-}
+		left: -9em;
+	}
 }
 
 @media screen and (max-width: 390px) {
