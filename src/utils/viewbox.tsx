@@ -17,7 +17,7 @@ export const isBustPose = (pose: any): pose is BustPoseType =>
 	Object.keys(BustPose).includes(pose);
 
 export const adjustPeepsViewbox = (bodyPiece: string) => {
-	let x = '-320',
+	let x = '-350',
 		y = '-150',
 		width = '1500',
 		height = '1500';
@@ -57,6 +57,12 @@ export const adjustPeepsViewbox = (bodyPiece: string) => {
 	} else {
 		if (bodyPiece === 'PocketShirt') {
 			x = '-395';
+		}
+		if (bodyPiece === 'Geek' || bodyPiece === 'DotJacket') {
+			x = '-305';
+		}
+		if (bodyPiece === 'Device') {
+			y = '-160';
 		}
 	}
 	return { x, y, width, height };
