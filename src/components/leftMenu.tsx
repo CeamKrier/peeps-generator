@@ -134,7 +134,7 @@ const LeftMenu = () => {
 			type: 'SET_SVG_TRANSFORM',
 			payload: {
 				...svgTransform,
-				rotate: `rotate(${rotationDegree}deg)`,
+				rotate: `${rotationDegree}`,
 			},
 		});
 	}, [rotationDegree]);

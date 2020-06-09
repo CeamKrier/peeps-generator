@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Peep from 'react-peeps';
 import { useProvider } from '../utils/contextProvider';
 import LeftMenu from './leftMenu';
@@ -30,8 +30,19 @@ export const PeepsGenerator: React.FC = () => {
 		scaleVector,
 		svgTransform,
 		isFrameTransparent,
-		backgroundBasicColor
+		backgroundBasicColor,
 	} = state;
+
+	useEffect(() => {
+		const peepGroupWrapper = document.querySelector(
+			'.svgWrapper > svg > g'
+		) as SVGGraphicsElement;
+		const { width, height } = peepGroupWrapper.getBBox();
+		peepGroupWrapper.setAttribute(
+			'transform',
+			`rotate(${svgTransform?.rotate || '0'} ${width / 2} ${height / 2})`
+		);
+	}, [svgTransform]);
 
 	const handleMouseEnter = () => {
 		(document.getElementsByClassName('svgWrapper')[0] as HTMLElement).focus();
@@ -109,9 +120,7 @@ export const PeepsGenerator: React.FC = () => {
 						...styles.peepStyle,
 						width: styles.peepStyle.width * scaleVector,
 						height: styles.peepStyle.height * scaleVector,
-						transform: `${svgTransform?.rotate || ''} ${
-							svgTransform?.flip || ''
-						}`,
+						transform: `${svgTransform?.flip || ''}`,
 					}}
 					accessory={pickedAccessory}
 					body={pickedBody}
@@ -121,9 +130,7 @@ export const PeepsGenerator: React.FC = () => {
 					strokeColor={strokeColor}
 					viewBox={adjustPeepsViewbox(pickedBody)}
 					wrapperBackground={
-						isFrameTransparent
-							? undefined
-							: backgroundBasicColor
+						isFrameTransparent ? undefined : backgroundBasicColor
 					}
 				/>
 			</div>
