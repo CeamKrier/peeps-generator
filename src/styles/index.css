@@ -584,10 +584,25 @@ div.chrome-picker > div:nth-child(1) {
 	animation: sign 2s infinite linear;
 }
 
-@media screen and (max-width: 1200px) {
+.block-picker > div:nth-child(2) {
+	height: 60px !important;
+}
+
+@media screen and (max-width: 1400px) {
 	#main {
-		min-height: 810px;
+		min-height: 710px;
 		position: relative;
+	}
+	.svgWrapper svg {
+		width: 300px !important;
+		height: 300px !important;
+	}
+	.pieceText {
+		display: none;
+	}
+	.header h1 {
+		margin-top: unset;
+		
 	}
 	.colorIndicator {
 		left: unset;
@@ -602,10 +617,13 @@ div.chrome-picker > div:nth-child(1) {
 		display: none;
 	}
 	.pieceList {
-		width: 100%;
+		width: 60%;
 		height: 3.5em;
 		overflow-y: hidden;
 		margin-bottom: 0;
+		left: 0;
+		right: 0;
+		margin: auto;
 	}
 	.rigthMenu {
 		top: unset;
@@ -673,7 +691,7 @@ div.chrome-picker > div:nth-child(1) {
 		margin-top: 1em;
 	}
 	.svgWrapper {
-		top: 4em;
+		top: 3em;
 		margin-top: 0;
 	}
 	.footer {
@@ -681,16 +699,25 @@ div.chrome-picker > div:nth-child(1) {
 		margin-bottom: 1em;
 	}
 }
-.block-picker > div:nth-child(2) {
-	height: 60px !important;
+
+@media screen and (max-width: 1200px) {
+	.pieceList {
+		width: 100%;
+		left: unset;
+		right: unset;
+		margin: unset;
+	}
 }
 
 @media screen and (max-width: 460px) {
 	#main {
-		min-height: 720px;
+		min-height: 630px;
 		position: relative;
 	}
-
+	.header h1 {
+		margin-top: unset;
+		margin-bottom: unset;
+	}
 	.sectionList {
 		overflow: hidden;
 	}
@@ -701,8 +728,8 @@ div.chrome-picker > div:nth-child(1) {
 		width: 90%;
 	}
 	.svgWrapper > svg {
-		width: 320px !important;
-		height: 320px !important;
+		width: 240px !important;
+		height: 240px !important;
 	}
 	.saveButton {
 		width: 7em;

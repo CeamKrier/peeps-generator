@@ -135,7 +135,7 @@ export const PeepsGenerator: React.FC = () => {
 				/>
 			</div>
 
-			<LeftMenu />
+			{window?.innerWidth > 1200 && <LeftMenu />}
 
 			<RightMenu />
 
