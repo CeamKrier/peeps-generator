@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Peep from 'react-peeps';
 import { useProvider } from '../utils/contextProvider';
 import LeftMenu from './leftMenu';
@@ -18,6 +18,7 @@ const styles = {
 
 export const PeepsGenerator: React.FC = () => {
 	const { state, dispatch } = useProvider();
+	const illustrationRef = useRef<HTMLDivElement>(null);
 
 	const {
 		pickedAccessory,
@@ -32,6 +33,24 @@ export const PeepsGenerator: React.FC = () => {
 		isFrameTransparent,
 		backgroundBasicColor,
 	} = state;
+
+	useEffect(() => {
+		/*
+		  Removing the event listeners in 
+			small screens to prevent jumping behaviour 
+			when pressing on the illustration
+		 */
+		if (window?.innerWidth < 1201) {
+			illustrationRef.current?.removeEventListener(
+				'mouseenter',
+				handleMouseEnter
+			);
+			illustrationRef.current?.removeEventListener(
+				'mouseleave',
+				handleMouseLeave
+			);
+		}
+	}, []);
 
 	useEffect(() => {
 		const peepGroupWrapper = document.querySelector(
@@ -108,6 +127,7 @@ export const PeepsGenerator: React.FC = () => {
 			</a>
 
 			<div
+				ref={illustrationRef}
 				className='svgWrapper'
 				tabIndex={0}
 				onMouseEnter={handleMouseEnter}
@@ -135,7 +155,7 @@ export const PeepsGenerator: React.FC = () => {
 				/>
 			</div>
 
-			{window?.innerWidth > 1200 && <LeftMenu />}
+			<LeftMenu />
 
 			<RightMenu />
 
