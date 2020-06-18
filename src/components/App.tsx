@@ -56,12 +56,12 @@ export const PeepsGenerator: React.FC = () => {
 		const peepGroupWrapper = document.querySelector(
 			'.svgWrapper > svg > g'
 		) as SVGGraphicsElement;
-		const { width, height } = peepGroupWrapper.getBBox();
+		const { width, height, x, y } = peepGroupWrapper.getBBox();
 		peepGroupWrapper.setAttribute(
 			'transform',
-			`rotate(${svgTransform?.rotate || '0'} ${width / 2} ${height / 2})`
+			`rotate(${svgTransform?.rotate || '0'} ${x + width / 2} ${y + height / 2})`
 		);
-	}, [svgTransform]);
+	}, [svgTransform, pickedBody]);
 
 	const handleMouseEnter = () => {
 		(document.getElementsByClassName('svgWrapper')[0] as HTMLElement).focus();
