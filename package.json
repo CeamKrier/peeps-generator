@@ -1,0 +1,75 @@
+{
+	"name": "peeps-generator",
+	"version": "0.2.0",
+	"description": "Build and customize your open peeps illustrations right away!",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CeamKrier/peeps-generator.git"
+	},
+	"keywords": [
+		"open peeps",
+		"react-peeps",
+		"illustration",
+		"generate",
+		"build",
+		"builder",
+		"generator"
+	],
+	"author": "Emre Çakır",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/CeamKrier/peeps-generator/issues"
+	},
+	"dependencies": {
+		"@babel/preset-env": "^7.9.5",
+		"@babel/preset-react": "^7.9.4",
+		"@babel/preset-typescript": "^7.9.0",
+		"@babel/register": "^7.9.0",
+		"compression": "^1.7.4",
+		"express": "^4.17.1",
+		"file-saver": "^2.0.2",
+		"ignore-styles": "^5.0.1",
+		"rc-slider": "^9.2.3",
+		"react": "^16.13.1",
+		"react-color": "^2.18.0",
+		"react-dom": "^16.13.1",
+		"react-icons": "^3.10.0",
+		"react-moveable": "^0.20.10",
+		"react-peeps": "^0.1.9",
+		"react-scripts": "3.4.1",
+		"typescript": "~3.7.2"
+	},
+	"scripts": {
+		"start": "node server/index.js",
+		"build": "react-scripts build",
+		"dev": "react-scripts start",
+		"prebuild": "rimraf build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.3",
+		"@types/file-saver": "^2.0.1",
+		"@types/node": "^12.0.0",
+		"@types/react": "^16.9.25",
+		"@types/react-color": "^3.0.1",
+		"@types/react-dom": "^16.9.5",
+		"@welldone-software/why-did-you-render": "^4.0.6",
+		"rimraf": "^3.0.2"
+	}
+}
