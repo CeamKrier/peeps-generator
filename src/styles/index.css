@@ -200,8 +200,8 @@ div.selectionIndicator {
 
 .bmc-btn-container {
     position: absolute;
-    bottom: 1rem;
-    left: 2rem;
+    top: 2rem;
+    right: 2rem;
 }
 
 .bmc-btn {
@@ -596,6 +596,11 @@ div.chrome-picker > div:nth-child(1) {
 }
 
 @media screen and (max-width: 1400px) {
+    .bmc-btn-container {
+        bottom: 1rem;
+        left: 2rem;
+        top: unset;
+    }
     #main {
         min-height: 710px;
         position: relative;
