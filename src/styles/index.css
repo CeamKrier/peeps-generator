@@ -199,7 +199,7 @@ div.selectionIndicator {
 }
 
 .bmc-btn-container {
-    position: absolute;
+    position: fixed;
     top: 2rem;
     right: 2rem;
 }
