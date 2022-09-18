@@ -36,7 +36,7 @@
         "react-icons": "^3.10.0",
         "react-moveable": "^0.20.10",
         "react-peeps": "^0.1.9",
-        "react-scripts": "3.4.1",
+        "react-scripts": "5.0.1",
         "typescript": "~4.1.4"
     },
     "scripts": {
