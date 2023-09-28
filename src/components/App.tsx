@@ -100,16 +100,18 @@ export const PeepsGenerator: React.FC = () => {
 
     return (
         <>
-            <Marquee style={{ backgroundColor: "#F8CFE7", paddingBottom: ".5rem", paddingTop: ".5rem" }}>
-                🌟 Exciting Update! 🌟 Our{" "}
-                <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
-                    New App
-                </a>{" "}
-                is here with enhanced features like updated library, design sharing, and more customizations! 🚀 Experience improved performance and a user-friendly interface! 🎉 Dive in to explore more and share your{" "}
-                <a href='https://discord.gg/vvDEUdVm' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
-                    Feedback
-                </a>{" "}
-                on our new community Discord server! We are eager to hear your thoughts! 💬
+            <Marquee pauseOnHover style={{ backgroundColor: "#F8CFE7" }}>
+                <p style={{ marginLeft: "5rem" }}>
+                    🌟 Exciting Update! 🌟 Our{" "}
+                    <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
+                        New platform
+                    </a>{" "}
+                    is here with enhanced features like updated library, design sharing, and more customizations! 🚀 Experience improved performance and a user-friendly interface! 🎉 Dive in to explore more and share your{" "}
+                    <a href='https://discord.gg/vvDEUdVm' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
+                        Feedback
+                    </a>{" "}
+                    on our new community Discord server! We are eager to hear your thoughts! 💬
+                </p>
             </Marquee>
             <a className='header' href='/'>
                 <h1>Opeeps Avatar Generator</h1>
