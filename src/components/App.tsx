@@ -99,48 +99,61 @@ export const PeepsGenerator: React.FC = () => {
     };
 
     return (
-        <>
-            <Marquee pauseOnHover style={{ backgroundColor: "#F8CFE7" }}>
+        <div>
+            <Marquee pauseOnHover style={{ backgroundColor: "#F8CFE7", marginBottom: "1em" }}>
                 <p style={{ marginLeft: "5rem" }}>
-                    🌟 Exciting Update! 🌟 Our{" "}
+                    🌟 Exciting Update! 🌟
                     <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
                         New platform
                     </a>{" "}
-                    is here with enhanced features like updated library, design sharing, and more customizations! 🚀 Experience improved performance and a user-friendly interface! 🎉 Dive in to explore more and share your{" "}
+                    is here with enhanced features! 🎉 Dive in to explore more and share your{" "}
                     <a href='https://discord.gg/vvDEUdVm' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
                         Feedback
                     </a>{" "}
-                    on our new community Discord server! We are eager to hear your thoughts! 💬
+                    on community Discord! Join us now 🥳
+                </p>
+                <p style={{ marginLeft: "5rem" }}>
+                    🌟 Exciting Update! 🌟
+                    <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
+                        New platform
+                    </a>{" "}
+                    is here with enhanced features! 🎉 Dive in to explore more and share your{" "}
+                    <a href='https://discord.gg/vvDEUdVm' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
+                        Feedback
+                    </a>{" "}
+                    on community Discord! Join us now 🥳
                 </p>
             </Marquee>
-            <a className='header' href='/'>
-                <h1>Opeeps Avatar Generator</h1>
-            </a>
+            <div className='container'>
+                <a className='header' href='/'>
+                    <h1>Opeeps Avatar Generator</h1>
+                </a>
 
-            <div ref={illustrationRef} className='svgWrapper' tabIndex={0} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} onWheel={handleMouseWheel}>
-                <Peep
-                    style={{
-                        ...styles.peepStyle,
-                        width: styles.peepStyle.width * scaleVector,
-                        height: styles.peepStyle.height * scaleVector,
-                        transform: `${svgTransform?.flip || ""}`
-                    }}
-                    accessory={pickedAccessory}
-                    body={pickedBody}
-                    face={pickedFace}
-                    hair={pickedHair}
-                    facialHair={pickedFacialHair}
-                    strokeColor={strokeColor}
-                    viewBox={adjustPeepsViewbox(pickedBody)}
-                    wrapperBackground={isFrameTransparent ? undefined : backgroundBasicColor}
-                />
+                <div ref={illustrationRef} className='svgWrapper' tabIndex={0} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} onWheel={handleMouseWheel}>
+                    <Peep
+                        style={{
+                            ...styles.peepStyle,
+                            width: styles.peepStyle.width * scaleVector,
+                            height: styles.peepStyle.height * scaleVector,
+                            transform: `${svgTransform?.flip || ""}`
+                        }}
+                        accessory={pickedAccessory}
+                        body={pickedBody}
+                        face={pickedFace}
+                        hair={pickedHair}
+                        facialHair={pickedFacialHair}
+                        strokeColor={strokeColor}
+                        viewBox={adjustPeepsViewbox(pickedBody)}
+                        wrapperBackground={isFrameTransparent ? undefined : backgroundBasicColor}
+                    />
+                </div>
+
+                <LeftMenu />
+
+                <RightMenu />
+
+                <Footer />
             </div>
-
-            <LeftMenu />
-
-            <RightMenu />
-
-            <Footer />
-        </>
+        </div>
     );
 };

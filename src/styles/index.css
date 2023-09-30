@@ -188,6 +188,7 @@ div.selectionIndicator {
     align-items: center;
     justify-content: center;
     display: flex;
+    background-color: white;
 }
 
 .pieceSectionButton:not(.pickedSection):hover {
@@ -202,6 +203,7 @@ div.selectionIndicator {
     position: fixed;
     top: 2rem;
     right: 2rem;
+    display: none;
 }
 
 .bmc-btn {
@@ -600,6 +602,16 @@ div.chrome-picker > div:nth-child(1) {
         bottom: 2rem;
         left: 2rem;
         top: unset;
+        display: none;
+    }
+    .header {
+        display: none;
+    }
+    .footer {
+        display: none;
+    }
+    .container {
+        position: relative;
     }
     #main {
         min-height: 710px;
@@ -642,6 +654,7 @@ div.chrome-picker > div:nth-child(1) {
         left: 1em;
         bottom: -1em;
         margin-bottom: 1em;
+        position: fixed;
     }
     .pieceListItem {
         display: table-cell;
@@ -702,7 +715,7 @@ div.chrome-picker > div:nth-child(1) {
         margin-top: 1em;
     }
     .svgWrapper {
-        top: 3em;
+        top: 0em;
         margin-top: 0;
     }
     .footer {
