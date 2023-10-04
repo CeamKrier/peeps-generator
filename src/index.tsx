@@ -1,17 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { PeepsGenerator } from './components/App';
-import { Provider } from './utils/contextProvider';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { MantineProvider, createTheme } from "@mantine/core";
 
-import 'rc-slider/assets/index.css';
-import './styles/index.css';
+import { PeepsGenerator } from "./components/App";
+import { Provider } from "./utils/contextProvider";
+import * as serviceWorker from "./serviceWorker";
+
+import "rc-slider/assets/index.css";
+import "./styles/index.css";
+import "@mantine/core/styles.css";
 
 ReactDOM.hydrate(
-	<Provider>
-		<PeepsGenerator />
-	</Provider>,
-	document.getElementById('main')
+    <MantineProvider>
+        <Provider>
+            <PeepsGenerator />
+        </Provider>
+    </MantineProvider>,
+    document.getElementById("main")
 );
 
 // If you want your app to work offline and load faster, you can change

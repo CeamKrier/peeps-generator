@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Peep from "react-peeps";
 import { useProvider } from "../utils/contextProvider";
 import LeftMenu from "./leftMenu";
@@ -6,6 +6,8 @@ import RightMenu from "./rightMenu";
 import { Footer } from "./footer";
 import { adjustPeepsViewbox } from "../utils/viewbox";
 import Marquee from "react-fast-marquee";
+import { Modal, Image } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 const styles = {
     peepStyle: {
@@ -19,6 +21,7 @@ const styles = {
 
 export const PeepsGenerator: React.FC = () => {
     const { state, dispatch } = useProvider();
+    const [opened, { open, close }] = useDisclosure(true);
     const illustrationRef = useRef<HTMLDivElement>(null);
 
     const { pickedAccessory, pickedBody, pickedFace, pickedFacialHair, pickedHair, strokeColor, pressedKey, scaleVector, svgTransform, isFrameTransparent, backgroundBasicColor } = state;
@@ -124,11 +127,27 @@ export const PeepsGenerator: React.FC = () => {
                     on community Discord! Join us now 🥳
                 </p>
             </Marquee>
+            <Modal opened={opened} onClose={close} title='🌟 Exciting Update! 🌟'>
+                <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ display: "flex", justifyContent: "center" }}>
+                    <Image h={200} w='auto' fit='contain' radius='md' src='/platform-logo.png' />
+                </a>
+                <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ textDecoration: "underline" }}>
+                    New platform
+                </a>{" "}
+                is here with enhanced features! 🎉
+                <p>
+                    Dive in to explore more and share your{" "}
+                    <a href='https://discord.gg/vvDEUdVm' target='_blank' rel='noreferrer' style={{ textDecoration: "underline" }}>
+                        Feedback
+                    </a>{" "}
+                    on community Discord!
+                </p>
+                Join us now 🥳
+            </Modal>
             <div className='container'>
                 <a className='header' href='/'>
                     <h1>Opeeps Avatar Generator</h1>
                 </a>
-
                 <div ref={illustrationRef} className='svgWrapper' tabIndex={0} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} onWheel={handleMouseWheel}>
                     <Peep
                         style={{
@@ -147,11 +166,8 @@ export const PeepsGenerator: React.FC = () => {
                         wrapperBackground={isFrameTransparent ? undefined : backgroundBasicColor}
                     />
                 </div>
-
                 <LeftMenu />
-
                 <RightMenu />
-
                 <Footer />
             </div>
         </div>
