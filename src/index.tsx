@@ -10,8 +10,12 @@ import "rc-slider/assets/index.css";
 import "./styles/index.css";
 import "@mantine/core/styles.css";
 
+const theme = createTheme({
+    fontFamily: "Itim, sans-serif"
+});
+
 ReactDOM.hydrate(
-    <MantineProvider>
+    <MantineProvider theme={theme}>
         <Provider>
             <PeepsGenerator />
         </Provider>

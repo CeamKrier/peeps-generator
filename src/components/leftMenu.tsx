@@ -22,8 +22,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     },
     dotStyle: {
         position: "absolute",
-        bottom: "-7px",
-        marginLeft: "-8px",
+        bottom: "-8px",
         width: "14px",
         height: "14px",
         border: "2px solid #e9e9e9",
@@ -37,14 +36,17 @@ const styles: { [key: string]: React.CSSProperties } = {
         width: "18px",
         height: "18px",
         cursor: "pointer",
-        marginTop: "-5px",
+
         borderRadius: "50%",
         border: "solid 2px #000",
         backgroundColor: "#000",
         touchAction: "pan-x",
         bottom: "-8px",
-        marginLeft: "-9px",
+
         zIndex: 2
+    },
+    handleStyle: {
+        display: "none"
     }
 };
 
@@ -198,7 +200,7 @@ const LeftMenu = () => {
                 {
                     //@ts-ignore
                     <Slider
-                        styles={{ rail: styles.railStyle, track: styles.trackStyle }}
+                        styles={{ rail: styles.railStyle, track: styles.trackStyle, handle: styles.handleStyle }}
                         value={scaleVector}
                         min={0.5}
                         max={1.5}
@@ -206,8 +208,8 @@ const LeftMenu = () => {
                         onChange={handleScaleChange}
                         marks={{ 0.5: 0.5, 0.75: 0.75, 1.0: 1.0, 1.25: 1.25, 1.5: 1.5 }}
                         step={null}
-                        dotStyle={styles.dotStyle}
                         activeDotStyle={styles.activeDotStyle}
+                        dotStyle={styles.dotStyle}
                     />
                 }
                 <div className='scaleShortcutWrapper'>
