@@ -302,21 +302,19 @@ const RightMenu = () => {
         );
     }, [isFrameTransparent]);
 
-    return useMemo(() => {
-        return (
-            <div className='rigthMenu'>
-                {renderSelectedPieceSet}
+    return (
+        <div className='rigthMenu'>
+            {renderSelectedPieceSet}
 
-                {renderFrameOptions}
+            {renderFrameOptions}
 
-                {renderColorPicker}
+            {renderColorPicker}
 
-                {rendererRandomizerButton}
+            {rendererRandomizerButton}
 
-                {renderSaveButtons}
-            </div>
-        );
-    }, [pickedSection, randomizePeep, pickedAccessory, pickedBody, pickedFace, pickedFacialHair, pickedHair, scaleVector, isFrameTransparent]);
+            {renderSaveButtons}
+        </div>
+    );
 };
 
 export default RightMenu;

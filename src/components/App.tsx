@@ -21,7 +21,8 @@ const styles = {
 
 export const PeepsGenerator: React.FC = () => {
     const { state, dispatch } = useProvider();
-    const [opened, { open, close }] = useDisclosure(true);
+    const seen = localStorage.getItem("modal") === "seen";
+    const [opened, { open, close }] = useDisclosure(!seen);
     const illustrationRef = useRef<HTMLDivElement>(null);
 
     const { pickedAccessory, pickedBody, pickedFace, pickedFacialHair, pickedHair, strokeColor, pressedKey, scaleVector, svgTransform, isFrameTransparent, backgroundBasicColor } = state;
@@ -101,6 +102,11 @@ export const PeepsGenerator: React.FC = () => {
         }, 0);
     };
 
+    const handleModalClose = () => {
+        close();
+        localStorage.setItem("modal", "seen");
+    };
+
     return (
         <div>
             <Marquee pauseOnHover style={{ backgroundColor: "#F8CFE7", marginBottom: "1em" }}>
@@ -127,7 +133,7 @@ export const PeepsGenerator: React.FC = () => {
                     on community Discord! Join us now 🥳
                 </p>
             </Marquee>
-            <Modal opened={opened} onClose={close} title='🌟 Exciting Update! 🌟' centered>
+            <Modal opened={opened} onClose={handleModalClose} title='🌟 Exciting Update! 🌟' centered>
                 <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ display: "flex", justifyContent: "center" }}>
                     <Image h={200} w='auto' fit='contain' radius='md' src='/platform-logo.png' />
                 </a>
