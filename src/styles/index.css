@@ -258,8 +258,8 @@ div.selectionIndicator {
 
 .leftMenu {
     position: absolute;
-    top: 0;
-    bottom: 0;
+
+    bottom: 2em;
     left: 2em;
     transition: left 0.5s cubic-bezier(0.82, 0.085, 0.395, 0.895);
     display: flex;
@@ -299,7 +299,7 @@ div.selectionIndicator {
     left: -22em;
 }
 
-.rigthMenu {
+.rightMenu {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -596,7 +596,28 @@ div.chrome-picker > div:nth-child(1) {
     height: 60px !important;
 }
 
+.ads {
+    position: absolute;
+    width: 375px;
+    margin-top: 0.25em;
+}
+
+.ads img {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
 @media screen and (max-width: 1400px) {
+    .ads {
+        position: initial;
+        margin: 0 auto;
+        margin-top: 0.25em;
+    }
+
+    .ads img {
+        border-radius: 8px;
+    }
+
     .bmc-btn-container {
         bottom: 2rem;
         left: 2rem;
@@ -647,11 +668,11 @@ div.chrome-picker > div:nth-child(1) {
         right: 0;
         margin: auto;
     }
-    .rigthMenu {
+    .rightMenu {
         top: unset;
         right: 1em;
         left: 1em;
-        bottom: -1em;
+        bottom: 0;
         margin-bottom: 1em;
         position: fixed;
     }
@@ -716,6 +737,7 @@ div.chrome-picker > div:nth-child(1) {
     .svgWrapper {
         top: 0em;
         margin-top: 0;
+        position: initial;
     }
     .footer {
         bottom: -4em;
@@ -810,6 +832,10 @@ div.chrome-picker > div:nth-child(1) {
 }
 
 @media screen and (max-width: 375px) {
+    .ads {
+        width: 100%;
+        padding: 0 4px;
+    }
     .colorPopover {
         left: -8.2em;
     }

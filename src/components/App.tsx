@@ -109,7 +109,7 @@ export const PeepsGenerator: React.FC = () => {
 
     return (
         <div>
-            <Marquee pauseOnHover style={{ backgroundColor: "#F8CFE7", marginBottom: "1em" }}>
+            {/* <Marquee pauseOnHover style={{ backgroundColor: "#F8CFE7", marginBottom: "1em" }}>
                 <p style={{ marginLeft: "5rem" }}>
                     🌟 Exciting Update! 🌟
                     <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
@@ -132,8 +132,9 @@ export const PeepsGenerator: React.FC = () => {
                     </a>{" "}
                     on community Discord! Join us now 🥳
                 </p>
-            </Marquee>
-            <Modal opened={opened} onClose={handleModalClose} title='🌟 Exciting Update! 🌟' centered>
+            </Marquee> */}
+
+            {/* <Modal opened={opened} onClose={handleModalClose} title='🌟 Exciting Update! 🌟' centered>
                 <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ display: "flex", justifyContent: "center" }}>
                     <Image h={200} w='auto' fit='contain' radius='md' src='/platform-logo.png' />
                 </a>
@@ -149,7 +150,12 @@ export const PeepsGenerator: React.FC = () => {
                     on community Discord!
                 </p>
                 Join us now 🥳
-            </Modal>
+            </Modal> */}
+            <div className='ads'>
+                <a href='https://ojo.so/?ref=opeeps.fun' target='_blank' rel='noreferrer' style={{ width: "inherit" }}>
+                    <img src='/ad.png' alt='ojo.so advertisement' style={{ width: "inherit" }} />
+                </a>
+            </div>
             <div className='container'>
                 <a className='header' href='/'>
                     <h1>Opeeps Avatar Generator</h1>

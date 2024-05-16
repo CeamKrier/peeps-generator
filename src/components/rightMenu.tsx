@@ -303,7 +303,7 @@ const RightMenu = () => {
     }, [isFrameTransparent]);
 
     return (
-        <div className='rigthMenu'>
+        <div className='rightMenu'>
             {renderSelectedPieceSet}
 
             {renderFrameOptions}
