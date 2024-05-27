@@ -598,7 +598,7 @@ div.chrome-picker > div:nth-child(1) {
 
 .ads {
     position: absolute;
-    width: 375px;
+    width: 300px;
     margin-top: 0.25em;
 }
 
@@ -832,10 +832,6 @@ div.chrome-picker > div:nth-child(1) {
 }
 
 @media screen and (max-width: 375px) {
-    .ads {
-        width: 100%;
-        padding: 0 4px;
-    }
     .colorPopover {
         left: -8.2em;
     }
