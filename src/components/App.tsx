@@ -152,7 +152,7 @@ export const PeepsGenerator: React.FC = () => {
                 Join us now 🥳
             </Modal> */}
             <div className='ads'>
-                <a href='https://ojo.so/?ref=opeeps.fun' target='_blank' rel='noreferrer' style={{ width: "inherit" }}>
+                <a href='https://ojo.so/?ref=opeeps.fun' target='_blank' rel='noopener' style={{ width: "inherit" }}>
                     <img src='/ad.png' alt='ojo.so advertisement' style={{ width: "inherit" }} />
                 </a>
             </div>

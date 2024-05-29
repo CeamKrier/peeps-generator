@@ -670,11 +670,11 @@ div.chrome-picker > div:nth-child(1) {
     }
     .rightMenu {
         top: unset;
-        right: 1em;
-        left: 1em;
+        right: 0;
+        left: 0;
         bottom: 0;
         margin-bottom: 1em;
-        position: fixed;
+        position: relative;
     }
     .pieceListItem {
         display: table-cell;
