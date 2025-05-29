@@ -105,7 +105,7 @@ const ColorModal: React.FC<{ type: 'Background' | 'Foreground' }> = ({
 				</div>
 			</div>
 		);
-	}, [initialColors]);
+	}, [initialColors, adjustStrokeColor, handleColorChange, handleColorTypeChange]);
 
 	const renderGradientPalette = useMemo(() => {
 		return (
@@ -118,7 +118,7 @@ const ColorModal: React.FC<{ type: 'Background' | 'Foreground' }> = ({
 				</div>
 			</div>
 		);
-	}, []);
+	}, [type, handleColorTypeChange]);
 
 	return useMemo(() => {
 		const pickedColor = adjustStrokeColor();
@@ -148,7 +148,7 @@ const ColorModal: React.FC<{ type: 'Background' | 'Foreground' }> = ({
 				) : null}
 			</div>
 		);
-	}, [displayColorPicker, initialColors, colorType]);
+	}, [displayColorPicker, colorType, adjustStrokeColor, handlePickerVisibiltyChange, type, renderBasicPalette, renderGradientPalette]);
 };
 
 export default ColorModal;

@@ -20,7 +20,7 @@ export const GradientBuilder: React.FC<{
 		backgroundBasicColor,
 		backgroundFirstGradientColor,
 		backgroundSecondGradientColor,
-		isFrameTransparent,
+		// isFrameTransparent, // Removed as it's unused
 	} = state;
 
 	const firstColor = useMemo(() => {
@@ -29,7 +29,7 @@ export const GradientBuilder: React.FC<{
 		} else {
 			return foregroundFirstGradientColor;
 		}
-	}, [foregroundFirstGradientColor, backgroundFirstGradientColor]);
+	}, [foregroundFirstGradientColor, backgroundFirstGradientColor, type]);
 
 	const secondColor = useMemo(() => {
 		if (type === 'Background') {
@@ -37,7 +37,7 @@ export const GradientBuilder: React.FC<{
 		} else {
 			return foregroundSecondGradientColor;
 		}
-	}, [foregroundSecondGradientColor, backgroundSecondGradientColor]);
+	}, [foregroundSecondGradientColor, backgroundSecondGradientColor, type]);
 
 	const [gradientDegree, setGradientDegree] = useState(
 		(type === 'Background'
@@ -63,11 +63,11 @@ export const GradientBuilder: React.FC<{
 				secondColor,
 			},
 		});
-	}, [firstColor, secondColor, gradientDegree, dispatch]);
+	}, [firstColor, secondColor, gradientDegree, dispatch, type]);
 
-	const handleColorChange = (caller: string) => {
+	const handleColorChange = useCallback((caller: string) => {
 		return (color: ColorResult) => {
-			if (!isValidHex(color)) {
+			if (!isValidHex(color.hex)) { // Fixed: check color.hex
 				return;
 			}
 			if (type === 'Background') {
@@ -77,7 +77,7 @@ export const GradientBuilder: React.FC<{
 						: 'SET_BACKGROUND_SECOND_GRADIENT_COLOR';
 				dispatch({
 					type: requestType,
-					payload: color,
+					payload: color.hex, // Fixed: use color.hex
 				});
 			} else {
 				const requestType =
@@ -86,11 +86,11 @@ export const GradientBuilder: React.FC<{
 						: 'SET_FOREGROUND_SECOND_COLOR';
 				dispatch({
 					type: requestType,
-					payload: color,
+					payload: color.hex, // Fixed: use color.hex
 				});
 			}
 		};
-	};
+	}, [dispatch, type]);
 
 	const handleMouseWheel = useCallback(({ nativeEvent }: React.WheelEvent) => {
 		if (nativeEvent?.deltaY < 0) {
@@ -147,7 +147,7 @@ export const GradientBuilder: React.FC<{
 				)}
 			</>
 		);
-	}, [firstColorBoxClicked, secondColorBoxClicked, firstColor, secondColor]);
+	}, [firstColorBoxClicked, secondColorBoxClicked, firstColor, secondColor, type]);
 
 	const renderGradientPreviewer = useMemo(() => {
 		let backgroundColor = `linear-gradient(${gradientDegree}deg, ${firstColor}, ${secondColor})`;
@@ -204,6 +204,7 @@ export const GradientBuilder: React.FC<{
 		firstColorBoxClicked,
 		secondColorBoxClicked,
 		handleMouseWheel,
+		renderColorWheel, 
 	]);
 
 	const renderColorHexInputs = useMemo(() => {
@@ -247,7 +248,7 @@ export const GradientBuilder: React.FC<{
 				/>
 			</div>
 		);
-	}, [firstColor, secondColor]);
+	}, [firstColor, secondColor, handleColorChange]);
 
 	const renderColorBoxes = useMemo(() => {
 		return (
@@ -278,6 +279,8 @@ export const GradientBuilder: React.FC<{
 		secondColor,
 		handleFirstColorBoxClick,
 		handleSecondColorBoxClick,
+		firstColorBoxClicked, 
+		secondColorBoxClicked, 
 	]);
 
 	return useMemo(() => {
@@ -291,11 +294,8 @@ export const GradientBuilder: React.FC<{
 			</div>
 		);
 	}, [
-		gradientDegree,
-		firstColor,
-		secondColor,
-		gradientDegree,
-		firstColorBoxClicked,
-		secondColorBoxClicked,
+		renderGradientPreviewer, 
+		renderColorBoxes, 
+		renderColorHexInputs, 
 	]);
 };

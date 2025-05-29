@@ -10,28 +10,28 @@ const Knob = ({
 	trackSize,
 	children,
 }) => {
-	const styles = {
-		knob: {
-			position: 'absolute',
-			left: `-${knobSize / 2 - trackSize / 2}px`,
-			top: `-${knobSize / 2 - trackSize / 2}px`,
-			cursor: 'grab',
-			zIndex: 3,
-		},
-
+	// Static styles that do not depend on props
+	const staticStyles = {
 		dragging: {
 			cursor: 'grabbing',
 		},
-
 		pause: {
 			animationPlayState: 'paused',
 		},
-
 		animation: {
 			transformOrigin: '50% 50%',
 			animationTimingFunction: 'ease-out',
 			animation: 'pulse 1500ms infinite',
 		},
+	};
+
+	// Dynamic style part that depends on props
+	const knobDynamicStyle = {
+		position: 'absolute',
+		left: `-${knobSize / 2 - trackSize / 2}px`,
+		top: `-${knobSize / 2 - trackSize / 2}px`,
+		cursor: 'grab',
+		zIndex: 3,
 	};
 
 	const defaultKnobIcon = () => {
@@ -50,8 +50,8 @@ const Knob = ({
 		<div
 			style={{
 				transform: `translate(${knobPosition.x}px, ${knobPosition.y}px)`,
-				...styles.knob,
-				...(isDragging && styles.dragging),
+				...knobDynamicStyle, // Apply dynamic styles
+				...(isDragging && staticStyles.dragging), // Apply static conditional style
 			}}
 			onMouseDown={onMouseDown}
 			onTouchStart={onMouseDown}>
@@ -60,7 +60,7 @@ const Knob = ({
 				height={`${knobSize}px`}
 				viewBox={`0 0 ${knobSize} ${knobSize}`}>
 				<circle
-					style={{ ...styles.animation, ...(isDragging && styles.pause) }}
+					style={{ ...staticStyles.animation, ...(isDragging && staticStyles.pause) }} // Apply static conditional styles
 					fill={knobColor}
 					fillOpacity='0.2'
 					stroke='none'

@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { hydrateRoot } from "react-dom/client";
 import { MantineProvider, createTheme } from "@mantine/core";
 
 import { PeepsGenerator } from "./components/App";
@@ -14,13 +14,14 @@ const theme = createTheme({
     fontFamily: "Itim, sans-serif"
 });
 
-ReactDOM.hydrate(
+const container = document.getElementById("main");
+hydrateRoot(
+    container!,
     <MantineProvider theme={theme}>
         <Provider>
             <PeepsGenerator />
         </Provider>
-    </MantineProvider>,
-    document.getElementById("main")
+    </MantineProvider>
 );
 
 // If you want your app to work offline and load faster, you can change

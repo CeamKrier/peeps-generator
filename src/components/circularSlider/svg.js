@@ -16,17 +16,19 @@ const Svg = ({
          progressLineCap,
      }) => {
 
-    const styles = ({
+    // Static part of styles
+    const staticStyles = {
         svg: {
             position: 'relative',
             zIndex: 2
         },
+    };
 
-        path: {
-            transform: `rotate(${radiansOffset}rad) ${direction === -1 ? 'scale(-1, 1)' : 'scale(1, 1)'}`,
-            transformOrigin: 'center center'
-        }
-    });
+    // Dynamic part of styles, memoized as it depends on props
+    const dynamicPathStyle = React.useMemo(() => ({
+        transform: `rotate(${radiansOffset}rad) ${direction === -1 ? 'scale(-1, 1)' : 'scale(1, 1)'}`,
+        transformOrigin: 'center center'
+    }), [radiansOffset, direction]);
 
     const halfTrack = trackSize / 2;
     const radius = width / 2 - halfTrack;
@@ -37,7 +39,7 @@ const Svg = ({
             height={`${width}px`}
             viewBox={`0 0 ${width} ${width}`}
             overflow="visible"
-            style={styles.svg}
+            style={staticStyles.svg}
         >
             <defs>
                 <linearGradient id={label} x1="100%" x2="0%">
@@ -54,7 +56,7 @@ const Svg = ({
                 r={radius}
             />
             <path
-                style={styles.path}
+                style={dynamicPathStyle}
                 ref={svgFullPath}
                 strokeDasharray={strokeDasharray}
                 strokeDashoffset={strokeDashoffset}

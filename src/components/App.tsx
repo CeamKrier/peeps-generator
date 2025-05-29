@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useCallback } from "react"; // Removed useState, Added useCallback
 import Peep from "react-peeps";
 import { useProvider } from "../utils/contextProvider";
 import LeftMenu from "./leftMenu";
 import RightMenu from "./rightMenu";
 import { Footer } from "./footer";
 import { adjustPeepsViewbox } from "../utils/viewbox";
-import Marquee from "react-fast-marquee";
-import { Modal, Image } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 
 const styles = {
     peepStyle: {
@@ -21,8 +18,6 @@ const styles = {
 
 export const PeepsGenerator: React.FC = () => {
     const { state, dispatch } = useProvider();
-    const seen = localStorage.getItem("modal") === "seen";
-    const [opened, { open, close }] = useDisclosure(!seen);
     const illustrationRef = useRef<HTMLDivElement>(null);
 
     const { pickedAccessory, pickedBody, pickedFace, pickedFacialHair, pickedHair, strokeColor, pressedKey, scaleVector, svgTransform, isFrameTransparent, backgroundBasicColor } = state;
@@ -37,7 +32,7 @@ export const PeepsGenerator: React.FC = () => {
             illustrationRef.current?.removeEventListener("mouseenter", handleMouseEnter);
             illustrationRef.current?.removeEventListener("mouseleave", handleMouseLeave);
         }
-    }, []);
+    }, [handleMouseEnter, handleMouseLeave]); // Added missing dependencies
 
     useEffect(() => {
         const peepGroupWrapper = document.querySelector(".svgWrapper > svg > g") as SVGGraphicsElement;
@@ -45,11 +40,11 @@ export const PeepsGenerator: React.FC = () => {
         peepGroupWrapper.setAttribute("transform", `rotate(${svgTransform?.rotate || "0"} ${x + width / 2} ${y + height / 2})`);
     }, [svgTransform, pickedBody]);
 
-    const handleMouseEnter = () => {
+    const handleMouseEnter = useCallback(() => {
         (document.getElementsByClassName("svgWrapper")[0] as HTMLElement).focus();
-    };
+    }, []);
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = useCallback(() => {
         (document.getElementsByClassName("header")[0] as HTMLElement).focus();
         dispatch({
             type: "SET_WHEEL_DIRECTION",
@@ -59,7 +54,7 @@ export const PeepsGenerator: React.FC = () => {
             type: "SET_PRESSED_KEY",
             payload: undefined
         });
-    };
+    }, [dispatch]);
 
     const handleKeyDown = ({ nativeEvent }: React.KeyboardEvent) => {
         if (pressedKey === nativeEvent.key) {
@@ -102,57 +97,10 @@ export const PeepsGenerator: React.FC = () => {
         }, 0);
     };
 
-    const handleModalClose = () => {
-        close();
-        localStorage.setItem("modal", "seen");
-    };
-
     return (
         <div>
-            {/* <Marquee pauseOnHover style={{ backgroundColor: "#F8CFE7", marginBottom: "1em" }}>
-                <p style={{ marginLeft: "5rem" }}>
-                    🌟 Exciting Update! 🌟
-                    <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
-                        New platform
-                    </a>{" "}
-                    is here with enhanced features! 🎉 Dive in to explore more and share your{" "}
-                    <a href='https://discord.gg/vvDEUdVm' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
-                        Feedback
-                    </a>{" "}
-                    on community Discord! Join us now 🥳
-                </p>
-                <p style={{ marginLeft: "5rem" }}>
-                    🌟 Exciting Update! 🌟
-                    <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
-                        New platform
-                    </a>{" "}
-                    is here with enhanced features! 🎉 Dive in to explore more and share your{" "}
-                    <a href='https://discord.gg/vvDEUdVm' target='_blank' rel='noreferrer' style={{ textDecoration: "underline", marginLeft: "4px", marginRight: "4px" }}>
-                        Feedback
-                    </a>{" "}
-                    on community Discord! Join us now 🥳
-                </p>
-            </Marquee> */}
-
-            {/* <Modal opened={opened} onClose={handleModalClose} title='🌟 Exciting Update! 🌟' centered>
-                <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ display: "flex", justifyContent: "center" }}>
-                    <Image h={200} w='auto' fit='contain' radius='md' src='/platform-logo.png' />
-                </a>
-                <a href='https://beta.opeeps.fun' target='_blank' rel='noreferrer' style={{ textDecoration: "underline" }}>
-                    New platform
-                </a>{" "}
-                is here with enhanced features! 🎉
-                <p>
-                    Dive in to explore more and share your{" "}
-                    <a href='https://discord.gg/vvDEUdVm' target='_blank' rel='noreferrer' style={{ textDecoration: "underline" }}>
-                        Feedback
-                    </a>{" "}
-                    on community Discord!
-                </p>
-                Join us now 🥳
-            </Modal> */}
             <div className='ads'>
-                <a href='https://ojo.so/?ref=opeeps.fun' target='_blank' rel='noopener' style={{ width: "inherit" }}>
+                <a href='https://ojo.so/?ref=opeeps.fun' target='_blank' rel='noopener noreferrer' style={{ width: "inherit" }}>
                     <img src='/ad.png' alt='ojo.so advertisement' style={{ width: "inherit" }} />
                 </a>
             </div>

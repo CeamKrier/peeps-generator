@@ -62,7 +62,7 @@ const offsetRelativeToDocument = (ref) => {
     return {top: rect.top + scrollTop, left: rect.left + scrollLeft};
 };
 
-const styles = ({
+const styles = {
     circularSlider: {
         position: 'relative',
         display: 'inline-block',
@@ -73,7 +73,7 @@ const styles = ({
     mounted: {
         opacity: 1
     },
-});
+};
 
 const CircularSlider = ({
         label = 'ANGLE',
@@ -154,7 +154,7 @@ const CircularSlider = ({
                 }
             }
         });
-    }, [state.dashFullArray, state.radius, state.data, state.label, knobPosition, direction, onChange]);
+    }, [state.dashFullArray, state.radius, state.data, state.label, knobPosition, direction, onChange, trackSize]);
 
     const onMouseDown = () => {
         dispatch({
@@ -203,8 +203,8 @@ const CircularSlider = ({
                 dashFullArray: svgFullPath.current.getTotalLength ? svgFullPath.current.getTotalLength() : 0,
             }
         });
-        // eslint-disable-next-line
-    }, [max, min]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [max, min, data]);
 
     // Set knob position
     useEffect(() => {

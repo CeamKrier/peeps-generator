@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 // @ts-ignore
 import CircularSlider from "./circularSlider";
 // @ts-ignore
@@ -73,9 +73,9 @@ const LeftMenu = () => {
                 payload: 1.5
             });
         }
-    }, []);
+    }, [dispatch]);
 
-    const updateRotationDegree = (wheelEvent?: WheelEvent) => {
+    const updateRotationDegree = useCallback((wheelEvent?: WheelEvent) => {
         let degree = rotationDegree;
         //@ts-ignore
         if (wheelDirection === "up" || wheelEvent?.deltaY < 0) {
@@ -87,9 +87,9 @@ const LeftMenu = () => {
             type: "SET_ROTATION_DEGREE",
             payload: degree
         });
-    };
+    }, [dispatch, rotationDegree, wheelDirection]);
 
-    const updateFlipDirection = () => {
+    const updateFlipDirection = useCallback(() => {
         if (wheelDirection === "up") {
             flipDirection === 1 &&
                 dispatch({
@@ -103,9 +103,9 @@ const LeftMenu = () => {
                     payload: 1
                 });
         }
-    };
+    }, [dispatch, flipDirection, wheelDirection]);
 
-    const updateScaleVector = (wheelEvent?: WheelEvent) => {
+    const updateScaleVector = useCallback((wheelEvent?: WheelEvent) => {
         let vector = scaleVector;
         //@ts-ignore
         if (wheelDirection === "up" || wheelEvent?.deltaY < 0) {
@@ -117,7 +117,7 @@ const LeftMenu = () => {
             type: "SET_SCALE_VECTOR",
             payload: vector
         });
-    };
+    }, [dispatch, scaleVector, wheelDirection]);
 
     useEffect(() => {
         dispatch({
@@ -127,7 +127,7 @@ const LeftMenu = () => {
                 rotate: `${rotationDegree}`
             }
         });
-    }, [rotationDegree]);
+    }, [rotationDegree, dispatch, svgTransform]);
 
     useEffect(() => {
         dispatch({
@@ -137,7 +137,7 @@ const LeftMenu = () => {
                 flip: `scale(${flipDirection}, 1)`
             }
         });
-    }, [flipDirection]);
+    }, [flipDirection, dispatch, svgTransform]);
 
     useEffect(() => {
         if (!(pressedKey && wheelDirection && wheelActive)) {
@@ -158,36 +158,36 @@ const LeftMenu = () => {
             default:
                 break;
         }
-    }, [pressedKey, wheelDirection, wheelActive]);
+    }, [pressedKey, wheelDirection, wheelActive, updateRotationDegree, updateFlipDirection, updateScaleVector]);
 
-    const handleScaleChange = (vector: number | number[]) => {
+    const handleScaleChange = useCallback((vector: number | number[]) => {
         dispatch({
             type: "SET_SCALE_VECTOR",
             payload: vector
         });
-    };
+    }, [dispatch]);
 
-    const handleScaleMouseWheel = ({ nativeEvent }: React.WheelEvent) => {
+    const handleScaleMouseWheel = useCallback(({ nativeEvent }: React.WheelEvent) => {
         updateRotationDegree(nativeEvent);
-    };
+    }, [updateRotationDegree]);
 
-    const handleRotateDegreeChange = (degree: number) => {
+    const handleRotateDegreeChange = useCallback((degree: number) => {
         dispatch({
             type: "SET_ROTATION_DEGREE",
             payload: degree
         });
-    };
+    }, [dispatch]);
 
-    const handleFlipButtonClick = () => {
+    const handleFlipButtonClick = useCallback(() => {
         dispatch({
             type: "SET_FLIP_DIRECTION",
             payload: -flipDirection
         });
-    };
+    }, [dispatch, flipDirection]);
 
-    const handleDrawerButtonClick = () => {
+    const handleDrawerButtonClick = useCallback(() => {
         setLeftMenuVisibility(!leftMenuVisibility);
-    };
+    }, [leftMenuVisibility]);
 
     const renderScaleMeter = useMemo(() => {
         return (
@@ -220,7 +220,7 @@ const LeftMenu = () => {
                 </div>
             </div>
         );
-    }, [scaleVector]);
+    }, [scaleVector, updateScaleVector, handleScaleChange]);
 
     const renderRotateMeter = useMemo(() => {
         return (
@@ -256,7 +256,7 @@ const LeftMenu = () => {
                 </div>
             </div>
         );
-    }, [rotationDegree]);
+    }, [rotationDegree, handleScaleMouseWheel, handleRotateDegreeChange]);
 
     const renderFlipper = useMemo(() => {
         return (
@@ -272,7 +272,7 @@ const LeftMenu = () => {
                 </div>
             </div>
         );
-    }, [flipDirection]);
+    }, [flipDirection, handleFlipButtonClick]);
 
     return useMemo(() => {
         return (
@@ -291,7 +291,7 @@ const LeftMenu = () => {
                 </div>
             </div>
         );
-    }, [leftMenuVisibility, scaleVector, rotationDegree, flipDirection]);
+    }, [leftMenuVisibility, renderScaleMeter, renderRotateMeter, renderFlipper, handleDrawerButtonClick]);
 };
 
 export default LeftMenu;

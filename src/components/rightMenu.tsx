@@ -66,7 +66,7 @@ const RightMenu = () => {
                     payload: isTransparent
                 });
         },
-        [isFrameTransparent]
+        [isFrameTransparent, dispatch]
     );
 
     const updateAccessory = (accessory: AccessoryType) => {
@@ -96,7 +96,7 @@ const RightMenu = () => {
         updateFacialHair(pieceKeys.facialHairKeys[Math.floor(Math.random() * pieceKeys.facialHairKeys.length)] as FacialHairType);
 
         updateAccessory(pieceKeys.accessoryKeys[Math.floor(Math.random() * pieceKeys.accessoryKeys.length)] as AccessoryType);
-    }, [pieceKeys]);
+    }, [pieceKeys, updateHair, updateBody, updateFace, updateFacialHair, updateAccessory]);
 
     const handlePieceSectionClick = (section: string) => {
         return () => {
@@ -242,7 +242,7 @@ const RightMenu = () => {
                 <ul className='sectionList'>{renderPieceSections(["Accessories", "Body", "Face", "FacialHair", "Hair"])}</ul>
             </div>
         );
-    }, [pickedSection, renderPieceList]);
+    }, [pickedSection, renderPieceList, pickedSectionObject, renderPieceSections]);
 
     const renderSaveButtons = useMemo(() => {
         return (
@@ -300,7 +300,7 @@ const RightMenu = () => {
                 </div>
             </div>
         );
-    }, [isFrameTransparent]);
+    }, [isFrameTransparent, updateFrameType]);
 
     return (
         <div className='rightMenu'>

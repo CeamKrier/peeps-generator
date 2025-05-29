@@ -12,7 +12,27 @@ const Labels = ({
 	label,
 	value,
 }) => {
-	const styles = {
+	// Static styles that do not depend on props
+	const staticStyles = {
+		appended: {
+			position: 'absolute',
+			right: '0',
+			top: '0',
+			transform: 'translate(100%, 0)',
+		},
+		prepended: {
+			position: 'absolute',
+			left: '0',
+			top: '0',
+			transform: 'translate(-100%, 0)',
+		},
+		hide: {
+			display: 'none',
+		},
+	};
+
+	// Dynamic styles that depend on props
+	const dynamicStyles = {
 		labels: {
 			position: 'absolute',
 			top: '0',
@@ -27,44 +47,24 @@ const Labels = ({
 			userSelect: 'none',
 			zIndex: 1,
 		},
-
 		value: {
 			fontSize: `${valueFontSize}`,
 			position: 'relative',
 		},
-
 		bottomMargin: {
 			marginBottom: `calc(${verticalOffset})`,
-		},
-
-		appended: {
-			position: 'absolute',
-			right: '0',
-			top: '0',
-			transform: 'translate(100%, 0)',
-		},
-
-		prepended: {
-			position: 'absolute',
-			left: '0',
-			top: '0',
-			transform: 'translate(-100%, 0)',
-		},
-
-		hide: {
-			display: 'none',
 		},
 	};
 
 	return (
-		<div style={{ ...styles.labels, ...(hideLabelValue && styles.hide) }}>
+		<div style={{ ...dynamicStyles.labels, ...(hideLabelValue && staticStyles.hide) }}>
 			{labelBottom || <div style={{ fontSize: labelFontSize }}>{label}</div>}
 			<div
-				style={{ ...styles.value, ...(!labelBottom && styles.bottomMargin) }}>
+				style={{ ...dynamicStyles.value, ...(!labelBottom && dynamicStyles.bottomMargin) }}>
 				<code>
-					<span style={styles.prepended}>{prependToValue}</span>
+					<span style={staticStyles.prepended}>{prependToValue}</span>
 					{value}
-					<span style={styles.appended}>{appendToValue}</span>
+					<span style={staticStyles.appended}>{appendToValue}</span>
 				</code>
 			</div>
 			{labelBottom && <div style={{ fontSize: labelFontSize }}>{label}</div>}
