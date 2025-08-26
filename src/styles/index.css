@@ -578,12 +578,16 @@ div.chrome-picker > div:nth-child(1) {
     padding-bottom: 28% !important;
 }
 .signature {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     font-family: "Gochi Hand", cursive;
     font-size: large;
 }
 
-.signature a {
+.sign-animation {
     background-image: linear-gradient(90deg, #31cf1f, #7815e58a);
     -webkit-background-clip: text;
     background-clip: text;
@@ -607,6 +611,20 @@ div.chrome-picker > div:nth-child(1) {
     border-bottom-right-radius: 8px;
 }
 
+.support-me {
+    font-family: "Itim", cursive;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    gap: 0.5em;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
 @media screen and (max-width: 1400px) {
     .ads {
         position: initial;
@@ -627,9 +645,7 @@ div.chrome-picker > div:nth-child(1) {
     .header {
         display: none;
     }
-    .footer {
-        display: none;
-    }
+
     .container {
         position: relative;
     }
