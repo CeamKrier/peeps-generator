@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Peep from "react-peeps";
 import { useProvider } from "../utils/contextProvider";
-import LeftMenu from "./leftMenu";
-import RightMenu from "./rightMenu";
-import { Footer } from "./footer";
 import { adjustPeepsViewbox } from "../utils/viewbox";
 import Marquee from "react-fast-marquee";
 import { Modal, Image } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import LeftMenu from "./leftMenu";
+import RightMenu from "./rightMenu";
+import { Footer } from "./footer";
+
 
 const styles = {
     peepStyle: {
@@ -29,8 +30,8 @@ export const PeepsGenerator: React.FC = () => {
 
     useEffect(() => {
         /*
-		  Removing the event listeners in 
-			small screens to prevent jumping behavior 
+		  Removing the event listeners in
+			small screens to prevent jumping behavior
 			when pressing on the illustration
 		 */
         if (window?.innerWidth < 1201) {
@@ -41,8 +42,10 @@ export const PeepsGenerator: React.FC = () => {
 
     useEffect(() => {
         const peepGroupWrapper = document.querySelector(".svgWrapper > svg > g") as SVGGraphicsElement;
-        const { width, height, x, y } = peepGroupWrapper.getBBox();
-        peepGroupWrapper.setAttribute("transform", `rotate(${svgTransform?.rotate || "0"} ${x + width / 2} ${y + height / 2})`);
+        if (peepGroupWrapper) {
+            const { width, height, x, y } = peepGroupWrapper.getBBox();
+            peepGroupWrapper.setAttribute("transform", `rotate(${svgTransform?.rotate || "0"} ${x + width / 2} ${y + height / 2})`);
+        }
     }, [svgTransform, pickedBody]);
 
     const handleMouseEnter = () => {
